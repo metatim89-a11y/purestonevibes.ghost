@@ -15,11 +15,29 @@
             flex-direction: column;
             border-radius: 12px;
             overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 1;
         }
 
         .gallery-card:hover {
             border-color: var(--accent-color);
-            transform: translateY(-4px);
+            transform: scale(1.05) translateY(-8px);
+            z-index: 50;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-details {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gallery-card:hover .card-details {
+            max-height: 500px;
+            opacity: 1;
+            padding-top: 1rem;
         }
 
         .price-tag {
@@ -93,8 +111,9 @@
         </p>
     </header>
 
-    <main class="max-w-[1400px] mx-auto px-6 pb-32">
-        <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+    <main class="max-w-[1600px] mx-auto px-6 pb-32">
+        <div id="gallery-grid"
+            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"></div>
     </main>
 
     <div id="lightbox" onclick="this.style.display='none'">
@@ -394,21 +413,39 @@
                     <div class="relative overflow-hidden aspect-square bg-zinc-900 flex items-center justify-center">
                         <img src="namedpics/${item.id}.${item.ext}" 
                              alt="${displayName}" 
-                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 price-tag text-white shadow-lg border border-white/20">${priceDisplay}</div>
+                             class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                        <div class="absolute top-2 right-2 price-tag text-white shadow-lg border border-white/20 scale-75 transform-gpu">${priceDisplay}</div>
                     </div>
-                    <div class="p-6 flex-grow flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-start gap-4 mb-3">
-                                <h3 class="text-xl italic leading-tight group-hover:text-pink-400 transition">${displayName}</h3>
-                                <!-- Lead generation: Inquire button passes the item ID via URL params -->
-                                <a href="inquiry.html?item=${item.id}" class="text-[9px] bg-pink-500/10 text-pink-500 border border-pink-500/30 px-3 py-1 rounded-full hover:bg-pink-500 hover:text-white transition uppercase tracking-tighter whitespace-nowrap">Inquire</a>
-                            </div>
-                            <div class="space-y-3 text-[10px] tracking-widest uppercase font-semibold text-zinc-400">
-                                <p class="leading-relaxed"><span class="text-pink-500 block mb-0.5">BaseStone:</span> ${item.base} ${baseVibe ? '<br><span class="lowercase text-zinc-500">(' + baseVibe + ')</span>' : ''}</p>
-                                <p class="leading-relaxed"><span class="text-pink-500 block mb-0.5">LeafletStone:</span> ${item.leaf} ${leafletVibe ? '<br><span class="lowercase text-zinc-500">(' + leafletVibe + ')</span>' : ''}</p>
-                                <p class="leading-relaxed"><span class="text-pink-500 block mb-0.5">Bindings:</span> ${bindings}</p>
-                                <p class="leading-relaxed"><span class="text-pink-500 block mb-0.5">Combined:</span> ${combined}</p>
+                    <div class="p-4 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start gap-2 mb-1">
+                            <h3 class="text-sm italic leading-tight group-hover:text-pink-400 transition truncate">${displayName}</h3>
+                            <a href="inquiry.html?item=${item.id}" class="text-[7px] bg-pink-500/10 text-pink-500 border border-pink-500/30 px-2 py-0.5 rounded-full hover:bg-pink-500 hover:text-white transition uppercase tracking-tighter whitespace-nowrap">Inquire</a>
+                        </div>
+                        
+                        <!-- Collapsible details section revealed on hover -->
+                        <div class="card-details">
+                            <div class="space-y-3 text-[9px] tracking-widest uppercase font-semibold text-zinc-400 border-t border-white/5 pt-3">
+                                <div class="group/info">
+                                    <span class="text-pink-500 block mb-0.5 opacity-70">BaseStone:</span>
+                                    <div class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors">
+                                        <p class="text-zinc-200">${item.base}</p>
+                                        <p class="lowercase text-zinc-500 italic font-normal mt-0.5 leading-tight">${baseVibe}</p>
+                                    </div>
+                                </div>
+                                <div class="group/info">
+                                    <span class="text-pink-500 block mb-0.5 opacity-70">LeafletStone:</span>
+                                    <div class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors">
+                                        <p class="text-zinc-200">${item.leaf} <span class="lowercase text-zinc-500 italic font-normal">(${leafletVibe})</span></p>
+                                    </div>
+                                </div>
+                                <div class="group/info">
+                                    <span class="text-pink-500 block mb-0.5 opacity-70">Bindings:</span>
+                                    <p class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors lowercase text-zinc-500 font-normal leading-tight">${bindings}</p>
+                                </div>
+                                <div class="group/info">
+                                    <span class="text-pink-500 block mb-0.5 opacity-70">Combined:</span>
+                                    <p class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors italic text-zinc-300">${combined}</p>
+                                </div>
                             </div>
                         </div>
                     </div>

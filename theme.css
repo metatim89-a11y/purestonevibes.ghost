@@ -2,7 +2,8 @@
     /* DARK THEME (Default) */
     --bg-color: #050505;
     --text-color: #eeeeee;
-    --accent-color: #ec4899; /* Pink */
+    --accent-color: #ec4899;
+    /* Pink */
     --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.05);
     --nav-bg: rgba(10, 10, 10, 0.7);
@@ -13,14 +14,18 @@
 
 body.light-theme {
     /* LIGHT THEME (Based on lighttheme.jfif) */
-    --bg-color: #fce7f3; /* Soft Light Pink */
-    --text-color: #2e1065; /* Deep Purple */
-    --accent-color: #be185d; /* Deeper Pink */
+    --bg-color: #fce7f3;
+    /* Soft Light Pink */
+    --text-color: #2e1065;
+    /* Deep Purple */
+    --accent-color: #be185d;
+    /* Deeper Pink */
     --glass-bg: rgba(255, 255, 255, 0.4);
     --glass-border: rgba(0, 0, 0, 0.05);
     --nav-bg: rgba(255, 255, 255, 0.8);
     --card-bg: rgba(255, 255, 255, 0.6);
-    --muted-text: #6b21a8; /* Muted Purple */
+    --muted-text: #6b21a8;
+    /* Muted Purple */
     --gradient-start: #ffffff;
 }
 
@@ -46,7 +51,141 @@ body {
     border: 1px solid var(--glass-border);
 }
 
-.text-pink-500 { color: var(--accent-color) !important; }
-.border-pink-500 { border-color: var(--accent-color) !important; }
-.bg-pink-500 { background-color: var(--accent-color) !important; }
-.bg-pink-600 { background-color: var(--accent-color) !important; }
+.text-pink-500 {
+    color: var(--accent-color) !important;
+}
+
+.border-pink-500 {
+    border-color: var(--accent-color) !important;
+}
+
+.bg-pink-500 {
+    background-color: var(--accent-color) !important;
+}
+
+.bg-pink-600 {
+    background-color: var(--accent-color) !important;
+}
+
+/* --- Chat Widget Styles --- */
+#chat-bubble {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--accent-color), #be185d);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#chat-bubble:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+#chat-box {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 350px;
+    height: 500px;
+    max-height: 80vh;
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#chat-box.open {
+    display: flex;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.chat-header {
+    background: linear-gradient(to right, var(--accent-color), #be185d);
+    padding: 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 13px;
+    max-width: 80%;
+}
+
+.message.user {
+    align-self: flex-end;
+    background: var(--accent-color);
+    color: white;
+    border-bottom-right-radius: 2px;
+}
+
+.message.fish {
+    align-self: flex-start;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-color);
+    border-bottom-left-radius: 2px;
+}
+
+.chat-input-area {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input {
+    flex-grow: 1;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 99px;
+    padding: 8px 16px;
+    color: var(--text-color);
+    font-size: 13px;
+    outline: none;
+}
+
+.chat-send {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.chat-send:active {
+    transform: scale(0.9);
+}

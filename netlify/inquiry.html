@@ -429,8 +429,64 @@
             if (val && inventory[val]) {
                 const item = inventory[val];
                 document.getElementById('detailName').textContent = item.displayName || val.replace(/_/g, ' ');
-                document.getElementById('detailEnergy').textContent = item.energy;
-                document.getElementById('detailGems').textContent = `${item.leaf} on ${item.base}`;
+
+                // Parsing logic (consistent with gallery.html)
+                let baseVibe = "";
+                let leafletVibe = "";
+                let bindings = "";
+                let combined = "";
+
+                const energyParts = item.energy.split(':');
+                if (energyParts.length > 1) {
+                    combined = energyParts[0].trim();
+                    const mainDesc = energyParts[1].split('.');
+                    const vibesPart = mainDesc[0].split('+');
+
+                    if (vibesPart.length > 0) {
+                        leafletVibe = vibesPart[0].split('for')[1]?.trim() || "";
+                    }
+                    if (vibesPart.length > 1) {
+                        baseVibe = vibesPart[1].split('for')[1]?.trim() || "";
+                    }
+                    if (mainDesc.length > 1) {
+                        bindings = mainDesc[1].trim();
+                    }
+                } else {
+                    combined = "Unique Energy";
+                    bindings = item.energy;
+                }
+
+                // Inject structured vertical layout
+                document.getElementById('detailEnergy').innerHTML = `
+                    <div class="space-y-4 pt-4">
+                        <div class="group/info">
+                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">BaseStone:</span>
+                            <div class="pl-3 border-l-2 border-pink-500/10 transition-colors">
+                                <p class="text-zinc-200 text-xs font-semibold uppercase tracking-wider">${item.base}</p>
+                                <p class="lowercase text-zinc-500 italic text-[11px] mt-1 line-clamp-2">${baseVibe}</p>
+                            </div>
+                        </div>
+                        <div class="group/info">
+                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">LeafletStone:</span>
+                            <div class="pl-3 border-l-2 border-pink-500/10 transition-colors">
+                                <p class="text-zinc-200 text-xs font-semibold uppercase tracking-wider">${item.leaf} <span class="lowercase text-zinc-500 italic font-normal ml-1">(${leafletVibe})</span></p>
+                            </div>
+                        </div>
+                        <div class="group/info">
+                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Bindings:</span>
+                            <p class="pl-3 border-l-2 border-pink-500/10 transition-colors lowercase text-zinc-500 text-[11px]">${bindings}</p>
+                        </div>
+                        <div class="group/info">
+                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Combined:</span>
+                            <p class="pl-3 border-l-2 border-pink-500/10 transition-colors italic text-zinc-300 text-xs">${combined}</p>
+                        </div>
+                    </div>
+                `;
+
+                // Content is now integrated into detailEnergy, so we hide old detailGems section
+                const gemsLabel = document.getElementById('detailGems').previousElementSibling;
+                if (gemsLabel) gemsLabel.classList.add('hidden');
+                document.getElementById('detailGems').textContent = "";
 
                 // Update the preview image source using the ID and extension from the inventory data
                 const imgElement = document.getElementById('detailImage');
@@ -441,8 +497,13 @@
             } else if (val === 'custom') {
                 // Special case for custom commissions
                 document.getElementById('detailName').textContent = 'Bespoke Custom Tree';
-                document.getElementById('detailEnergy').textContent = 'A unique collaboration tailored to your personal frequency and space.';
-                document.getElementById('detailGems').textContent = 'Consultation required for stone selection.';
+                document.getElementById('detailEnergy').innerHTML = '<p class="text-zinc-400 italic text-sm">A unique collaboration tailored to your personal frequency and space.</p>';
+
+                // Hide or reset other fields
+                const gemsLabel = document.getElementById('detailGems').previousElementSibling;
+                if (gemsLabel) gemsLabel.classList.add('hidden');
+                document.getElementById('detailGems').textContent = "";
+
                 document.getElementById('detailImage').src = '2.jfif'; // Use a high-quality placeholder for custom
                 details.classList.remove('hidden');
             } else {

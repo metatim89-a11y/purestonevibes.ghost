@@ -170,6 +170,12 @@ async def custom_swagger_ui_html(request: Request):
         {"request": request, "openapi_url": app.openapi_url}
     )
 
+# Temporary explicit route for gallery.html to debug navigation
+@app.get("/gallery.html", response_class=HTMLResponse)
+async def read_gallery_html_debug():
+    with open(os.path.join(BASE_DIR, "gallery.html"), "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
+
 # --- Static File Serving ---
 
 # Serve the main HTML pages directly from root
@@ -179,7 +185,7 @@ async def custom_swagger_ui_html(request: Request):
 # Mount asset directories
 app.mount("/namedpics", LoggedStaticFiles(directory=os.path.join(BASE_DIR, "namedpics")), name="namedpics")
 # Mount the root directory last to serve remaining assets (css, js, etc.)
-app.mount("/", StaticFiles(directory=BASE_DIR), name="root")
+app.mount("/", LoggedStaticFiles(directory=BASE_DIR), name="root")
 
 if __name__ == "__main__":
     import uvicorn

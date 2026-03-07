@@ -8,7 +8,7 @@ from datetime import datetime
 from typing import Optional, List
 from fastapi import FastAPI, Request, Form, HTTPException, Depends, status, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, FileResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, FileResponse, PlainTextResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from starlette.responses import FileResponse as StarletteFileResponse
@@ -338,6 +338,18 @@ async def get_system_metrics():
         "memory_percent": mem_percent,
         "timestamp": datetime.now().isoformat()
     }
+
+@app.get("/api/logs/{log_file_name}", response_class=PlainTextResponse)
+async def get_logs(log_file_name: str, token: str = Depends(verify_token)):
+    if log_file_name not in ["scribe.log", "startuplog.log"]:
+        raise HTTPException(status_code=404, detail="Log file not found.")
+    
+    log_path = os.path.join(BASE_DIR, log_file_name)
+    if not os.path.exists(log_path):
+        raise HTTPException(status_code=404, detail="Log file does not exist.")
+    
+    with open(log_path, "r", encoding="utf-8") as f:
+        return f.read()
 
 @app.get("/docs", response_class=HTMLResponse, include_in_schema=False)
 async def custom_swagger_ui_html(request: Request):

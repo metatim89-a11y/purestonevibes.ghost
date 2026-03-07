@@ -1,0 +1,45 @@
+<h4 class="text-xl font-bold text-white mb-4">Log File Viewer</h4>
+<div class="mb-4">
+    <label for="log-file-select" class="block text-sm font-medium text-zinc-400 mb-2">Select Log File:</label>
+    <select id="log-file-select" class="p-2 rounded-lg bg-zinc-800 border border-zinc-700 text-white w-full">
+        <option value="scribe.log">scribe.log</option>
+        <option value="startuplog.log">startuplog.log</option>
+    </select>
+    <button onclick="fetchLogs()" class="mt-4 bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-full font-bold uppercase tracking-widest text-xs transition">Refresh Logs</button>
+</div>
+<pre id="log-content" class="bg-black/20 p-4 rounded-xl text-xs overflow-x-auto h-64 border border-white/10"></pre>
+<script>
+    async function fetchLogs() {
+        const fileName = document.getElementById('log-file-select').value;
+        const logContentElement = document.getElementById('log-content');
+        const token = localStorage.getItem('sessionToken');
+
+        if (!token) {
+            logContentElement.textContent = 'Not logged in. Please log in.';
+            setTimeout(() => window.location.href = '/login.html', 1500);
+            return;
+        }
+
+        logContentElement.textContent = 'Loading logs...';
+        try {
+            const response = await fetch(`/api/logs/${fileName}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (response.status === 403 || response.status === 401) {
+                localStorage.clear();
+                logContentElement.textContent = 'Session expired. Please log in.';
+                setTimeout(() => window.location.href = '/login.html', 1500);
+                return;
+            }
+            if (!response.ok) throw new Error(`Failed to fetch log file: ${response.statusText}`);
+            const logs = await response.text();
+            logContentElement.textContent = logs;
+        } catch (error) {
+            console.error('Error fetching logs:', error);
+            logContentElement.textContent = `Error loading logs: ${error.message}`;
+        }
+    }
+    // Add event listener for select change
+    document.getElementById('log-file-select').addEventListener('change', fetchLogs);
+    fetchLogs(); // Initial fetch
+</script>

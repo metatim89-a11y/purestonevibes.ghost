@@ -18,6 +18,19 @@ from fastapi.templating import Jinja2Templates
 
 templates = Jinja2Templates(directory="templates")
 
+from starlette.responses import FileResponse # Import FileResponse for type hinting
+from fastapi.staticfiles import StaticFiles # Ensure StaticFiles is imported directly or as alias
+
+# Custom StaticFiles class to add logging for each served file
+class LoggedStaticFiles(StaticFiles):
+    async def get_response(self, path: str, scope: dict) -> FileResponse:
+        response = await super().get_response(path, scope)
+        if response.status_code == 200:
+            logger.info(f"Served static file: {path} (Status: {response.status_code})")
+        else:
+            logger.warning(f"Failed to serve static file: {path} (Status: {response.status_code})")
+        return response
+
 app = FastAPI(title="Pure Stone Vibes | Production API", docs_url=None, redoc_url=None)
 
 # --- Configuration & Database ---
@@ -164,7 +177,7 @@ async def custom_swagger_ui_html(request: Request):
 # Explicit routes for key pages to ensure they resolve without .html if needed
 
 # Mount asset directories
-app.mount("/namedpics", StaticFiles(directory=os.path.join(BASE_DIR, "namedpics")), name="namedpics")
+app.mount("/namedpics", LoggedStaticFiles(directory=os.path.join(BASE_DIR, "namedpics")), name="namedpics")
 # Mount the root directory last to serve remaining assets (css, js, etc.)
 app.mount("/", StaticFiles(directory=BASE_DIR), name="root")
 

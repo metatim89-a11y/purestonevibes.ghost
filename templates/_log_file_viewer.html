@@ -39,7 +39,6 @@
             logContentElement.textContent = `Error loading logs: ${error.message}`;
         }
     }
-    // Add event listener for select change
-    document.getElementById('log-file-select').addEventListener('change', fetchLogs);
-    fetchLogs(); // Initial fetch
+    // No immediate fetch here, as it's triggered by the button
+    fetchLogs(); // Initial fetch removed to be explicit
 </script>

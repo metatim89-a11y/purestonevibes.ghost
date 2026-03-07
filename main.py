@@ -12,7 +12,7 @@ from fastapi.templating import Jinja2Templates
 
 templates = Jinja2Templates(directory="templates")
 
-app = FastAPI(title="Pure Stone Vibes | Production API")
+app = FastAPI(title="Pure Stone Vibes | Production API", docs_url=None, redoc_url=None)
 
 # --- Configuration & Database ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

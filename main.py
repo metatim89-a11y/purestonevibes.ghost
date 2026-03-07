@@ -12,6 +12,7 @@ from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, File
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from starlette.responses import FileResponse as StarletteFileResponse
+import psutil
 
 # --- Logging Setup ---
 logging.basicConfig(level=logging.INFO, filename='scribe.log', filemode='a',
@@ -245,6 +246,27 @@ async def get_stats(db: sqlite3.Connection = Depends(get_db)):
         "unique_sculptures_inquired": unique_sculptures_inquired,
         "top_sculptures": top_sculptures,
         "recent_inquiries": recent_inquiries
+    }
+
+@app.get("/api/system_metrics")
+async def get_system_metrics():
+    # CPU Usage
+    cpu_percent = psutil.cpu_percent(interval=1) # Blocking, waits for 1 second
+    cpu_count = psutil.cpu_count(logical=True)
+
+    # Memory Usage
+    mem_info = psutil.virtual_memory()
+    mem_total = round(mem_info.total / (1024 ** 3), 2) # GB
+    mem_used = round(mem_info.used / (1024 ** 3), 2)  # GB
+    mem_percent = mem_info.percent
+
+    return {
+        "cpu_percent": cpu_percent,
+        "cpu_count": cpu_count,
+        "memory_total_gb": mem_total,
+        "memory_used_gb": mem_used,
+        "memory_percent": mem_percent,
+        "timestamp": datetime.now().isoformat()
     }
 
 @app.get("/docs", response_class=HTMLResponse, include_in_schema=False)

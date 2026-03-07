@@ -63,3 +63,15 @@ To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
 [1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
 [1;35m--- PURE STONE VIBES SYNC ---[0m
 Staging all changes...
+Committing with message: Polishing the inventory: 100% accurate labeling.
+[master 71393cd] Polishing the inventory: 100% accurate labeling.
+ 3 files changed, 22 insertions(+)
+Syncing with GitHub...
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+Pushing to the remote Grove...
+To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
+   b8b2299..71393cd  master -> master
+[1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
+[1;35m--- PURE STONE VIBES SYNC ---[0m
+Staging all changes...

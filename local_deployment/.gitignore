@@ -1,0 +1,14 @@
+# Gem Data and process files
+orig folder/
+*.jfif
+fishestones (1).txt
+
+# Python Environment
+__pycache__/
+*.pyc
+venv/
+.env
+
+# OS Files
+.DS_Store
+Thumbs.db

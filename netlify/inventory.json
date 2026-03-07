@@ -1,0 +1,184 @@
+{
+    "Amethyst_Moon_Bonsai": {
+        "base": "Amethyst (med)",
+        "leaf": "Moonstone (high)",
+        "energy": "Harmonic Pairing: Moonstone for new beginnings + Amethyst for intuition, calm. Standard root-wrap on raw stone.",
+        "price": 45,
+        "ext": "jpg"
+    },
+    "Rose_Quartz_Willow": {
+        "base": "Rose Quartz (low)",
+        "leaf": "Rose Quartz (low)",
+        "energy": "Heart Pairing: Rose Quartz for love, compassion + Rose Quartz for love, compassion. Standard root-wrap on raw stone.",
+        "price": 35,
+        "ext": "jpg"
+    },
+    "Verdant_Jade_Sphere": {
+        "base": "Obsidian (high)",
+        "leaf": "Jade (med)",
+        "energy": "Abundance Pairing: Jade for luck, prosperity + Obsidian for protection, grounding. Standard root-wrap on raw stone.",
+        "price": 40,
+        "ext": "jfif"
+    },
+    "Malachite_Fire_Tree": {
+        "base": "Green Aventurine (low)",
+        "leaf": "Malachite (high)",
+        "energy": "Harmonic Pairing: Malachite for transformation + Green Aventurine for opportunity, optimism. Intricate root-wrap on raw stone.",
+        "price": 50,
+        "ext": "jpg"
+    },
+    "Midnight_Shadow_Spire": {
+        "base": "Obsidian (high)",
+        "leaf": "Black Tourmaline (high)",
+        "energy": "Stability Pairing: Black Tourmaline for protection + Obsidian for protection, grounding. Intricate root-wrap on raw stone.",
+        "price": 60,
+        "ext": "jpg"
+    },
+    "Lavender_Mist_Tree": {
+        "base": "Clear Quartz (med)",
+        "leaf": "Amethyst (med)",
+        "energy": "Insight Pairing: Amethyst for intuition, calm + Clear Quartz for amplification, clarity. Standard root-wrap on raw stone.",
+        "price": 38,
+        "ext": "jpg"
+    },
+    "Royal_Purple_Oak": {
+        "base": "Rose Quartz (low)",
+        "leaf": "Purple Fluorite (med)",
+        "energy": "Insight Pairing: Purple Fluorite for focus, order + Rose Quartz for love, compassion. Intricate root-wrap on raw stone.",
+        "price": 42,
+        "ext": "jpg"
+    },
+    "Sky_Turquoise_Bonsai": {
+        "base": "Jasper (med)",
+        "leaf": "Turquoise (high)",
+        "energy": "Stability Pairing: Turquoise for wholeness, truth + Jasper for nurturing, grounding. Standard root-wrap on raw stone.",
+        "price": 55,
+        "ext": "jpg"
+    },
+    "Rose_Passion_Petite": {
+        "base": "Wire Root (low)",
+        "leaf": "Rose Quartz (low)",
+        "energy": "Heart Pairing: Rose Quartz for love, compassion + Wire Root for grounding stability. Standard root-wrap on raw stone.",
+        "price": 25,
+        "ext": "jpg"
+    },
+    "Cobalt_Sky_Willow": {
+        "base": "Selenite (high)",
+        "leaf": "Lapis Lazuli (high)",
+        "energy": "Insight Pairing: Lapis Lazuli for wisdom, truth + Selenite for cleansing, peace. Standard root-wrap on raw stone.",
+        "price": 65,
+        "ext": "jpg"
+    },
+    "Emerald_Vibe_Bonsai": {
+        "base": "Clear Quartz (med)",
+        "leaf": "Aventurine (med)",
+        "energy": "Harmonic Pairing: Aventurine for opportunity + Clear Quartz for amplification, clarity. Standard root-wrap on raw stone.",
+        "price": 38,
+        "ext": "jpg"
+    },
+    "Golden_Tiger_Oak": {
+        "base": "Wire Root (low)",
+        "leaf": "Tiger's Eye (med)",
+        "energy": "Stability Pairing: Tiger's Eye for protection, willpower + Wire Root for grounding stability. Standard root-wrap on raw stone.",
+        "price": 45,
+        "ext": "jpg"
+    },
+    "Magenta_Berry_Bonsai": {
+        "base": "Wire Root (low)",
+        "leaf": "Pink Agate (med)",
+        "energy": "Stability Pairing: Pink Agate for stability, composure + Wire Root for grounding stability. Standard root-wrap on raw stone.",
+        "price": 35,
+        "ext": "jpg"
+    },
+    "Prosperity_Willow": {
+        "base": "Wire Root (low)",
+        "leaf": "Citrine (med)",
+        "energy": "Abundance Pairing: Citrine for abundance, joy + Wire Root for grounding stability. Intricate root-wrap on raw stone.",
+        "price": 48,
+        "ext": "jpg"
+    },
+    "Spring_Bloom_Willow": {
+        "base": "Wire Root (low)",
+        "leaf": "Rhodonite (med)",
+        "energy": "Stability Pairing: Rhodonite for emotional healing + Wire Root for grounding stability. Intricate root-wrap on raw stone.",
+        "price": 38,
+        "ext": "jpg"
+    },
+    "Rose_Aura_Bonsai": {
+        "base": "Amethyst (med)",
+        "leaf": "Rose Quartz (low)",
+        "energy": "Heart Pairing: Rose Quartz for love, compassion + Amethyst for intuition, calm. Intricate root-wrap on raw stone.",
+        "price": 42,
+        "ext": "jfif"
+    },
+    "Solar_Flare_Willow": {
+        "base": "Calcite (med)",
+        "leaf": "Carnelian (high)",
+        "energy": "Harmonic Pairing: Carnelian for creativity, motivation + Calcite for energy, cleansing. Intricate root-wrap on raw stone.",
+        "price": 52,
+        "ext": "jpg"
+    },
+    "Forest_Guardian_Tree": {
+        "base": "Jasper (med)",
+        "leaf": "Unakite (med)",
+        "energy": "Stability Pairing: Unakite for vision, balance + Jasper for nurturing, grounding. Standard root-wrap on raw stone.",
+        "price": 40,
+        "ext": "jpg"
+    },
+    "Ocean_Breath_Bonsai": {
+        "base": "Rose Quartz (low)",
+        "leaf": "Apatite (high)",
+        "energy": "Harmonic Pairing: Apatite for manifestation, service + Rose Quartz for love, compassion. Standard root-wrap on raw stone.",
+        "price": 45,
+        "ext": "jpg"
+    },
+    "Fire_Spirit_Oak": {
+        "base": "Wire Root (low)",
+        "leaf": "Red Jasper (med)",
+        "energy": "Stability Pairing: Red Jasper for endurance, grounding + Wire Root for grounding stability. Intricate root-wrap on raw stone.",
+        "price": 38,
+        "ext": "jpg"
+    },
+    "Moonlit_Winter_Oak": {
+        "base": "Wire Root (low)",
+        "leaf": "Moonstone (high)",
+        "energy": "Stability Pairing: Moonstone for new beginnings + Wire Root for grounding stability. Standard root-wrap on raw stone.",
+        "price": 48,
+        "ext": "jpg"
+    },
+    "Amethyst_Cloud_Oak": {
+        "base": "Amethyst (med)",
+        "leaf": "Aventurine (med)",
+        "energy": "Harmonic Pairing: Aventurine for opportunity + Amethyst for intuition, calm. Standard root-wrap on raw stone.",
+        "price": 40,
+        "ext": "jpg"
+    },
+    "Ethereal_Amethyst_Petite": {
+        "base": "Rose Quartz (low)",
+        "leaf": "Amethyst (med)",
+        "energy": "Insight Pairing: Amethyst for intuition, calm + Rose Quartz for love, compassion. Intricate root-wrap on raw stone.",
+        "price": 32,
+        "ext": "jpg"
+    },
+    "Soft_Rose_Zen": {
+        "base": "Green Aventurine (low)",
+        "leaf": "Rose Quartz (low)",
+        "energy": "Heart Pairing: Rose Quartz for love, compassion + Green Aventurine for opportunity, optimism. Standard root-wrap on raw stone.",
+        "price": 30,
+        "ext": "jpg"
+    },
+    "Prosperity_Jade_Spire": {
+        "base": "Jasper (med)",
+        "leaf": "Jade (med)",
+        "energy": "Abundance Pairing: Jade for luck, prosperity + Jasper for nurturing, grounding. Intricate root-wrap on raw stone.",
+        "price": 45,
+        "ext": "jpg"
+    },
+    "Sodalite_Solar_Tree": {
+        "base": "Red Jasper (med)",
+        "leaf": "Sodalite (high)",
+        "energy": "Stability Pairing: Sodalite for insight, clarity + Red Jasper for endurance, grounding. Standard root-wrap on raw stone.",
+        "price": 50,
+        "ext": "jpg"
+    }
+}

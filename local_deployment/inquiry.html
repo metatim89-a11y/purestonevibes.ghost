@@ -148,11 +148,10 @@
         </div>
 
         <div class="md:w-1/2 glass-panel p-10 space-y-6">
-            <form name="inquiry" netlify data-netlify="true" netlify-honeypot="bot-field"
-                action="/inquiry.html?success=true" method="POST" class="space-y-6">
-                <!-- Hidden bot-field for Netlify spam protection -->
+            <form action="/api/inquiry" method="POST" class="glass-panel p-8 space-y-6">
+                <!-- Hidden bot field for honeypot (retained for custom backend check) -->
                 <p class="hidden">
-                    <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+                    <label>Don’t fill this out if you're human: <input name="bot_field" /></label>
                 </p>
                 <div>
                     <label class="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 block">Full Name</label>

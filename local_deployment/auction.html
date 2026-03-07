@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Auctions | Pure Stone Vibes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #eeeeee;
+            background-image: radial-gradient(circle at top right, #1a1010, transparent);
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+        }
+
+        .live-indicator {
+            width: 8px;
+            height: 8px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+
+        .bid-btn {
+            background: linear-gradient(to right, #ec4899, #be185d);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.2);
+        }
+
+        .bid-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
+        }
+
+        .countdown-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 10px 20px;
+            border-radius: 12px;
+            min-width: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="p-6 glass-nav flex justify-between items-center sticky top-0 z-50">
+        <a href="index.html" class="group">
+            <h1 class="text-xl font-bold tracking-tighter text-white uppercase group-hover:text-pink-500 transition">
+                PURE STONE VIBES</h1>
+            <p class="text-[9px] tracking-[0.4em] text-pink-500 font-bold uppercase">Artist: Fish</p>
+        </a>
+        <div class="hidden md:flex gap-8 text-[11px] uppercase tracking-widest font-semibold">
+            <a href="gallery.html" class="hover:text-pink-400 transition">The Grove</a>
+            <a href="auction.html"
+                class="text-pink-500 underline decoration-2 underline-offset-8 font-bold">Auctions</a>
+            <a href="process.html" class="hover:text-pink-400 transition">The Process</a>
+            <a href="inquiry.html" class="hover:text-pink-400 transition">Inquire</a>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 py-20">
+        <header class="text-center mb-20 animate-fade-in">
+            <div
+                class="inline-flex items-center gap-2 mb-4 px-4 py-1 rounded-full bg-pink-500/10 border border-pink-500/20">
+                <span class="live-indicator"></span>
+                <span class="text-[10px] uppercase tracking-[0.3em] text-pink-500 font-bold">Live Twice Weekly</span>
+            </div>
+            <h2 class="text-6xl md:text-8xl mb-6 italic">The <span
+                    class="text-pink-500 font-bold not-italic">Auction</span> House</h2>
+            <p class="text-zinc-500 max-w-2xl mx-auto text-sm italic tracking-wide">
+                Join us every Tuesday and Thursday at 8 PM CST for live bidding on one-of-a-kind stone sculptures.
+            </p>
+        </header>
+
+        <div class="grid lg:grid-cols-2 gap-12 items-start">
+            <!-- FEATURED AUCTION ITEM -->
+            <div class="glass-panel overflow-hidden">
+                <div class="aspect-square relative group">
+                    <img id="auction-img" src="namedpics/Royal_Purple_Oak_7.jpg" alt="Auction Item"
+                        class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8">
+                        <h3 id="auction-name" class="text-4xl italic text-white mb-2">Royal Purple Oak</h3>
+                        <p id="auction-gems" class="text-xs uppercase tracking-widest text-pink-500 font-bold">Purple
+                            Fluorite on Rose Quartz</p>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <p
+                        class="text-xs uppercase tracking-widest text-zinc-500 mb-4 font-bold border-b border-white/5 pb-2">
+                        Energy Specification</p>
+                    <p id="auction-energy" class="text-zinc-300 text-sm leading-relaxed italic">Insight Pairing: Purple
+                        Fluorite for focus, order + Rose Quartz for love, compassion. Intricate root-wrap on raw stone.
+                    </p>
+                </div>
+            </div>
+
+            <!-- BIDDING INTERFACE -->
+            <div class="space-y-8">
+                <!-- LIVE STATUS / COUNTDOWN -->
+                <div id="countdown-container" class="glass-panel p-8 text-center border-pink-500/20">
+                    <h3 class="text-xl mb-4 italic">Next Live Auction In:</h3>
+                    <div class="flex justify-center gap-4 text-white">
+                        <div class="countdown-box">
+                            <p id="days" class="text-2xl font-bold">00</p>
+                            <p class="text-[8px] uppercase tracking-widest text-zinc-500">Days</p>
+                        </div>
+                        <div class="countdown-box">
+                            <p id="hours" class="text-2xl font-bold">00</p>
+                            <p class="text-[8px] uppercase tracking-widest text-zinc-500">Hours</p>
+                        </div>
+                        <div class="countdown-box">
+                            <p id="minutes" class="text-2xl font-bold">00</p>
+                            <p class="text-[8px] uppercase tracking-widest text-zinc-500">Mins</p>
+                        </div>
+                        <div class="countdown-box">
+                            <p id="seconds" class="text-2xl font-bold">00</p>
+                            <p class="text-[8px] uppercase tracking-widest text-zinc-500">Secs</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BID INPUT -->
+                <div class="glass-panel p-8 space-y-6">
+                    <div class="flex justify-between items-end mb-4">
+                        <div>
+                            <p class="text-[10px] uppercase tracking-widest text-zinc-500">Current High Bid</p>
+                            <h4 id="current-bid" class="text-5xl font-bold text-white">$120.00</h4>
+                        </div>
+                        <div class="text-right">
+                            <p id="bid-count" class="text-xs text-pink-500 font-bold">14 Active Bidders</p>
+                        </div>
+                    </div>
+
+                    <form id="bid-form" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" placeholder="Full Name"
+                                class="bg-zinc-900/50 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none w-full">
+                            <input type="number" id="bid-amount" placeholder="Your Bid"
+                                class="bg-zinc-900/50 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none w-full">
+                        </div>
+                        <button type="submit"
+                            class="bid-btn w-full py-4 rounded-xl font-bold uppercase tracking-widest text-sm text-white">Place
+                            Live Bid</button>
+                    </form>
+                    <p class="text-[9px] text-zinc-500 text-center tracking-widest">Bidding requires validation. Winning
+                        bidders will be contacted within 1 hour.</p>
+                </div>
+
+                <!-- BID HISTORY -->
+                <div class="glass-panel p-8">
+                    <h3 class="text-xl mb-6 italic border-b border-white/5 pb-4">Real-time Pulse</h3>
+                    <div id="bid-history" class="space-y-4 max-h-[200px] overflow-y-auto pr-4 custom-scrollbar">
+                        <!-- Bids populated via JS -->
+                        <div
+                            class="flex justify-between items-center text-xs border-l-2 border-pink-500 pl-4 py-2 bg-white/5 rounded-r-lg">
+                            <p class="text-zinc-300"><span class="font-bold text-white">Luna G.</span> just bid <span
+                                    class="text-pink-400 font-bold">$120</span></p>
+                            <p class="text-zinc-600">2m ago</p>
+                        </div>
+                        <div class="flex justify-between items-center text-xs pl-4 py-2">
+                            <p class="text-zinc-300"><span class="font-bold text-zinc-400">Aris T.</span> bid <span
+                                    class="text-zinc-400 font-bold">$105</span></p>
+                            <p class="text-zinc-600">5m ago</p>
+                        </div>
+                        <div class="flex justify-between items-center text-xs pl-4 py-2">
+                            <p class="text-zinc-300"><span class="font-bold text-zinc-400">Sarah M.</span> bid <span
+                                    class="text-zinc-400 font-bold">$95</span></p>
+                            <p class="text-zinc-600">12m ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HOW IT WORKS -->
+        <section class="mt-32 pt-20 border-t border-white/5 grid md:grid-cols-3 gap-12 text-center">
+            <div>
+                <div
+                    class="w-12 h-12 bg-pink-500/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-pink-500/20 text-pink-500">
+                    1</div>
+                <h3 class="text-xl mb-4 italic">The Gathering</h3>
+                <p class="text-zinc-500 text-sm leading-relaxed">Join the page every Tuesday & Thursday. The featured
+                    sculpture is revealed 1 hour before bidding starts.</p>
+            </div>
+            <div>
+                <div
+                    class="w-12 h-12 bg-pink-500/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-pink-500/20 text-pink-500">
+                    2</div>
+                <h3 class="text-xl mb-4 italic">Vibrational Bidding</h3>
+                <p class="text-zinc-500 text-sm leading-relaxed">Bids increment by $5 minimum. Each new bid resets the
+                    "Final Call" timer to 60 seconds.</p>
+            </div>
+            <div>
+                <div
+                    class="w-12 h-12 bg-pink-500/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-pink-500/20 text-pink-500">
+                    3</div>
+                <h3 class="text-xl mb-4 italic">Connection</h3>
+                <p class="text-zinc-500 text-sm leading-relaxed">The winning bidder receives a personal message from
+                    Fish to arrange shipping and energetic alignment.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-20 text-center opacity-30 mt-20">
+        <p class="text-[10px] tracking-[0.6em] uppercase text-white">Pure Stone Vibes &copy; 2026</p>
+    </footer>
+
+    <script>
+        // COUNTDOWN TIMER LOGIC
+        function updateCountdown() {
+            // Set next auction to next Tuesday or Thursday at 8PM CST
+            const now = new Date();
+            const nextAuction = new Date();
+
+            // This is a simplified logic to find the next Tue/Thu
+            // In a real app, this would be synced with the FastAPI server time
+            let daysUntil = (2 - now.getDay() + 7) % 7; // Days to Tuesday
+            let daysUntilThu = (4 - now.getDay() + 7) % 7; // Days to Thursday
+
+            let targetDays = (daysUntil < daysUntilThu && daysUntil !== 0) || (daysUntil === 0 && now.getHours() < 20) ? daysUntil : daysUntilThu;
+
+            nextAuction.setDate(now.getDate() + targetDays);
+            nextAuction.setHours(20, 0, 0, 0);
+
+            const diff = nextAuction - now;
+
+            if (diff > 0) {
+                document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById('hours').textContent = Math.floor((diff / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = Math.floor((diff / 1000 / 60) % 60).toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // MOCK BIDDING INTERACTION
+        const bidForm = document.getElementById('bid-form');
+        const currentBidEl = document.getElementById('current-bid');
+        const bidHistory = document.getElementById('bid-history');
+
+        bidForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const amount = document.getElementById('bid-amount').value;
+            const currentBid = parseInt(currentBidEl.textContent.replace('$', ''));
+
+            if (amount > currentBid) {
+                // Update UI visually (In the future, this will be handled by Websockets/FastAPI)
+                currentBidEl.textContent = `$${amount}.00`;
+
+                const newBid = document.createElement('div');
+                newBid.className = 'flex justify-between items-center text-xs border-l-2 border-pink-500 pl-4 py-2 bg-pink-500/5 rounded-r-lg animate-pulse';
+                newBid.innerHTML = `
+                    <p class="text-zinc-300"><span class="font-bold text-white">You</span> just bid <span class="text-pink-400 font-bold">$${amount}</span></p>
+                    <p class="text-zinc-600">Just now</p>
+                `;
+                bidHistory.prepend(newBid);
+                bidForm.reset();
+            } else {
+                alert("Bid must be higher than current price!");
+            }
+        });
+    </script>
+</body>
+
+</html>

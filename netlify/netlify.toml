@@ -3,7 +3,7 @@
 
 [build]
   # Since this is a static HTML/CSS site, we publish from the root.
-  publish = "netlify"
+  publish = "."
 
   # No build command is needed for this project.
   command = ""

@@ -4,24 +4,11 @@
 </div>
 <script>
     async function fetchSiteStatisticsForModal() {
-        const statsDataElement = document.getElementById('stats-data');
-        const token = localStorage.getItem('sessionToken');
-
-        if (!token) {
-            statsDataElement.innerHTML = '<p class="text-red-400">Not logged in. Please log in.</p>';
-            setTimeout(() => window.location.href = '/login.html', 1500);
-            return;
-        }
-
         try {
-            const response = await fetch('/api/stats', { headers: { 'Authorization': `Bearer ${token}` } });
-            if (response.status === 403 || response.status === 401) {
-                localStorage.clear();
-                statsDataElement.innerHTML = '<p class="text-red-400">Session expired. Please log in.</p>';
-                setTimeout(() => window.location.href = '/login.html', 1500);
-                return;
+            const response = await fetch('/api/stats', { headers: { 'Authorization': `Bearer ${localStorage.getItem('sessionToken')}` } });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-            if (!response.ok) throw new Error(`Failed to fetch site statistics: ${response.statusText}`);
             const data = await response.json();
             const statsHtml = `
                 <div class="flex justify-between items-center bg-black/20 p-3 rounded-xl">
@@ -41,11 +28,11 @@
                     ${data.recent_inquiries.map(i => `<li class="text-sm">${i.name} - ${i.sculpture || 'N/A'} (${new Date(i.created_at).toLocaleDateString()})</li>`).join('')}
                 </ul>
             `;
-            statsDataElement.innerHTML = statsHtml;
+            document.getElementById('stats-data').innerHTML = statsHtml;
         } catch (error) {
             console.error('Error fetching site statistics:', error);
-            statsDataElement.innerHTML = `<p class="text-red-400">Failed to load statistics: ${error.message}</p>`;
+            document.getElementById('stats-data').innerHTML = `<p class="text-red-400">Failed to load statistics: ${error.message}</p>`;
         }
     }
-    fetchSiteStatisticsForModal(); // Initial fetch
+    fetchSiteStatisticsForModal();
 </script>

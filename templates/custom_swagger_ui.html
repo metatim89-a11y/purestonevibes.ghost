@@ -298,11 +298,11 @@
             const statsModalContainer = document.getElementById('stats-modal-container');
             const statsModalMinimizeBtn = document.getElementById('stats-modal-minimize');
 
-            let isMinimized = true; // Start minimized (only button visible)
+            let isStatsMinimized = true; // Start minimized (only button visible)
 
-            function toggleModal() {
-                isMinimized = !isMinimized;
-                if (isMinimized) {
+            function toggleStatsModal() {
+                isStatsMinimized = !isStatsMinimized;
+                if (isStatsMinimized) {
                     statsModalContainer.classList.remove('show');
                     statsModalBtn.textContent = '📊';
                 } else {
@@ -312,13 +312,33 @@
                 }
             }
 
-            statsModalBtn.addEventListener('click', toggleModal);
+            statsModalBtn.addEventListener('click', toggleStatsModal);
             statsModalMinimizeBtn.addEventListener('click', () => {
-                // Clicking minimize from open state should hide it completely
-                if (!isMinimized) {
-                    toggleModal(); // This will minimize it
+                if (!isStatsMinimized) {
+                    toggleStatsModal();
                 }
             });
+
+            // Navigation Modal Logic
+            const navBtn = document.getElementById('nav-btn');
+            const navContainer = document.getElementById('nav-container');
+            const navCloseBtn = document.getElementById('nav-close-btn');
+
+            let isNavOpen = false;
+
+            function toggleNavModal() {
+                isNavOpen = !isNavOpen;
+                if (isNavOpen) {
+                    navContainer.classList.add('show');
+                    navBtn.textContent = '✖'; // Change button to 'X' when open
+                } else {
+                    navContainer.classList.remove('show');
+                    navBtn.textContent = '🔗';
+                }
+            }
+
+            navBtn.addEventListener('click', toggleNavModal);
+            navCloseBtn.addEventListener('click', toggleNavModal);
 
 
             async function fetchAndRenderStats() {

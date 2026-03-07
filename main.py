@@ -7,6 +7,7 @@ from fastapi import FastAPI, Request, Form, HTTPException, Depends, status
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from pydantic import BaseModel
+import json
 
 app = FastAPI(title="Pure Stone Vibes | Production API")
 
@@ -100,6 +101,45 @@ async def get_inquiries(token: str = Depends(verify_token), db: sqlite3.Connecti
     cursor.execute("SELECT * FROM inquiries ORDER BY created_at DESC")
     rows = cursor.fetchall()
     return [dict(row) for row in rows]
+
+@app.get("/api/stats")
+async def get_stats(db: sqlite3.Connection = Depends(get_db)):
+    cursor = db.cursor()
+
+    # Total Inquiries
+    cursor.execute("SELECT COUNT(*) FROM inquiries")
+    total_inquiries = cursor.fetchone()[0]
+
+    # Unique Sculptures Inquired
+    cursor.execute("SELECT COUNT(DISTINCT sculpture) FROM inquiries WHERE sculpture IS NOT NULL")
+    unique_sculptures_inquired = cursor.fetchone()[0]
+
+    # Top 5 Most Inquired Sculptures
+    cursor.execute("""
+        SELECT sculpture, COUNT(*) as count
+        FROM inquiries
+        WHERE sculpture IS NOT NULL
+        GROUP BY sculpture
+        ORDER BY count DESC
+        LIMIT 5
+    """)
+    top_sculptures = [dict(row) for row in cursor.fetchall()]
+
+    # Recent Inquiries
+    cursor.execute("""
+        SELECT name, email, sculpture, created_at
+        FROM inquiries
+        ORDER BY created_at DESC
+        LIMIT 10
+    """)
+    recent_inquiries = [dict(row) for row in cursor.fetchall()]
+
+    return {
+        "total_inquiries": total_inquiries,
+        "unique_sculptures_inquired": unique_sculptures_inquired,
+        "top_sculptures": top_sculptures,
+        "recent_inquiries": recent_inquiries
+    }
 
 # --- Static File Serving ---
 

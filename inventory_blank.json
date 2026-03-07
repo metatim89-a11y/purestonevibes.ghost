@@ -1,0 +1,737 @@
+[
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-1",
+    "id": "item-1",
+    "primary_image": "1.jfif",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "1.jfif"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 1"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-2",
+    "id": "item-2",
+    "primary_image": "2.jfif",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "2.jfif"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 2"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-3",
+    "id": "item-3",
+    "primary_image": "3.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "3.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 3"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-4",
+    "id": "item-4",
+    "primary_image": "4.jfif",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "4.jfif"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 4"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-5",
+    "id": "item-5",
+    "primary_image": "5.jfif",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "5.jfif"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 5"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-6",
+    "id": "item-6",
+    "primary_image": "6.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "6.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 6"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-7",
+    "id": "item-7",
+    "primary_image": "7.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "7.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 7"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-8",
+    "id": "item-8",
+    "primary_image": "8.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "8.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 8"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-9",
+    "id": "item-9",
+    "primary_image": "9.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "9.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 9"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-10",
+    "id": "item-10",
+    "primary_image": "10.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "10.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 10"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-11",
+    "id": "item-11",
+    "primary_image": "11.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "11.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 11"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-12",
+    "id": "item-12",
+    "primary_image": "12.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "12.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 12"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-13",
+    "id": "item-13",
+    "primary_image": "13.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "13.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 13"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-14",
+    "id": "item-14",
+    "primary_image": "14.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "14.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 14"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-15",
+    "id": "item-15",
+    "primary_image": "15.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "15.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 15"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-16",
+    "id": "item-16",
+    "primary_image": "16.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "16.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 16"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-17",
+    "id": "item-17",
+    "primary_image": "17.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "17.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 17"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-18",
+    "id": "item-18",
+    "primary_image": "18.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "18.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 18"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-19",
+    "id": "item-19",
+    "primary_image": "19.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "19.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 19"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-20",
+    "id": "item-20",
+    "primary_image": "20.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "20.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 20"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-21",
+    "id": "item-21",
+    "primary_image": "21.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "21.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 21"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-22",
+    "id": "item-22",
+    "primary_image": "22.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "22.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 22"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-23",
+    "id": "item-23",
+    "primary_image": "23.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "23.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 23"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-24",
+    "id": "item-24",
+    "primary_image": "24.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "24.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 24"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-25",
+    "id": "item-25",
+    "primary_image": "25.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "25.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 25"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-26",
+    "id": "item-26",
+    "primary_image": "26.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "26.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 26"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-27",
+    "id": "item-27",
+    "primary_image": "27.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "27.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 27"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-28",
+    "id": "item-28",
+    "primary_image": "28.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "28.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 28"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-29",
+    "id": "item-29",
+    "primary_image": "29.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "29.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 29"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-30",
+    "id": "item-30",
+    "primary_image": "30.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "30.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 30"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-31",
+    "id": "item-31",
+    "primary_image": "31.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "31.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 31"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-32",
+    "id": "item-32",
+    "primary_image": "32.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "32.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 32"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-33",
+    "id": "item-33",
+    "primary_image": "33.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "33.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 33"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-34",
+    "id": "item-34",
+    "primary_image": "34.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "34.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 34"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-35",
+    "id": "item-35",
+    "primary_image": "35.jfif",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "35.jfif"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 35"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-36",
+    "id": "item-36",
+    "primary_image": "36.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "36.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 36"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-37",
+    "id": "item-37",
+    "primary_image": "37.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "37.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 37"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-38",
+    "id": "item-38",
+    "primary_image": "38.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "38.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 38"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-39",
+    "id": "item-39",
+    "primary_image": "39.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "39.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 39"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-40",
+    "id": "item-40",
+    "primary_image": "40.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "40.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 40"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-41",
+    "id": "item-41",
+    "primary_image": "41.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "41.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 41"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-42",
+    "id": "item-42",
+    "primary_image": "42.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "42.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 42"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-43",
+    "id": "item-43",
+    "primary_image": "43.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "43.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 43"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-44",
+    "id": "item-44",
+    "primary_image": "44.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "44.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 44"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-45",
+    "id": "item-45",
+    "primary_image": "45.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "45.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 45"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-46",
+    "id": "item-46",
+    "primary_image": "46.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "46.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 46"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-47",
+    "id": "item-47",
+    "primary_image": "47.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "47.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 47"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-48",
+    "id": "item-48",
+    "primary_image": "48.jpg",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "48.jpg"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 48"
+  },
+  {
+    "base_material": "",
+    "price": 0,
+    "slug": "sculpture-49",
+    "id": "item-49",
+    "primary_image": "49.jfif",
+    "wire_specialty": "",
+    "energy": "",
+    "all_images": [
+      "49.jfif"
+    ],
+    "status": "available",
+    "leaflet_gemstone": "",
+    "name": "Sculpture 49"
+  }
+]

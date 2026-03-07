@@ -14,7 +14,10 @@
             font-family: 'Inter', sans-serif;
             background-color: #050505;
             color: #eeeeee;
-            background-image: radial-gradient(circle at top right, #1a1010, transparent);
+            /* Enhanced body background gradient */
+            background: linear-gradient(135deg, #0a0a0a 0%, #050505 50%, #0a0a0a 100%),
+                        radial-gradient(circle at top right, rgba(236, 72, 153, 0.1) 0%, transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(74, 180, 255, 0.05) 0%, transparent 40%);
         }
 
         h1,
@@ -22,46 +25,77 @@
         h3 {
             font-family: 'Playfair Display', serif;
         }
+        
+        /* Gradient Text for Main Headings */
+        .gradient-text-h2 {
+            background: linear-gradient(to right, #ec4899, #8b5cf6, #4990e2); /* Pink, Purple, Blue */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            font-weight: 800;
+        }
+        .gradient-text-h3 {
+            background: linear-gradient(to right, #ec4899, #8b5cf6); /* Pink, Purple */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            font-weight: 700;
+        }
+        .gradient-text-value {
+            background: linear-gradient(to right, #4990e2, #8b5cf6); /* Blue, Purple */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            font-weight: 900;
+        }
 
-        /* Glassmorphism Navigation */
+        /* Glassmorphism Navigation - Adjusted */
         .glass-nav {
             background: rgba(10, 10, 10, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3); /* Subtle shadow for depth */
         }
 
-        /* Glassmorphism Section */
+        /* Glassmorphism Section - Enhanced with subtle gradient */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+            backdrop-filter: blur(15px); /* Increased blur */
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Slightly more prominent border */
             border-radius: 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05); /* Deeper shadow */
         }
 
         .stats-card {
-            background: rgba(22, 22, 22, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(135deg, rgba(22, 22, 22, 0.6), rgba(15, 15, 15, 0.5)); /* Darker, more defined gradient */
+            border: 1px solid rgba(255, 255, 255, 0.15); /* More visible border */
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
             border-radius: 12px;
             padding: 2rem;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Subtle card shadow */
         }
 
         .stats-card:hover {
             border-color: #ec4899;
-            box-shadow: 0 0 40px rgba(236, 72, 153, 0.15);
-            transform: translateY(-4px);
+            box-shadow: 0 0 50px rgba(236, 72, 153, 0.3), 0 0 20px rgba(74, 180, 255, 0.1); /* Pink and subtle blue glow */
+            transform: translateY(-8px); /* More pronounced hover lift */
         }
 
         .stats-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 1.5rem;
-            background: rgba(22, 22, 22, 0.3);
+            background: linear-gradient(160deg, rgba(22, 22, 22, 0.4), rgba(18, 18, 18, 0.3)); /* Table gradient */
             border-radius: 8px;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05); /* Table outer border */
         }
 
         .stats-table th, .stats-table td {
@@ -71,20 +105,27 @@
         }
 
         .stats-table th {
-            background: rgba(30, 30, 30, 0.7);
+            background: linear-gradient(to right, #ec4899, #8b5cf6); /* Gradient for table headers */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
             font-weight: bold;
             text-transform: uppercase;
             font-size: 0.75rem;
             letter-spacing: 0.1em;
-            color: #ec4899;
         }
 
-        .stats-table tr:last-child td {
+        .stats-table tbody tr:last-child td {
             border-bottom: none;
         }
 
         .stats-table tbody tr:hover {
-            background: rgba(40, 40, 40, 0.5);
+            background: rgba(74, 180, 255, 0.05); /* Subtle blue hover */
+            color: #4990e2; /* Text color on hover */
+        }
+        .stats-table tbody tr:hover td {
+            color: inherit; /* Ensure text color inherits from tr:hover */
         }
 
     </style>

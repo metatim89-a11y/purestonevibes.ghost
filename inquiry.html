@@ -59,6 +59,7 @@
         <div class="hidden md:flex gap-8 text-[11px] uppercase tracking-widest font-semibold">
             <a href="gallery.html" class="hover:text-pink-400 transition">The Grove</a>
             <a href="auction.html" class="hover:text-pink-400 transition">Auctions</a>
+            <a href="dashboard.html" class="hover:text-pink-400 transition">Dashboard</a>
             <a href="process.html" class="hover:text-pink-400 transition">The Process</a>
 
             <!-- Auth & Theme UI -->
@@ -471,6 +472,9 @@
                 const imgElement = document.getElementById('detailImage');
                 imgElement.src = `namedpics/${val}.${item.ext || 'jpg'}`;
                 imgElement.alt = item.displayName || val.replace(/_/g, ' ');
+
+                // Update hidden ID field for server
+                document.getElementById('sculpture_id_input').value = val;
 
                 details.classList.remove('hidden'); // Show the glass-morphic info panel
             } else if (val === 'custom') {

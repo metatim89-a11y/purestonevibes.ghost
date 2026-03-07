@@ -1,191 +1,140 @@
 :root {
-    /* DARK THEME (Default) */
-    --bg-color: #050505;
-    --text-color: #eeeeee;
-    --accent-color: #ec4899;
-    /* Pink */
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.05);
-    --nav-bg: rgba(10, 10, 10, 0.7);
-    --card-bg: rgba(22, 22, 22, 0.5);
-    --muted-text: #71717a;
-    --gradient-start: #1a1010;
+    /* BASE CONFIG */
+    --bg-main: #050505;
+    --text-main: #f4f4f5;
+    --text-muted: #a1a1aa;
+    
+    /* VIBE: ROSE (Default) */
+    --vibe-accent: #f472b6;
+    --vibe-accent-dark: #db2777;
+    --vibe-glow: rgba(244, 114, 182, 0.15);
+    --vibe-gradient-bg: radial-gradient(circle at top right, rgba(244, 114, 182, 0.08), transparent 40%);
 }
 
-body.light-theme {
-    /* LIGHT THEME (Based on lighttheme.jfif) */
-    --bg-color: #fce7f3;
-    /* Soft Light Pink */
-    --text-color: #2e1065;
-    /* Deep Purple */
-    --accent-color: #be185d;
-    /* Deeper Pink */
-    --glass-bg: rgba(255, 255, 255, 0.4);
-    --glass-border: rgba(0, 0, 0, 0.05);
-    --nav-bg: rgba(255, 255, 255, 0.8);
-    --card-bg: rgba(255, 255, 255, 0.6);
-    --muted-text: #6b21a8;
-    /* Muted Purple */
-    --gradient-start: #ffffff;
+/* --- Vibe Variants --- */
+
+body.vibe-amethyst {
+    --vibe-accent: #a78bfa;
+    --vibe-accent-dark: #7c3aed;
+    --vibe-glow: rgba(167, 139, 250, 0.15);
+    --vibe-gradient-bg: radial-gradient(circle at top right, rgba(167, 139, 250, 0.08), transparent 40%);
 }
+
+body.vibe-emerald {
+    --vibe-accent: #34d399;
+    --vibe-accent-dark: #059669;
+    --vibe-glow: rgba(52, 211, 153, 0.15);
+    --vibe-gradient-bg: radial-gradient(circle at top right, rgba(52, 211, 153, 0.08), transparent 40%);
+}
+
+body.vibe-sapphire {
+    --vibe-accent: #60a5fa;
+    --vibe-accent-dark: #2563eb;
+    --vibe-glow: rgba(96, 165, 250, 0.15);
+    --vibe-gradient-bg: radial-gradient(circle at top right, rgba(96, 165, 250, 0.08), transparent 40%);
+}
+
+body.vibe-amber {
+    --vibe-accent: #fbbf24;
+    --vibe-accent-dark: #d97706;
+    --vibe-glow: rgba(251, 191, 36, 0.15);
+    --vibe-gradient-bg: radial-gradient(circle at top right, rgba(251, 191, 36, 0.08), transparent 40%);
+}
+
+/* --- Global Styles --- */
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    background-image: radial-gradient(circle at top right, var(--gradient-start), transparent);
-    transition: background-color 0.5s ease, color 0.5s ease;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    background-image: 
+        var(--vibe-gradient-bg),
+        linear-gradient(to bottom right, #050505, #0a0a0b);
+    background-attachment: fixed;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 100vh;
 }
 
+/* --- Professional Glassmorphism --- */
+
 .glass-panel {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 
+        0 4px 24px -1px rgba(0, 0, 0, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.05);
 }
 
 .glass-nav {
-    background: var(--nav-bg);
-    border-bottom: 1px solid var(--glass-border);
+    background: rgba(10, 10, 11, 0.8);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
+
+/* --- Component Refinements --- */
 
 .gallery-card {
-    background: var(--card-bg);
-    border: 1px solid var(--glass-border);
+    background: rgba(20, 20, 22, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.text-pink-500 {
-    color: var(--accent-color) !important;
+.gallery-card:hover {
+    border-color: var(--vibe-accent);
+    box-shadow: 0 0 30px var(--vibe-glow);
+    transform: translateY(-4px);
 }
 
-.border-pink-500 {
-    border-color: var(--accent-color) !important;
+.price-tag {
+    background: linear-gradient(135deg, var(--vibe-accent-dark), var(--vibe-accent));
+    box-shadow: 0 4px 12px var(--vibe-glow);
 }
 
-.bg-pink-500 {
-    background-color: var(--accent-color) !important;
+/* Buttons & Links */
+.btn-vibe {
+    background: linear-gradient(135deg, var(--vibe-accent-dark), var(--vibe-accent));
+    transition: all 0.3s ease;
 }
 
-.bg-pink-600 {
-    background-color: var(--accent-color) !important;
+.btn-vibe:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 20px var(--vibe-glow);
+    transform: scale(1.02);
 }
 
-/* --- Chat Widget Styles --- */
+/* Select & Dropdowns */
+select {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: var(--vibe-accent) !important;
+    backdrop-filter: blur(10px);
+}
+
+/* Chat Widget Enhancements */
 #chat-bubble {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, var(--accent-color), #be185d);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    cursor: pointer;
-    z-index: 1000;
-    box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-#chat-bubble:hover {
-    transform: scale(1.1) rotate(5deg);
+    background: linear-gradient(135deg, var(--vibe-accent-dark), #000);
+    box-shadow: 0 8px 32px var(--vibe-glow);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #chat-box {
-    position: fixed;
-    bottom: 100px;
-    right: 30px;
-    width: 350px;
-    height: 500px;
-    max-height: 80vh;
-    z-index: 1000;
-    display: none;
-    flex-direction: column;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-    transform: translateY(20px);
-    opacity: 0;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-#chat-box.open {
-    display: flex;
-    transform: translateY(0);
-    opacity: 1;
+    background: linear-gradient(160deg, rgba(15, 15, 16, 0.98), rgba(10, 10, 11, 1));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8), 0 0 40px var(--vibe-glow);
 }
 
 .chat-header {
-    background: linear-gradient(to right, var(--accent-color), #be185d);
-    padding: 20px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.chat-messages {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.message {
-    padding: 10px 15px;
-    border-radius: 15px;
-    font-size: 13px;
-    max-width: 80%;
+    background: linear-gradient(to right, var(--vibe-accent-dark), transparent);
 }
 
 .message.user {
-    align-self: flex-end;
-    background: var(--accent-color);
-    color: white;
-    border-bottom-right-radius: 2px;
+    background: linear-gradient(135deg, var(--vibe-accent-dark), var(--vibe-accent));
 }
 
-.message.fish {
-    align-self: flex-start;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    color: var(--text-color);
-    border-bottom-left-radius: 2px;
-}
-
-.chat-input-area {
-    padding: 15px;
-    background: rgba(0, 0, 0, 0.2);
-    display: flex;
-    gap: 10px;
-}
-
-.chat-input {
-    flex-grow: 1;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 99px;
-    padding: 8px 16px;
-    color: var(--text-color);
-    font-size: 13px;
-    outline: none;
-}
-
-.chat-send {
-    background: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 34px;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.chat-send:active {
-    transform: scale(0.9);
-}
+/* Global Utility Mappings */
+.text-pink-500, .text-pink-400 { color: var(--vibe-accent) !important; }
+.border-pink-500, .border-pink-600 { border-color: var(--vibe-accent) !important; }
+.bg-pink-500, .bg-pink-600 { background: linear-gradient(135deg, var(--vibe-accent-dark), var(--vibe-accent)) !important; }

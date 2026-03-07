@@ -82,17 +82,36 @@ function sendChatMessage() {
     }, 1500);
 }
 
+/**
+ * VIBE SYSTEM: Multi-theme cycling
+ */
+const VIBES = ['vibe-rose', 'vibe-amethyst', 'vibe-emerald', 'vibe-sapphire', 'vibe-amber'];
+
 function initTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-        document.body.classList.add('light-theme');
-    }
+    const savedVibe = localStorage.getItem('currentVibe') || 'vibe-rose';
+    applyVibe(savedVibe);
 }
 
 function toggleTheme() {
-    document.body.classList.toggle('light-theme');
-    const isLight = document.body.classList.contains('light-theme');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    const currentVibe = localStorage.getItem('currentVibe') || 'vibe-rose';
+    const currentIndex = VIBES.indexOf(currentVibe);
+    const nextIndex = (currentIndex + 1) % VIBES.length;
+    const nextVibe = VIBES[nextIndex];
+    
+    applyVibe(nextVibe);
+}
+
+function applyVibe(vibeClass) {
+    // Remove all vibe classes
+    VIBES.forEach(v => document.body.classList.remove(v));
+    
+    // Add new one (rose is the base, so we don't need a class for it if it's the default)
+    if (vibeClass !== 'vibe-rose') {
+        document.body.classList.add(vibeClass);
+    }
+    
+    localStorage.setItem('currentVibe', vibeClass);
+    console.log(`Vibe Shift: ${vibeClass.replace('vibe-', '')}`);
 }
 
 function updateAuthUI() {

@@ -1,18 +1,23 @@
-# Use Node.js LTS image
-FROM node:18-slim
+# Use a lightweight Python base image
+FROM python:3.10-slim
 
-# Create app directory
-WORKDIR /usr/src/app
+# Set working directory inside the container
+WORKDIR /app
 
-# Install app dependencies
-COPY package*.json ./
-RUN npm install --production
+# Copy requirement first for faster caching
+COPY requirements.txt .
 
-# Bundle app source
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the entire project to the container
 COPY . .
 
-# Expose the port Express is running on
-EXPOSE 3000
+# Ensure the database file is writable if it exists
+RUN touch inquiries.db && chmod 666 inquiries.db
 
-# Start the server
-CMD [ "node", "server.js" ]
+# Expose the port FastAPI runs on
+EXPOSE 8000
+
+# Start the FastAPI application
+CMD ["uvicorn", "main.py:app", "--host", "0.0.0.0", "--port", "8000"]

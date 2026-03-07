@@ -1,99 +1,140 @@
 :root {
-    /* DARK THEME (Default) */
-    --bg-color: #050505;
-    --text-color: #eeeeee;
-    --accent-color: #ec4899;
-    /* Pink */
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.05);
-    --nav-bg: rgba(10, 10, 10, 0.7);
-    --card-bg: rgba(22, 22, 22, 0.5);
-    --muted-text: #71717a;
-    --gradient-start: #1a1010;
-    --input-bg: rgba(255, 255, 255, 0.03);
-    --input-border: rgba(255, 255, 255, 0.1);
+    /* BASE CONFIG */
+    --bg-main: #050505;
+    --text-main: #f4f4f5;
+    --text-muted: #a1a1aa;
+    
+    /* VIBE: ROSE (Default) */
+    --vibe-accent: #f472b6;
+    --vibe-accent-dark: #db2777;
+    --vibe-glow: rgba(244, 114, 182, 0.15);
+    --vibe-gradient-bg: radial-gradient(circle at top right, rgba(244, 114, 182, 0.08), transparent 40%);
 }
 
-body.light-theme {
-    /* LIGHT THEME (Based on lighttheme.jfif) */
-    --bg-color: #fce7f3;
-    /* Soft Light Pink */
-    --text-color: #2e1065;
-    /* Deep Purple */
-    --accent-color: #be185d;
-    /* Deeper Pink */
-    --glass-bg: rgba(255, 255, 255, 0.4);
-    --glass-border: rgba(0, 0, 0, 0.05);
-    --nav-bg: rgba(255, 255, 255, 0.8);
-    --card-bg: rgba(255, 255, 255, 0.6);
-    --muted-text: #6b21a8;
-    /* Muted Purple */
-    --gradient-start: #ffffff;
-    --input-bg: rgba(255, 255, 255, 0.6);
-    --input-border: rgba(0, 0, 0, 0.1);
+/* --- Vibe Variants --- */
+
+body.vibe-amethyst {
+    --vibe-accent: #a78bfa;
+    --vibe-accent-dark: #7c3aed;
+    --vibe-glow: rgba(167, 139, 250, 0.15);
+    --vibe-gradient-bg: radial-gradient(circle at top right, rgba(167, 139, 250, 0.08), transparent 40%);
 }
+
+body.vibe-emerald {
+    --vibe-accent: #34d399;
+    --vibe-accent-dark: #059669;
+    --vibe-glow: rgba(52, 211, 153, 0.15);
+    --vibe-gradient-bg: radial-gradient(circle at top right, rgba(52, 211, 153, 0.08), transparent 40%);
+}
+
+body.vibe-sapphire {
+    --vibe-accent: #60a5fa;
+    --vibe-accent-dark: #2563eb;
+    --vibe-glow: rgba(96, 165, 250, 0.15);
+    --vibe-gradient-bg: radial-gradient(circle at top right, rgba(96, 165, 250, 0.08), transparent 40%);
+}
+
+body.vibe-amber {
+    --vibe-accent: #fbbf24;
+    --vibe-accent-dark: #d97706;
+    --vibe-glow: rgba(251, 191, 36, 0.15);
+    --vibe-gradient-bg: radial-gradient(circle at top right, rgba(251, 191, 36, 0.08), transparent 40%);
+}
+
+/* --- Global Styles --- */
 
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    background-image: radial-gradient(circle at top right, var(--gradient-start), transparent);
-    transition: background-color 0.5s ease, color 0.5s ease, background-image 0.5s ease;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    background-image: 
+        var(--vibe-gradient-bg),
+        linear-gradient(to bottom right, #050505, #0a0a0b);
+    background-attachment: fixed;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     min-height: 100vh;
 }
 
-h1,
-h2,
-h3 {
-    font-family: 'Playfair Display', serif;
-}
+/* --- Professional Glassmorphism --- */
 
 .glass-panel {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 
+        0 4px 24px -1px rgba(0, 0, 0, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.05);
 }
 
 .glass-nav {
-    background: var(--nav-bg);
-    border-bottom: 1px solid var(--glass-border);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(10, 10, 11, 0.8);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
+
+/* --- Component Refinements --- */
 
 .gallery-card {
-    background: var(--card-bg);
-    border: 1px solid var(--glass-border);
-    transition: all 0.4s ease;
+    background: rgba(20, 20, 22, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-input,
-select,
-textarea {
-    background: var(--input-bg) !important;
-    border: 1px solid var(--input-border) !important;
-    color: var(--text-color) !important;
+.gallery-card:hover {
+    border-color: var(--vibe-accent);
+    box-shadow: 0 0 30px var(--vibe-glow);
+    transform: translateY(-4px);
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: var(--accent-color) !important;
+.price-tag {
+    background: linear-gradient(135deg, var(--vibe-accent-dark), var(--vibe-accent));
+    box-shadow: 0 4px 12px var(--vibe-glow);
 }
 
-.text-pink-500 {
-    color: var(--accent-color) !important;
+/* Buttons & Links */
+.btn-vibe {
+    background: linear-gradient(135deg, var(--vibe-accent-dark), var(--vibe-accent));
+    transition: all 0.3s ease;
 }
 
-.border-pink-500 {
-    border-color: var(--accent-color) !important;
+.btn-vibe:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 20px var(--vibe-glow);
+    transform: scale(1.02);
 }
 
-.bg-pink-500 {
-    background-color: var(--accent-color) !important;
+/* Select & Dropdowns */
+select {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: var(--vibe-accent) !important;
+    backdrop-filter: blur(10px);
 }
 
-.bg-pink-600 {
-    background-color: var(--accent-color) !important;
+/* Chat Widget Enhancements */
+#chat-bubble {
+    background: linear-gradient(135deg, var(--vibe-accent-dark), #000);
+    box-shadow: 0 8px 32px var(--vibe-glow);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+#chat-box {
+    background: linear-gradient(160deg, rgba(15, 15, 16, 0.98), rgba(10, 10, 11, 1));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8), 0 0 40px var(--vibe-glow);
+}
+
+.chat-header {
+    background: linear-gradient(to right, var(--vibe-accent-dark), transparent);
+}
+
+.message.user {
+    background: linear-gradient(135deg, var(--vibe-accent-dark), var(--vibe-accent));
+}
+
+/* Global Utility Mappings */
+.text-pink-500, .text-pink-400 { color: var(--vibe-accent) !important; }
+.border-pink-500, .border-pink-600 { border-color: var(--vibe-accent) !important; }
+.bg-pink-500, .bg-pink-600 { background: linear-gradient(135deg, var(--vibe-accent-dark), var(--vibe-accent)) !important; }

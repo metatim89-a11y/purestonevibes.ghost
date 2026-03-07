@@ -472,6 +472,9 @@
                 imgElement.src = `namedpics/${val}.${item.ext || 'jpg'}`;
                 imgElement.alt = item.displayName || val.replace(/_/g, ' ');
 
+                // Update hidden ID field for server
+                document.getElementById('sculpture_id_input').value = val;
+
                 details.classList.remove('hidden'); // Show the glass-morphic info panel
             } else if (val === 'custom') {
                 // Special case for custom commissions

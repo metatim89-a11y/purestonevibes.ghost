@@ -112,17 +112,54 @@
             class="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-3"></div>
     </main>
 
-    <div id="lightbox" onclick="this.style.display='none'">
-        <img id="lightbox-img" src="" class="max-w-[90%] max-h-[90%] rounded shadow-2xl border border-white/10">
+    <!-- New Centered Modal -->
+    <div id="centered-modal"
+        class="hidden fixed inset-0 z-[1000] bg-black/90 items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <!-- Close Button -->
+        <button onclick="closeModal()"
+            class="absolute top-6 right-6 text-white hover:text-pink-500 z-[1050] p-2 bg-black/50 rounded-full border border-white/10 hover:border-pink-500 transition-all cursor-pointer">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <!-- Navigation Arrows -->
+        <button onclick="prevItem(event)"
+            class="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white hover:text-pink-500 z-[1050] p-3 md:p-4 bg-black/50 rounded-full border border-white/10 hover:border-pink-500 transition-all shadow-xl cursor-pointer">
+            <svg class="w-8 h-8 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </button>
+        <button onclick="nextItem(event)"
+            class="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white hover:text-pink-500 z-[1050] p-3 md:p-4 bg-black/50 rounded-full border border-white/10 hover:border-pink-500 transition-all shadow-xl cursor-pointer">
+            <svg class="w-8 h-8 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </button>
+
+        <!-- Modal Content Container -->
+        <div id="modal-content"
+            class="bg-[#0f0f0f] border border-pink-500/30 rounded-xl w-full max-w-6xl max-h-[90vh] overflow-y-auto flex flex-col md:flex-row transform scale-95 transition-transform duration-300 shadow-[0_0_80px_rgba(0,0,0,1)] relative z-[1010]">
+            <!-- Image Left -->
+            <div
+                class="w-full md:w-[50%] lg:w-[60%] relative bg-zinc-950 flex items-center justify-center min-h-[40vh] md:min-h-[75vh]">
+                <img id="modal-img" src="" class="w-full h-full object-contain p-4 md:p-8">
+            </div>
+            <!-- Details Right -->
+            <div class="w-full md:w-[50%] lg:w-[40%] p-6 md:p-10 flex flex-col justify-center border-t md:border-t-0 md:border-l border-white/10 text-left"
+                id="modal-details">
+                <!-- Injected via JS -->
+            </div>
+        </div>
     </div>
 
     <script>
         /**
          * Fetches inventory data from the backend API and initiates the render.
-         * Why: This removes hardcoded data from the HTML file, making it easier 
-         * to update the collection without editing code files.
          */
         let inventory = {};
+        let galleryItems = []; // Array to track currently sorted items
+        let currentIndex = 0; // Track which item is open in the modal
 
         async function initGallery() {
             try {
@@ -132,7 +169,6 @@
                 renderGallery();
             } catch (error) {
                 console.error('Failed to load inventory:', error);
-                // Fallback or error message could go here
                 document.getElementById('gallery-grid').innerHTML = `
                     <div class="col-span-full py-20 text-center opacity-50">
                         <p class="italic">The energy is shifting. Please wait a moment...</p>
@@ -141,110 +177,164 @@
             }
         }
 
-        /**
-         * Renders the gallery grid based on current sorting and inventory state.
-         * Why: This function separates data from presentation, allowing for dynamic sorting 
-         * and a consistent user experience across the collection.
-         */
         function renderGallery() {
             const grid = document.getElementById('gallery-grid');
             const sortSelection = document.getElementById('priceFilter')?.value || 'all';
-            grid.innerHTML = ''; // Clear existing items
+            grid.innerHTML = '';
 
-            // Transform object into a list for easier sorting and iteration
             let items = Object.entries(inventory).map(([id, data]) => ({ id, ...data }));
 
-            // Apply price sorting logic
             if (sortSelection === 'high') items.sort((a, b) => b.price - a.price);
             if (sortSelection === 'low') items.sort((a, b) => a.price - b.price);
 
-            // Create and append a card for each sculpture
-            items.forEach(item => {
+            galleryItems = items; // Store globally for navigation
+
+            items.forEach((item, index) => {
                 const cardWrapper = document.createElement('div');
                 cardWrapper.className = 'gallery-card-wrapper group cursor-pointer';
 
                 // Lightbox integration: clicking a card zooms the sculpture image
-                cardWrapper.onclick = () => {
-                    document.getElementById('lightbox-img').src = `namedpics/${item.id}.${item.ext}`;
-                    document.getElementById('lightbox').style.display = 'flex';
-                };
+                cardWrapper.onclick = () => openModal(index);
 
                 const displayName = item.displayName;
-                const priceDisplay = `$${item.price}.00`;
 
-                // Parsing logic for energy description
-                let baseVibe = "";
-                let leafletVibe = "";
-                let bindings = "";
-                let combined = "";
-
-                const energyParts = item.energy.split(':');
-                if (energyParts.length > 1) {
-                    combined = energyParts[0].trim();
-                    const mainDesc = energyParts[1].split('.');
-                    const vibesPart = mainDesc[0].split('+');
-
-                    if (vibesPart.length > 0) {
-                        leafletVibe = vibesPart[0].split('for')[1]?.trim() || "";
-                    }
-                    if (vibesPart.length > 1) {
-                        baseVibe = vibesPart[1].split('for')[1]?.trim() || "";
-                    }
-                    if (mainDesc.length > 1) {
-                        bindings = mainDesc[1].trim();
-                    }
-                } else {
-                    combined = "Unique Energy";
-                    bindings = item.energy;
-                }
-
-                // Build the visual card structure using Tailwind CSS and custom glassmorphism styles
                 cardWrapper.innerHTML = `
                     <div class="gallery-card">
                         <div class="relative overflow-hidden aspect-square bg-zinc-900 flex items-center justify-center">
                             <img src="namedpics/${item.id}.${item.ext}" 
                                  alt="${displayName}" 
-                                 class="w-full h-full object-cover transition-transform duration-1000">
+                                 class="w-full h-full object-cover md:group-hover:scale-105 transition-transform duration-700">
                         </div>
-                        <div class="p-2 flex-grow flex flex-col items-center">
-                            <h3 class="text-[10px] md:text-[11px] font-bold italic leading-tight bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent group-hover:from-pink-300 group-hover:to-purple-400 transition-all truncate w-full text-center uppercase tracking-wider drop-shadow-sm">${displayName}</h3>
-                            
-                            <!-- Collapsible details section revealed on hover -->
-                            <div class="card-details w-full">
-                                <div class="flex justify-between items-center mb-3 mt-2 pb-2 border-b border-white/10">
-                                    <span class="price-tag text-white text-[9px] shadow-lg border border-white/20 px-2 py-0.5">${priceDisplay}</span>
-                                    <a href="inquiry.html?item=${item.id}" class="text-[7px] bg-pink-500/10 text-pink-500 border border-pink-500/30 px-2 py-0.5 rounded-full hover:bg-pink-500 hover:text-white transition uppercase tracking-tighter whitespace-nowrap">Inquire</a>
-                                </div>
-                                <div class="space-y-2 text-[8px] tracking-widest uppercase font-semibold text-zinc-400 pt-1">
-                                    <div class="group/info">
-                                        <span class="text-pink-500 block mb-0.5 opacity-70">BaseStone:</span>
-                                        <div class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors">
-                                            <p class="text-zinc-200">${item.base}</p>
-                                            <p class="lowercase text-zinc-500 italic font-normal mt-0.5 leading-tight">${baseVibe}</p>
-                                        </div>
-                                    </div>
-                                    <div class="group/info">
-                                        <span class="text-pink-500 block mb-0.5 opacity-70">LeafletStone:</span>
-                                        <div class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors">
-                                            <p class="text-zinc-200">${item.leaf} <span class="lowercase text-zinc-500 italic font-normal">(${leafletVibe})</span></p>
-                                        </div>
-                                    </div>
-                                    <div class="group/info">
-                                        <span class="text-pink-500 block mb-0.5 opacity-70">Bindings:</span>
-                                        <p class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors lowercase text-zinc-500 font-normal leading-tight">${bindings}</p>
-                                    </div>
-                                    <div class="group/info">
-                                        <span class="text-pink-500 block mb-0.5 opacity-70">Combined:</span>
-                                        <p class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors italic text-zinc-300">${combined}</p>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="p-3 flex-grow flex flex-col justify-center items-center bg-[#0a0a0a]">
+                            <h3 class="text-[11px] md:text-[13px] font-bold italic leading-tight bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent group-hover:from-pink-300 group-hover:to-purple-400 transition-all truncate w-full text-center uppercase tracking-wider drop-shadow-sm">${displayName}</h3>
                         </div>
                     </div>
                 `;
                 grid.appendChild(cardWrapper);
             });
         }
+
+        // --- Modals and Navigation Logic ---
+
+        function openModal(index) {
+            currentIndex = index;
+            const item = galleryItems[currentIndex];
+            const modal = document.getElementById('centered-modal');
+            const modalImg = document.getElementById('modal-img');
+            const modalDetails = document.getElementById('modal-details');
+            const content = document.getElementById('modal-content');
+
+            modalImg.src = `namedpics/${item.id}.${item.ext}`;
+
+            // Parse energy correctly
+            let baseVibe = "", leafletVibe = "", bindings = "", combined = "";
+            const energyParts = item.energy.split(':');
+            if (energyParts.length > 1) {
+                combined = energyParts[0].trim();
+                const mainDesc = energyParts[1].split('.');
+                const vibesPart = mainDesc[0].split('+');
+                if (vibesPart.length > 0) leafletVibe = vibesPart[0].split('for')[1]?.trim() || "";
+                if (vibesPart.length > 1) baseVibe = vibesPart[1].split('for')[1]?.trim() || "";
+                if (mainDesc.length > 1) bindings = mainDesc[1].trim();
+            } else {
+                combined = "Unique Energy";
+                bindings = item.energy;
+            }
+
+            modalDetails.innerHTML = `
+                <h2 class="text-3xl md:text-5xl italic font-bold mb-2 bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">${item.displayName}</h2>
+                <div class="flex items-center gap-4 mb-8 pb-4 border-b border-white/10 mt-4">
+                    <span class="price-tag text-white px-4 py-1.5 shadow-lg border border-white/20 text-lg">$${item.price}.00</span>
+                    <a href="inquiry.html?item=${item.id}" class="text-xs bg-pink-500/10 text-pink-500 border border-pink-500/30 px-6 py-2 rounded-full hover:bg-pink-500 hover:text-white transition uppercase tracking-widest font-bold">Inquire Now</a>
+                </div>
+                
+                <div class="space-y-6 text-sm tracking-wide text-zinc-400">
+                    <div>
+                        <span class="text-pink-500 block mb-1 uppercase tracking-widest text-xs font-bold opacity-80">Base Stone</span>
+                        <div class="pl-4 border-l-2 border-pink-500/20">
+                            <p class="text-zinc-100 font-medium text-lg">${item.base}</p>
+                            <p class="italic text-zinc-500 mt-1">${baseVibe}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-pink-500 block mb-1 uppercase tracking-widest text-xs font-bold opacity-80">Leaflet Stone</span>
+                        <div class="pl-4 border-l-2 border-pink-500/20">
+                            <p class="text-zinc-100 font-medium text-lg">${item.leaf}</p>
+                            <p class="italic text-zinc-500 mt-1">${leafletVibe}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-pink-500 block mb-1 uppercase tracking-widest text-xs font-bold opacity-80">Bindings</span>
+                        <div class="pl-4 border-l-2 border-pink-500/20">
+                            <p class="text-zinc-400 leading-relaxed">${bindings}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-pink-500 block mb-1 uppercase tracking-widest text-xs font-bold opacity-80">Combined Resonance</span>
+                        <div class="pl-4 border-l-2 border-pink-500/20">
+                            <p class="italic text-zinc-200 text-lg font-serif">"${combined}"</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.style.display = 'flex';
+            // Slight delay to allow display flex to apply before opacity transition starts
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('centered-modal');
+            const content = document.getElementById('modal-content');
+
+            modal.classList.remove('opacity-100');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+
+            // Wait for transition before hiding display
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        function nextItem(e) {
+            e.stopPropagation(); // prevent modal close
+            if (currentIndex < galleryItems.length - 1) {
+                openModal(currentIndex + 1);
+            } else {
+                openModal(0); // loop back
+            }
+        }
+
+        function prevItem(e) {
+            e.stopPropagation(); // prevent modal close
+            if (currentIndex > 0) {
+                openModal(currentIndex - 1);
+            } else {
+                openModal(galleryItems.length - 1); // loop to end
+            }
+        }
+
+        // Close modal when clicking on the dark background
+        document.getElementById('centered-modal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('centered-modal');
+            if (modal.style.display === 'flex') {
+                if (e.key === 'ArrowRight') nextItem(e);
+                if (e.key === 'ArrowLeft') prevItem(e);
+                if (e.key === 'Escape') closeModal();
+            }
+        });
 
         // Initial render execution
         initGallery();

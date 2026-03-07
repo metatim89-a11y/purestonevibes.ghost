@@ -981,12 +981,19 @@ To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
 [1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
 [1;35m--- PURE STONE VIBES SYNC ---[0m
 Staging all changes...
-ered for dashboard validation! | Path: /api/trigger_error | Method: GET
-2026-03-07 14:06:34,691 - ERROR - ERROR: Manual test error triggered for dashboard validation! | Path: /api/trigger_error | Method: GET
-2026-03-07 14:06:39,568 - INFO - Served static file (cached): login.html (Status: 304)
-2026-03-07 14:06:42,649 - INFO - Served static file (cached): index.html (Status: 304)
-2026-03-07 14:06:50,503 - INFO - Served static file: templates/_server_control.html (Status: 200)
-2026-03-07 14:07:00,077 - INFO - Served static file: templates/_inquiry_ledger.html (Status: 200)
+Committing with message: Root-to-Canopy sync complete. The vibes are rising.
+[master 6cd5d4b] Root-to-Canopy sync complete. The vibes are rising.
+ 2 files changed, 31 insertions(+)
+Syncing with GitHub...
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+Pushing to the remote Grove...
+To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
+   a0adc82..6cd5d4b  master -> master
+[1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
+[1;35m--- PURE STONE VIBES SYNC ---[0m
+Staging all changes...
+_ledger.html (Status: 200)
 2026-03-07 14:07:00,121 - ERROR - ERROR: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 127430394873536 and this is thread id 127430456213760. | Path: /api/inquiries | Method: GET
 2026-03-07 14:07:01,706 - INFO - Served static file: templates/_all_pages.html (Status: 200)
 2026-03-07 14:07:24,497 - INFO - Served static file: templates/_log_file_viewer.html (Status: 200)

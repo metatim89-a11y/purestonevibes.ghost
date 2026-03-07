@@ -293,9 +293,12 @@ async def get_inquiries(token: str = Depends(verify_token), db: sqlite3.Connecti
 async def get_stats(db: sqlite3.Connection = Depends(get_db)):
     cursor = db.cursor()
     cursor.execute("SELECT COUNT(*) FROM inquiries")
-    total_inquiries = cursor.fetchone()[0]
+    total_inquiries_result = cursor.fetchone()
+    total_inquiries = total_inquiries_result[0] if total_inquiries_result else 0
+
     cursor.execute("SELECT COUNT(DISTINCT sculpture) FROM inquiries WHERE sculpture IS NOT NULL")
-    unique_sculptures_inquired = cursor.fetchone()[0]
+    unique_sculptures_result = cursor.fetchone()
+    unique_sculptures_inquired = unique_sculptures_result[0] if unique_sculptures_result else 0
     cursor.execute("""
         SELECT sculpture, COUNT(*) as count
         FROM inquiries
@@ -387,6 +390,10 @@ async def read_debug():
 @app.get("/splat", response_class=FileResponse)
 async def read_splat():
     return FileResponse(os.path.join(BASE_DIR, "dashboard.html"))
+
+@app.get("/stats", response_class=FileResponse)
+async def read_stats():
+    return FileResponse(os.path.join(BASE_DIR, "stats.html"))
 
 app.mount("/namedpics", LoggedStaticFiles(directory=os.path.join(BASE_DIR, "namedpics")), name="namedpics")
 app.mount("/", LoggedStaticFiles(directory=BASE_DIR, html=True), name="root")

@@ -3,16 +3,24 @@ orig folder/
 *.jfif
 fishestones (1).txt
 
-# Python Environment
-__pycache__/
-*.pyc
-venv/
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log
+
+# Environment & Secrets
 .env
+.env.local
+.env.*.local
+*.secret
+secrets.json
 
 # OS Files
 .DS_Store
 Thumbs.db
 
-# Node.js
-node_modules/
-npm-debug.log
+# Misc
+.idea/
+.vscode/
+*.swp

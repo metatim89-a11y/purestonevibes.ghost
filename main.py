@@ -179,7 +179,6 @@ async def custom_swagger_ui_html(request: Request):
 # Mount asset directories
 app.mount("/namedpics", LoggedStaticFiles(directory=os.path.join(BASE_DIR, "namedpics")), name="namedpics")
 # Mount the root directory last to serve remaining assets (css, js, etc.)
-app.mount("/", LoggedStaticFiles(directory=BASE_DIR), name="root")
 
 if __name__ == "__main__":
     import uvicorn

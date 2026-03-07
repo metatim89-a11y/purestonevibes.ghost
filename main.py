@@ -1,17 +1,19 @@
 import os
 import sqlite3
 import secrets
-from datetime import datetime
-from typing import Optional
-from fastapi import FastAPI, Request, Form, HTTPException, Depends, status, WebSocket, WebSocketDisconnect
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
-from pydantic import BaseModel
 import json
 import logging
 import asyncio
-from typing import List
+from datetime import datetime
+from typing import Optional, List
+from fastapi import FastAPI, Request, Form, HTTPException, Depends, status, WebSocket, WebSocketDisconnect
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, FileResponse
+from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel
+from starlette.responses import FileResponse as StarletteFileResponse
 
+# --- Logging Setup ---
 logging.basicConfig(level=logging.INFO, filename='scribe.log', filemode='a',
                     format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -26,7 +28,8 @@ class ConnectionManager:
         self.active_connections.append(websocket)
 
     def disconnect(self, websocket: WebSocket):
-        self.active_connections.remove(websocket)
+        if websocket in self.active_connections:
+            self.active_connections.remove(websocket)
 
     async def broadcast(self, message: str):
         for connection in self.active_connections:
@@ -38,7 +41,21 @@ class ConnectionManager:
 
 manager = ConnectionManager()
 
+# --- App Initialization ---
 app = FastAPI(title="Pure Stone Vibes | Production API", docs_url=None, redoc_url=None)
+templates = Jinja2Templates(directory="templates")
+
+# --- Custom StaticFiles with Logging ---
+class LoggedStaticFiles(StaticFiles):
+    async def get_response(self, path: str, scope: dict) -> StarletteFileResponse:
+        response = await super().get_response(path, scope)
+        if response.status_code == 200:
+            logger.info(f"Served static file: {path} (Status: {response.status_code})")
+        elif response.status_code == 304:
+            logger.info(f"Served static file (cached): {path} (Status: {response.status_code})")
+        else:
+            logger.warning(f"Failed to serve static file: {path} (Status: {response.status_code})")
+        return response
 
 # --- Error Handling Middleware ---
 @app.middleware("http")
@@ -62,44 +79,6 @@ async def error_handling_middleware(request: Request, call_next):
             content={"error": "Internal Server Error", "details": str(e)}
         )
 
-# --- WebSocket Endpoint ---
-@app.websocket("/ws/errors")
-async def websocket_endpoint(websocket: WebSocket):
-    await manager.connect(websocket)
-    try:
-        while True:
-            # Keep connection open
-            await websocket.receive_text()
-    except WebSocketDisconnect:
-        manager.disconnect(websocket)
-
-# --- Test Error Endpoint ---
-@app.get("/api/trigger_error")
-async def trigger_error():
-    """Manually trigger an error for testing the dashboard."""
-    raise ValueError("Manual test error triggered for dashboard validation!")
-
-from fastapi.templating import Jinja2Templates
-
-templates = Jinja2Templates(directory="templates")
-
-from starlette.responses import FileResponse # Import FileResponse for type hinting
-from fastapi.staticfiles import StaticFiles # Ensure StaticFiles is imported directly or as alias
-
-# Custom StaticFiles class to add logging for each served file
-class LoggedStaticFiles(StaticFiles):
-    async def get_response(self, path: str, scope: dict) -> FileResponse:
-        response = await super().get_response(path, scope)
-        if response.status_code == 200:
-            logger.info(f"Served static file: {path} (Status: {response.status_code})")
-        elif response.status_code == 304:
-            logger.info(f"Served static file (cached): {path} (Status: {response.status_code})")
-        else:
-            logger.warning(f"Failed to serve static file: {path} (Status: {response.status_code})")
-        return response
-
-app = FastAPI(title="Pure Stone Vibes | Production API", docs_url=None, redoc_url=None)
-
 # --- Configuration & Database ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "inquiries.db")
@@ -113,7 +92,6 @@ def get_db():
     finally:
         conn.close()
 
-# Initialize SQLite Table
 def init_db():
     with sqlite3.connect(DB_PATH) as conn:
         conn.execute("""
@@ -144,7 +122,23 @@ def verify_token(request: Request):
         raise HTTPException(status_code=403, detail="Forbidden")
     return token
 
+# --- WebSocket Endpoint ---
+@app.websocket("/ws/errors")
+async def websocket_endpoint(websocket: WebSocket):
+    await manager.connect(websocket)
+    try:
+        while True:
+            # Keep connection open
+            await websocket.receive_text()
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+
 # --- API Endpoints ---
+
+@app.get("/api/trigger_error")
+async def trigger_error():
+    """Manually trigger an error for testing the dashboard."""
+    raise ValueError("Manual test error triggered for dashboard validation!")
 
 @app.get("/api/inventory")
 async def get_inventory():
@@ -178,7 +172,6 @@ async def create_inquiry(
         )
         db.commit()
         print(f"Inquiry Saved: {name} for {sculpture} (ID: {sculpture_id})")
-        # Redirect to success page (standard for static forms)
         return RedirectResponse(url="/inquiry.html?success=true", status_code=303)
     except Exception as e:
         print(f"Database error: {e}")
@@ -194,16 +187,10 @@ async def get_inquiries(token: str = Depends(verify_token), db: sqlite3.Connecti
 @app.get("/api/stats")
 async def get_stats(db: sqlite3.Connection = Depends(get_db)):
     cursor = db.cursor()
-
-    # Total Inquiries
     cursor.execute("SELECT COUNT(*) FROM inquiries")
     total_inquiries = cursor.fetchone()[0]
-
-    # Unique Sculptures Inquired
     cursor.execute("SELECT COUNT(DISTINCT sculpture) FROM inquiries WHERE sculpture IS NOT NULL")
     unique_sculptures_inquired = cursor.fetchone()[0]
-
-    # Top 5 Most Inquired Sculptures
     cursor.execute("""
         SELECT sculpture, COUNT(*) as count
         FROM inquiries
@@ -213,8 +200,6 @@ async def get_stats(db: sqlite3.Connection = Depends(get_db)):
         LIMIT 5
     """)
     top_sculptures = [dict(row) for row in cursor.fetchall()]
-
-    # Recent Inquiries
     cursor.execute("""
         SELECT name, email, sculpture, created_at
         FROM inquiries
@@ -222,7 +207,6 @@ async def get_stats(db: sqlite3.Connection = Depends(get_db)):
         LIMIT 10
     """)
     recent_inquiries = [dict(row) for row in cursor.fetchall()]
-
     return {
         "total_inquiries": total_inquiries,
         "unique_sculptures_inquired": unique_sculptures_inquired,
@@ -230,7 +214,7 @@ async def get_stats(db: sqlite3.Connection = Depends(get_db)):
         "recent_inquiries": recent_inquiries
     }
 
-@app.get("/docs", response_class=HTMLResponse, include_in_schema=False) # include_in_schema=False hides it from Swagger itself
+@app.get("/docs", response_class=HTMLResponse, include_in_schema=False)
 async def custom_swagger_ui_html(request: Request):
     return templates.TemplateResponse(
         "custom_swagger_ui.html",
@@ -239,18 +223,13 @@ async def custom_swagger_ui_html(request: Request):
 
 # --- Static File Serving ---
 
-# Explicitly serve the root index.html
 @app.get("/", response_class=FileResponse)
 async def read_index():
     return FileResponse(os.path.join(BASE_DIR, "index.html"))
 
-# Mount asset directories
 app.mount("/namedpics", LoggedStaticFiles(directory=os.path.join(BASE_DIR, "namedpics")), name="namedpics")
-
-# Mount the root directory last with html=True to handle remaining assets and pages
 app.mount("/", LoggedStaticFiles(directory=BASE_DIR, html=True), name="root")
 
 if __name__ == "__main__":
     import uvicorn
-    import json
     uvicorn.run(app, host="0.0.0.0", port=8000)

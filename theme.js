@@ -1,3 +1,4 @@
+const APP_VERSION = "v1.051";
 // Run on load
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();

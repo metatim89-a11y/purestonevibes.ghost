@@ -2,51 +2,98 @@
     /* DARK THEME (Default) */
     --bg-color: #050505;
     --text-color: #eeeeee;
-    --accent-color: #ec4899; /* Pink */
+    --accent-color: #ec4899;
+    /* Pink */
     --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.05);
     --nav-bg: rgba(10, 10, 10, 0.7);
     --card-bg: rgba(22, 22, 22, 0.5);
     --muted-text: #71717a;
     --gradient-start: #1a1010;
+    --input-bg: rgba(255, 255, 255, 0.03);
+    --input-border: rgba(255, 255, 255, 0.1);
 }
 
 body.light-theme {
     /* LIGHT THEME (Based on lighttheme.jfif) */
-    --bg-color: #fce7f3; /* Soft Light Pink */
-    --text-color: #2e1065; /* Deep Purple */
-    --accent-color: #be185d; /* Deeper Pink */
+    --bg-color: #fce7f3;
+    /* Soft Light Pink */
+    --text-color: #2e1065;
+    /* Deep Purple */
+    --accent-color: #be185d;
+    /* Deeper Pink */
     --glass-bg: rgba(255, 255, 255, 0.4);
     --glass-border: rgba(0, 0, 0, 0.05);
     --nav-bg: rgba(255, 255, 255, 0.8);
     --card-bg: rgba(255, 255, 255, 0.6);
-    --muted-text: #6b21a8; /* Muted Purple */
+    --muted-text: #6b21a8;
+    /* Muted Purple */
     --gradient-start: #ffffff;
+    --input-bg: rgba(255, 255, 255, 0.6);
+    --input-border: rgba(0, 0, 0, 0.1);
 }
 
 body {
+    font-family: 'Inter', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     background-image: radial-gradient(circle at top right, var(--gradient-start), transparent);
-    transition: background-color 0.5s ease, color 0.5s ease;
+    transition: background-color 0.5s ease, color 0.5s ease, background-image 0.5s ease;
+    min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Playfair Display', serif;
 }
 
 .glass-panel {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .glass-nav {
     background: var(--nav-bg);
     border-bottom: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .gallery-card {
     background: var(--card-bg);
     border: 1px solid var(--glass-border);
+    transition: all 0.4s ease;
 }
 
-.text-pink-500 { color: var(--accent-color) !important; }
-.border-pink-500 { border-color: var(--accent-color) !important; }
-.bg-pink-500 { background-color: var(--accent-color) !important; }
-.bg-pink-600 { background-color: var(--accent-color) !important; }
+input,
+select,
+textarea {
+    background: var(--input-bg) !important;
+    border: 1px solid var(--input-border) !important;
+    color: var(--text-color) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--accent-color) !important;
+}
+
+.text-pink-500 {
+    color: var(--accent-color) !important;
+}
+
+.border-pink-500 {
+    border-color: var(--accent-color) !important;
+}
+
+.bg-pink-500 {
+    background-color: var(--accent-color) !important;
+}
+
+.bg-pink-600 {
+    background-color: var(--accent-color) !important;
+}

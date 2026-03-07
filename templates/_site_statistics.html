@@ -1,0 +1,51 @@
+<h4 class="text-xl font-bold text-white mb-4">Site Statistics</h4>
+<div id="stats-data" class="space-y-3">
+    <p class="text-zinc-400">Loading site statistics...</p>
+</div>
+<script>
+    async function fetchSiteStatisticsForModal() {
+        const statsDataElement = document.getElementById('stats-data');
+        const token = localStorage.getItem('sessionToken');
+
+        if (!token) {
+            statsDataElement.innerHTML = '<p class="text-red-400">Not logged in. Please log in.</p>';
+            setTimeout(() => window.location.href = '/login.html', 1500);
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/stats', { headers: { 'Authorization': `Bearer ${token}` } });
+            if (response.status === 403 || response.status === 401) {
+                localStorage.clear();
+                statsDataElement.innerHTML = '<p class="text-red-400">Session expired. Please log in.</p>';
+                setTimeout(() => window.location.href = '/login.html', 1500);
+                return;
+            }
+            if (!response.ok) throw new Error(`Failed to fetch site statistics: ${response.statusText}`);
+            const data = await response.json();
+            const statsHtml = `
+                <div class="flex justify-between items-center bg-black/20 p-3 rounded-xl">
+                    <span class="text-[9px] uppercase tracking-widest text-zinc-500">Total Inquiries</span>
+                    <span class="text-xs font-bold text-white">${data.total_inquiries}</span>
+                </div>
+                <div class="flex justify-between items-center bg-black/20 p-3 rounded-xl">
+                    <span class="text-[9px] uppercase tracking-widest text-zinc-500">Unique Sculptures Inquired</span>
+                    <span class="text-xs font-bold text-white">${data.unique_sculptures_inquired}</span>
+                </div>
+                <h5 class="text-sm font-semibold text-pink-400 mt-6 mb-2">Top 5 Inquired Sculptures:</h5>
+                <ul class="space-y-1">
+                    ${data.top_sculptures.map(s => `<li class="text-sm"><span class="font-bold">${s.sculpture}:</span> ${s.count} inquiries</li>`).join('')}
+                </ul>
+                <h5 class="text-sm font-semibold text-pink-400 mt-6 mb-2">Recent Inquiries:</h5>
+                <ul class="space-y-1">
+                    ${data.recent_inquiries.map(i => `<li class="text-sm">${i.name} - ${i.sculpture || 'N/A'} (${new Date(i.created_at).toLocaleDateString()})</li>`).join('')}
+                </ul>
+            `;
+            statsDataElement.innerHTML = statsHtml;
+        } catch (error) {
+            console.error('Error fetching site statistics:', error);
+            statsDataElement.innerHTML = `<p class="text-red-400">Failed to load statistics: ${error.message}</p>`;
+        }
+    }
+    fetchSiteStatisticsForModal(); // Initial fetch
+</script>

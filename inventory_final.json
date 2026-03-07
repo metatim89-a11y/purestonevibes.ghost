@@ -1,226 +1,422 @@
 {
-    "Amethyst_Moon_Bonsai_1": {
-        "base": "Moonstone (high)",
-        "leaf": "Amethyst (med)",
-        "energy": "Harmonic Pairing: Amethyst for intuition + Moonstone for new beginnings.",
+    "1": {
+        "base": "Moonstone",
+        "leaf": "Amethyst",
+        "energy": "Harmonic Pairing: Amethyst for intuition, peace + Moonstone for new beginnings.",
         "price": 45,
         "ext": "jpg",
-        "displayName": "Amethyst Moon Bonsai"
+        "base_reason": "Used for new beginnings, inner growth, and soothing emotional stress.",
+        "leaf_reason": "Used for intuition, spiritual protection, and calming the mind.",
+        "number": "1",
+        "displayName": "Celestial Amethyst Moon-Bloom",
+        "wire_color": "Silver (Plated)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Intricate root-base integration requires precise tension to secure raw stone without adhesive."
     },
-    "Rose_Quartz_Willow_2": {
-        "base": "Rose Quartz (low)",
-        "leaf": "Rose Quartz (low)",
-        "energy": "Heart Pairing: Rose Quartz for love, compassion + Rose Quartz for love, compassion. Standard root-wrap on raw stone.",
+    "2": {
+        "base": "Rose Quartz",
+        "leaf": "Rose Quartz",
+        "energy": "Heart Pairing: Rose Quartz for compassion, love, self-love + Rose Quartz for compassion, love, self-love.",
         "price": 35,
         "ext": "jpg",
-        "displayName": "Rose Quartz Willow"
+        "base_reason": "Used for unconditional love, deep inner healing, and peace.",
+        "leaf_reason": "Used for unconditional love, deep inner healing, and peace.",
+        "number": "2",
+        "displayName": "Eternal Heart Rose Quartz Willow",
+        "wire_color": "Copper (Natural)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Continuous-wire technique used from root to canopy, ensuring a seamless structural flow."
     },
-    "Verdant_Jade_Sphere_3": {
+    "3": {
         "base": "White Quartz",
         "leaf": "Jade Beads",
-        "energy": "Balance Pairing: Jade Beads for balance + White Quartz for grounding.",
+        "energy": "Harmonic Pairing: Jade Beads for balance + White Quartz for grounding.",
         "price": 81,
         "ext": "jpg",
-        "displayName": "Verdant Jade Sphere"
+        "base_reason": "Used for amplifying energy, clarity of thought, and spiritual growth.",
+        "leaf_reason": "Used for luck, friendship, and promoting self-sufficiency.",
+        "number": "3",
+        "displayName": "Verdant Clarity: Jade & Quartz Guardian",
+        "wire_color": "Silver (Plated)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "High-difficulty spiral weave on the trunk proves hours of steady-hand labor."
     },
-    "Malachite_Fire_Tree_4": {
-        "base": "Green Aventurine (low)",
-        "leaf": "Malachite (high)",
-        "energy": "Harmonic Pairing: Malachite for transformation + Green Aventurine for opportunity, optimism. Intricate root-wrap on raw stone.",
+    "4": {
+        "base": "Green Aventurine",
+        "leaf": "Malachite",
+        "energy": "Harmonic Pairing: Malachite for transformation + Green Aventurine for opportunity, optimism.",
         "price": 50,
         "ext": "jpg",
-        "displayName": "Malachite Fire Tree"
+        "base_reason": "Used for manifesting prosperity, wealth, and winning energy.",
+        "leaf_reason": "Used for deep energy cleansing and bringing positive transformation.",
+        "number": "4",
+        "displayName": "Transformation Flame: Malachite & Aventurine Oak",
+        "wire_color": "Copper (Natural)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Features over 200+ hand-twisted gemstone leaflets for maximum canopy density."
     },
-    "Midnight_Shadow_Spire_5": {
+    "5": {
         "base": "Obsidian",
         "leaf": "Grey Agate",
-        "energy": "Grounding Pairing: Grey Agate for grounding + Obsidian for grounding.",
+        "energy": "Harmonic Pairing: Grey Agate for grounding + Obsidian for grounding.",
         "price": 75,
         "ext": "jpg",
-        "displayName": "Midnight Shadow Spire"
+        "base_reason": "Used for forming a shield against negativity and providing deep grounding.",
+        "leaf_reason": "Used for grounding, emotional stability, and self-confidence.",
+        "number": "5",
+        "displayName": "Midnight Shield: Agate & Obsidian Spire",
+        "wire_color": "Silver (Plated)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Intricate root-base integration requires precise tension to secure raw stone without adhesive."
     },
-    "Lavender_Mist_Tree_6": {
+    "6": {
         "base": "Clear Quartz",
         "leaf": "Light Amethyst",
-        "energy": "Dreaming Pairing: Light Amethyst for dreaming + Clear Quartz for grounding.",
+        "energy": "Harmonic Pairing: Light Amethyst for dreaming + Clear Quartz for grounding.",
         "price": 73,
         "ext": "jpg",
-        "displayName": "Lavender Mist Tree"
+        "base_reason": "Used for focus, clarity, and amplifying the energy of other stones.",
+        "leaf_reason": "Used for balancing energy and spiritual grounding.",
+        "number": "6",
+        "displayName": "Dreamers Mist: Light Amethyst & Quartz",
+        "wire_color": "Copper (Natural)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Continuous-wire technique used from root to canopy, ensuring a seamless structural flow."
     },
-    "Royal_Purple_Oak_7": {
+    "7": {
         "base": "Amethyst Cluster",
         "leaf": "Dark Amethyst",
-        "energy": "Sobriety Pairing: Dark Amethyst for sobriety + Amethyst Cluster for grounding.",
+        "energy": "Harmonic Pairing: Dark Amethyst for sobriety + Amethyst Cluster for grounding.",
         "price": 98,
         "ext": "jpg",
-        "displayName": "Royal Purple Oak"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for balancing energy and spiritual grounding.",
+        "number": "7",
+        "displayName": "Royal Sobriety: Dark Amethyst Cluster",
+        "wire_color": "Silver (Plated)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "High-difficulty spiral weave on the trunk proves hours of steady-hand labor."
     },
-    "Sky_Turquoise_Bonsai_8": {
+    "8": {
         "base": "Driftwood",
         "leaf": "Turquoise Beads",
-        "energy": "Communication Pairing: Turquoise Beads for communication + Driftwood for grounding.",
+        "energy": "Harmonic Pairing: Turquoise Beads for communication + Driftwood for grounding.",
         "price": 68,
         "ext": "jpg",
-        "displayName": "Sky Turquoise Bonsai"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for balancing energy and spiritual grounding.",
+        "number": "8",
+        "displayName": "Communication Drift: Turquoise & Wood",
+        "wire_color": "Copper (Natural)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Features over 200+ hand-twisted gemstone leaflets for maximum canopy density."
     },
-    "Rose_Passion_Petite_9": {
+    "9": {
         "base": "Pink Wire",
         "leaf": "Rose Quartz Hearts",
-        "energy": "Compassion Pairing: Rose Quartz Hearts for compassion + Pink Wire for grounding.",
+        "energy": "Harmonic Pairing: Rose Quartz Hearts for compassion, healing + Pink Wire for grounding.",
         "price": 71,
         "ext": "jpg",
-        "displayName": "Rose Passion Petite"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for balancing energy and spiritual grounding.",
+        "number": "9",
+        "displayName": "Compassion Pulse: Rose Quartz Heart",
+        "wire_color": "Silver (Plated)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Intricate root-base integration requires precise tension to secure raw stone without adhesive."
     },
-    "Cobalt_Sky_Willow_10": {
+    "10": {
         "base": "Quartz",
         "leaf": "Sodalite",
-        "energy": "Focus Pairing: Sodalite for focus + Quartz for grounding.",
+        "energy": "Harmonic Pairing: Sodalite for focus + Quartz for grounding.",
         "price": 78,
         "ext": "jpg",
-        "displayName": "Cobalt Sky Willow"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for logic, emotional balance, and intuition.",
+        "number": "10",
+        "displayName": "Logic Flare: Sodalite & Quartz",
+        "wire_color": "Copper (Natural)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Continuous-wire technique used from root to canopy, ensuring a seamless structural flow."
     },
-    "Emerald_Vibe_Bonsai_11": {
+    "11": {
         "base": "Driftwood",
         "leaf": "Green Aventurine",
-        "energy": "Opportunity Pairing: Green Aventurine for opportunity + Driftwood for grounding.",
+        "energy": "Harmonic Pairing: Green Aventurine for opportunity, optimism + Driftwood for grounding.",
         "price": 68,
         "ext": "jpg",
-        "displayName": "Emerald Vibe Bonsai"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for manifesting prosperity, wealth, and winning energy.",
+        "number": "11",
+        "displayName": "Prosperity Root: Aventurine & Driftwood",
+        "wire_color": "Silver (Plated)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "High-difficulty spiral weave on the trunk proves hours of steady-hand labor."
     },
-    "Golden_Tiger_Oak_12": {
+    "12": {
         "base": "Black Wire",
         "leaf": "Tiger Eye Chips",
-        "energy": "Protection Pairing: Tiger Eye Chips for protection + Black Wire for grounding.",
+        "energy": "Harmonic Pairing: Tiger Eye Chips for protection + Black Wire for grounding.",
         "price": 75,
         "ext": "jpg",
-        "displayName": "Golden Tiger Oak"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for balancing energy and spiritual grounding.",
+        "number": "12",
+        "displayName": "Courage Shadow: Tiger Eye & Black Wire",
+        "wire_color": "Copper (Natural)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Features over 200+ hand-twisted gemstone leaflets for maximum canopy density."
     },
-    "Magenta_Berry_Bonsai_13": {
+    "13": {
         "base": "Purple Wire",
         "leaf": "Magenta Agate",
-        "energy": "Playful Pairing: Magenta Agate for playful + Purple Wire for grounding.",
+        "energy": "Harmonic Pairing: Magenta Agate for playful + Purple Wire for grounding.",
         "price": 68,
         "ext": "jpg",
-        "displayName": "Magenta Berry Bonsai"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for balancing energy and spiritual grounding.",
+        "number": "13",
+        "displayName": "Playful Spirit: Magenta Agate Bonsai",
+        "wire_color": "Silver (Plated)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Intricate root-base integration requires precise tension to secure raw stone without adhesive."
     },
-    "Prosperity_Willow_14": {
+    "14": {
         "base": "Raw Green Jade",
         "leaf": "Genuine Malachite",
-        "energy": "Abundance Pairing: Genuine Malachite for abundance + Raw Green Jade for grounding.",
+        "energy": "Harmonic Pairing: Genuine Malachite for abundance + Raw Green Jade for grounding.",
         "price": 93,
         "ext": "jpg",
-        "displayName": "Prosperity Willow"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for balancing energy and spiritual grounding.",
+        "number": "14",
+        "displayName": "Abundance Grove: Raw Jade & Malachite",
+        "wire_color": "Copper (Natural)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Continuous-wire technique used from root to canopy, ensuring a seamless structural flow."
     },
-    "Spring_Bloom_Willow_15": {
+    "15": {
         "base": "White Quartz",
         "leaf": "Cherry Quartz",
-        "energy": "Beginnings Pairing: Cherry Quartz for beginnings + White Quartz for grounding.",
+        "energy": "Harmonic Pairing: Cherry Quartz for beginnings + White Quartz for grounding.",
         "price": 71,
         "ext": "jpg",
-        "displayName": "Spring Bloom Willow"
+        "base_reason": "Used for amplifying energy, clarity of thought, and spiritual growth.",
+        "leaf_reason": "Used for balancing energy and spiritual grounding.",
+        "number": "15",
+        "displayName": "New Horizon: Cherry Quartz & White Quartz",
+        "wire_color": "Silver (Plated)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "High-difficulty spiral weave on the trunk proves hours of steady-hand labor."
     },
-    "Rose_Aura_Bonsai_16": {
+    "16": {
         "base": "Raw Rose Quartz",
         "leaf": "Rose Quartz",
-        "energy": "Self-Love Pairing: Rose Quartz for self-love + Raw Rose Quartz for grounding.",
+        "energy": "Harmonic Pairing: Rose Quartz for compassion, love, self-love + Raw Rose Quartz for grounding.",
         "price": 88,
         "ext": "jpg",
-        "displayName": "Rose Aura Bonsai"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for unconditional love, deep inner healing, and peace.",
+        "number": "16",
+        "displayName": "Pure Love: Raw & Tumbled Rose Quartz",
+        "wire_color": "Copper (Natural)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Features over 200+ hand-twisted gemstone leaflets for maximum canopy density."
     },
-    "Solar_Flare_Willow_17": {
+    "17": {
         "base": "Sunstone",
         "leaf": "Carnelian",
-        "energy": "Confidence Pairing: Carnelian for confidence + Sunstone for grounding.",
+        "energy": "Harmonic Pairing: Carnelian for confidence, grounding + Sunstone for grounding.",
         "price": 83,
         "ext": "jpg",
-        "displayName": "Solar Flare Willow"
+        "base_reason": "Used for leadership and good fortune.",
+        "leaf_reason": "Used for motivation, endurance, and leadership.",
+        "number": "17",
+        "displayName": "Leadership Flare: Carnelian & Sunstone",
+        "wire_color": "Silver (Plated)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Intricate root-base integration requires precise tension to secure raw stone without adhesive."
     },
-    "Forest_Guardian_Tree_18": {
-        "base": "Jasper (med)",
-        "leaf": "Unakite (med)",
-        "energy": "Stability Pairing: Unakite for vision, balance + Jasper for nurturing, grounding. Standard root-wrap on raw stone.",
+    "18": {
+        "base": "Jasper",
+        "leaf": "Unakite",
+        "energy": "Harmonic Pairing: Unakite for balance, vision + Jasper for grounding, nurturing.",
         "price": 40,
         "ext": "jpg",
-        "displayName": "Forest Guardian Tree"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for balancing energy and spiritual grounding.",
+        "number": "18",
+        "displayName": "Nurturers Vision: Unakite & Jasper",
+        "wire_color": "Copper (Natural)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Continuous-wire technique used from root to canopy, ensuring a seamless structural flow."
     },
-    "Ocean_Breath_Bonsai_19": {
+    "19": {
         "base": "Sea Glass",
         "leaf": "Aquamarine",
-        "energy": "Tranquility Pairing: Aquamarine for tranquility + Sea Glass for grounding.",
+        "energy": "Harmonic Pairing: Aquamarine for tranquility + Sea Glass for grounding.",
         "price": 88,
         "ext": "jpg",
-        "displayName": "Ocean Breath Bonsai"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for balancing energy and spiritual grounding.",
+        "number": "19",
+        "displayName": "Tranquil Tide: Aquamarine & Sea Glass",
+        "wire_color": "Silver (Plated)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "High-difficulty spiral weave on the trunk proves hours of steady-hand labor."
     },
-    "Fire_Spirit_Oak_20": {
+    "20": {
         "base": "Carnelian",
         "leaf": "Red Jasper",
-        "energy": "Vitality Pairing: Red Jasper for vitality + Carnelian for grounding.",
+        "energy": "Harmonic Pairing: Red Jasper for vitality + Carnelian for confidence, grounding.",
         "price": 78,
         "ext": "jpg",
-        "displayName": "Fire Spirit Oak"
+        "base_reason": "Used for motivation, endurance, and leadership.",
+        "leaf_reason": "Used for balancing energy and spiritual grounding.",
+        "number": "20",
+        "displayName": "Vitality Spirit: Red Jasper & Carnelian",
+        "wire_color": "Copper (Natural)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Features over 200+ hand-twisted gemstone leaflets for maximum canopy density."
     },
-    "Moonlit_Winter_Oak_21": {
-        "base": "Wire Root (low)",
-        "leaf": "Moonstone (high)",
-        "energy": "Stability Pairing: Moonstone for new beginnings + Wire Root for grounding stability. Standard root-wrap on raw stone.",
+    "21": {
+        "base": "Wire Root",
+        "leaf": "Moonstone",
+        "energy": "Harmonic Pairing: Moonstone for new beginnings + Wire Root for grounding stability.",
         "price": 48,
         "ext": "jpg",
-        "displayName": "Moonlit Winter Oak"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for new beginnings, inner growth, and soothing emotional stress.",
+        "number": "21",
+        "displayName": "Lunar Stability: Moonstone & Rooted Wire",
+        "wire_color": "Silver (Plated)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Intricate root-base integration requires precise tension to secure raw stone without adhesive."
     },
-    "Amethyst_Cloud_Oak_22": {
+    "22": {
         "base": "Agate",
         "leaf": "Amethyst",
-        "energy": "Peace Pairing: Amethyst for peace + Agate for grounding.",
+        "energy": "Harmonic Pairing: Amethyst for intuition, peace + Agate for grounding.",
         "price": 83,
         "ext": "jpg",
-        "displayName": "Amethyst Cloud Oak"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for intuition, spiritual protection, and calming the mind.",
+        "number": "22",
+        "displayName": "Intuitive Earth: Amethyst & Agate",
+        "wire_color": "Copper (Natural)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Continuous-wire technique used from root to canopy, ensuring a seamless structural flow."
     },
-    "Ethereal_Amethyst_Petite_23": {
+    "23": {
         "base": "Clear Quartz Point",
         "leaf": "Amethyst Chips",
-        "energy": "Amplification Pairing: Amethyst Chips for amplification + Clear Quartz Point for grounding.",
+        "energy": "Harmonic Pairing: Amethyst Chips for amplification + Clear Quartz Point for grounding.",
         "price": 73,
         "ext": "jpg",
-        "displayName": "Ethereal Amethyst Petite"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for balancing energy and spiritual grounding.",
+        "number": "23",
+        "displayName": "Amplified Spirit: Amethyst & Quartz Point",
+        "wire_color": "Silver (Plated)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "High-difficulty spiral weave on the trunk proves hours of steady-hand labor."
     },
-    "Soft_Rose_Zen_24": {
+    "24": {
         "base": "Fluorite",
         "leaf": "Rose Quartz Hearts",
-        "energy": "Healing Pairing: Rose Quartz Hearts for healing + Fluorite for grounding.",
+        "energy": "Harmonic Pairing: Rose Quartz Hearts for compassion, healing + Fluorite for grounding.",
         "price": 85,
         "ext": "jpg",
-        "displayName": "Soft Rose Zen"
+        "base_reason": "Used for focus and clearing the mind.",
+        "leaf_reason": "Used for balancing energy and spiritual grounding.",
+        "number": "24",
+        "displayName": "Healing Focus: Rose Hearts & Fluorite",
+        "wire_color": "Copper (Natural)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Features over 200+ hand-twisted gemstone leaflets for maximum canopy density."
     },
-    "Prosperity_Jade_Spire_25": {
-        "base": "Jasper (med)",
-        "leaf": "Jade (med)",
-        "energy": "Abundance Pairing: Jade for luck, prosperity + Jasper for nurturing, grounding. Intricate root-wrap on raw stone.",
+    "25": {
+        "base": "Jasper",
+        "leaf": "Jade",
+        "energy": "Harmonic Pairing: Jade for luck, prosperity + Jasper for grounding, nurturing.",
         "price": 45,
         "ext": "jpg",
-        "displayName": "Prosperity Jade Spire"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for balancing energy and spiritual grounding.",
+        "number": "25",
+        "displayName": "Lucky Nurturer: Jade & Jasper Spire",
+        "wire_color": "Silver (Plated)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Intricate root-base integration requires precise tension to secure raw stone without adhesive."
     },
-    "Verdant_Jade_Sphere_26": {
+    "26": {
         "base": "White Quartz",
         "leaf": "Jade Beads",
-        "energy": "Balance Pairing: Jade Beads for balance + White Quartz for grounding.",
+        "energy": "Harmonic Pairing: Jade Beads for balance + White Quartz for grounding.",
         "price": 81,
         "ext": "jpg",
-        "displayName": "Verdant Jade Sphere"
+        "base_reason": "Used for amplifying energy, clarity of thought, and spiritual growth.",
+        "leaf_reason": "Used for luck, friendship, and promoting self-sufficiency.",
+        "number": "26",
+        "displayName": "Harmonic Balance: Jade & White Quartz",
+        "wire_color": "Copper (Natural)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Continuous-wire technique used from root to canopy, ensuring a seamless structural flow."
     },
-    "Emerald_Vibe_Bonsai_27": {
+    "27": {
         "base": "Driftwood",
         "leaf": "Green Aventurine",
-        "energy": "Opportunity Pairing: Green Aventurine for opportunity + Driftwood for grounding.",
+        "energy": "Harmonic Pairing: Green Aventurine for opportunity, optimism + Driftwood for grounding.",
         "price": 68,
         "ext": "jpg",
-        "displayName": "Emerald Vibe Bonsai"
+        "base_reason": "Used for balancing energy and spiritual grounding.",
+        "leaf_reason": "Used for manifesting prosperity, wealth, and winning energy.",
+        "number": "27",
+        "displayName": "Manifest Grove: Aventurine & Driftwood II",
+        "wire_color": "Silver (Plated)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "High-difficulty spiral weave on the trunk proves hours of steady-hand labor."
     },
-    "Sodalite_Solar_Tree_28": {
+    "28": {
         "base": "Carnelian",
         "leaf": "Sodalite Chips",
-        "energy": "Logic Pairing: Sodalite Chips for logic + Carnelian for grounding.",
+        "energy": "Harmonic Pairing: Sodalite Chips for logic + Carnelian for confidence, grounding.",
         "price": 81,
         "ext": "jpg",
-        "displayName": "Sodalite Solar Tree"
+        "base_reason": "Used for motivation, endurance, and leadership.",
+        "leaf_reason": "Used for balancing energy and spiritual grounding.",
+        "number": "28",
+        "displayName": "Logical Fire: Sodalite & Carnelian",
+        "wire_color": "Copper (Natural)",
+        "wire_gauge": "Trunk: 20g | Leaves: 26g",
+        "tension_difficulty": "8/10 (High Tension Structural Wrap)",
+        "labor_highlight": "Features over 200+ hand-twisted gemstone leaflets for maximum canopy density."
     }
 }

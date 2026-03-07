@@ -27,8 +27,8 @@ if (!API_KEY) {
 }
 
 const genAI = new GoogleGenerativeAI(API_KEY);
-// gemini-1.5-flash has a separate free-tier quota from gemini-2.0-flash
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+// gemini-2.0-flash-lite has a separate free-tier quota
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
 
 const PICS_DIR = path.join(__dirname, "namedpics");
 const OUTPUT_FILE = path.join(__dirname, "inventory_ai_analyzed.json");

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# 1. Random Fun Stone Messages
+MESSAGES=(
+    "Amethyst-powered sync: 28 gems secured."
+    "Vibes are 100% pure. Pushing to the grove."
+    "Hand-wrapped code committed with 20g tension."
+    "Celestial Moon-Bloom update: Data points locked."
+    "Root-to-Canopy sync complete. The vibes are rising."
+    "Polishing the inventory: 100% accurate labeling."
+)
+
+RANDOM_MSG=${MESSAGES[$RANDOM % ${#MESSAGES[@]}]}
+
+echo -e "\033[1;35m--- PURE STONE VIBES SYNC ---\033[0m"
+
+# 2. Stage
+echo "Staging all changes..."
+git add .
+
+# 3. Commit
+echo "Committing with message: $RANDOM_MSG"
+git commit -m "$RANDOM_MSG"
+
+# 4. Sync (Pull)
+echo "Syncing with GitHub..."
+git pull --rebase
+
+# 5. Push
+echo "Pushing to the remote Grove..."
+git push
+
+echo -e "\033[1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---\033[0m"

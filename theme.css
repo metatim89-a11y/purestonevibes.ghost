@@ -1,0 +1,52 @@
+:root {
+    /* DARK THEME (Default) */
+    --bg-color: #050505;
+    --text-color: #eeeeee;
+    --accent-color: #ec4899; /* Pink */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --nav-bg: rgba(10, 10, 10, 0.7);
+    --card-bg: rgba(22, 22, 22, 0.5);
+    --muted-text: #71717a;
+    --gradient-start: #1a1010;
+}
+
+body.light-theme {
+    /* LIGHT THEME (Based on lighttheme.jfif) */
+    --bg-color: #fce7f3; /* Soft Light Pink */
+    --text-color: #2e1065; /* Deep Purple */
+    --accent-color: #be185d; /* Deeper Pink */
+    --glass-bg: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --nav-bg: rgba(255, 255, 255, 0.8);
+    --card-bg: rgba(255, 255, 255, 0.6);
+    --muted-text: #6b21a8; /* Muted Purple */
+    --gradient-start: #ffffff;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    background-image: radial-gradient(circle at top right, var(--gradient-start), transparent);
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+}
+
+.glass-nav {
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.gallery-card {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+}
+
+.text-pink-500 { color: var(--accent-color) !important; }
+.border-pink-500 { border-color: var(--accent-color) !important; }
+.bg-pink-500 { background-color: var(--accent-color) !important; }
+.bg-pink-600 { background-color: var(--accent-color) !important; }

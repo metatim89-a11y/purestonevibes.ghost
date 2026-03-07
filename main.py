@@ -4,6 +4,7 @@ import secrets
 import json
 import logging
 import asyncio
+import uuid # Added for UUID generation
 from datetime import datetime
 from typing import Optional, List
 from fastapi import FastAPI, Request, Form, HTTPException, Depends, status, WebSocket, WebSocketDisconnect

@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     updateAuthUI();
+    displayAppVersion();
 });
 
 function initTheme() {
@@ -36,4 +37,20 @@ function logout() {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('currentUser');
     window.location.reload();
+}
+
+async function displayAppVersion() {
+    try {
+        const response = await fetch('/version.json');
+        if (response.ok) {
+            const data = await response.json();
+            const versionDiv = document.createElement('div');
+            // Fixed to bottom right, subtle text
+            versionDiv.className = 'fixed bottom-2 right-2 text-[9px] text-zinc-500 font-mono z-50 pointer-events-none opacity-50 tracking-widest';
+            versionDiv.textContent = `v${data.version}`;
+            document.body.appendChild(versionDiv);
+        }
+    } catch (e) {
+        console.error("Failed to load app version", e);
+    }
 }

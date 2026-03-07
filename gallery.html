@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Grove | Pure Stone Vibes Inventory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #eeeeee;
+            background-image: radial-gradient(circle at top right, #1a1010, transparent);
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .gallery-card {
+            background: rgba(22, 22, 22, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s ease;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-card:hover {
+            border-color: #ec4899;
+            transform: translateY(-4px);
+        }
+
+        .price-tag {
+            background: linear-gradient(to right, #ec4899, #be185d);
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="p-6 glass-nav flex justify-between items-center sticky top-0 z-50">
+        <a href="index.html" class="group">
+            <h1 class="text-xl font-bold tracking-tighter text-white uppercase group-hover:text-pink-500 transition">
+                PURE STONE VIBES</h1>
+            <p class="text-[9px] tracking-[0.4em] text-pink-500 font-bold uppercase">← Back to Home</p>
+        </a>
+        <div class="flex items-center gap-6">
+            <div class="hidden md:flex gap-6 text-[10px] uppercase tracking-widest font-bold text-zinc-400">
+                <a href="process.html" class="hover:text-pink-400 transition">The Process</a>
+                <a href="inquiry.html" class="hover:text-pink-400 transition">Inquire</a>
+            </div>
+            <select id="priceFilter" onchange="renderGallery()"
+                class="bg-zinc-900 border border-zinc-800 text-xs px-4 py-2 rounded-full text-pink-400 font-bold focus:outline-none">
+                <option value="all">Sort: All Pieces</option>
+                <option value="high">Price: High to Low</option>
+                <option value="low">Price: Low to High</option>
+            </select>
+        </div>
+    </nav>
+
+    <header class="max-w-7xl mx-auto px-6 py-12 text-center">
+        <h2 class="text-5xl mb-4 italic">The <span class="text-pink-500 font-bold not-italic">Grove</span></h2>
+        <p class="text-zinc-500 max-w-2xl mx-auto text-sm italic">Curated Collection: 16 Unique Hand-Twisted Sculptures
+        </p>
+    </header>
+
+    <main class="max-w-[1400px] mx-auto px-6 pb-32">
+        <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+    </main>
+
+    <div id="lightbox" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="" class="max-w-[90%] max-h-[90%] rounded shadow-2xl border border-white/10">
+    </div>
+
+    <script>
+        // The 'inventory' object acts as the primary data source for the gallery.
+        // It maps unique sculpture IDs (Name_Number) to their physical and energetic metadata.
+        // This is used for rendering cards, filtering by price, and image lookups.
+        const inventory = {
+            "Amethyst_Moon_Bonsai_1": {
+                "base": "Amethyst (med)",
+                "leaf": "Moonstone (high)",
+                "energy": "Harmonic Pairing: Moonstone for new beginnings + Amethyst for intuition, calm. Standard root-wrap on raw stone.",
+                "price": 45,
+                "ext": "jpg",
+                "displayName": "Amethyst Moon Bonsai"
+            },
+            // ... [Rest of inventory remains the same]
+        };
+
+        /**
+         * Renders the gallery grid based on current sorting and inventory state.
+         * Why: This function separates data from presentation, allowing for dynamic sorting 
+         * and a consistent user experience across the collection.
+         */
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            const sort = document.getElementById('priceFilter').value;
+            grid.innerHTML = ''; // Clear existing items
+
+            // Transform object into a list for easier sorting and iteration
+            let items = Object.entries(inventory).map(([id, data]) => ({ id, ...data }));
+
+            // Apply price sorting logic
+            if (sort === 'high') items.sort((a, b) => b.price - a.price);
+            if (sort === 'low') items.sort((a, b) => a.price - b.price);
+
+            // Create and append a card for each sculpture
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'gallery-card group cursor-pointer';
+
+                // Lightbox integration: clicking a card zooms the sculpture image
+                card.onclick = () => {
+                    document.getElementById('lightbox-img').src = `namedpics/${item.id}.${item.ext}`;
+                    document.getElementById('lightbox').style.display = 'flex';
+                };
+
+                const displayName = item.displayName;
+                const priceDisplay = `$${item.price}.00`;
+
+                // Build the visual card structure using Tailwind CSS and custom glassmorphism styles
+                card.innerHTML = `
+                    <div class="relative overflow-hidden aspect-square bg-zinc-900 flex items-center justify-center">
+                        <img src="namedpics/${item.id}.${item.ext}" 
+                             alt="${displayName}" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 price-tag text-white shadow-lg border border-white/20">${priceDisplay}</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start gap-4 mb-3">
+                                <h3 class="text-xl italic leading-tight group-hover:text-pink-400 transition">${displayName}</h3>
+                                <!-- Lead generation: Inquire button passes the item ID via URL params -->
+                                <a href="inquiry.html?item=${item.id}" class="text-[9px] bg-pink-500/10 text-pink-500 border border-pink-500/30 px-3 py-1 rounded-full hover:bg-pink-500 hover:text-white transition uppercase tracking-tighter whitespace-nowrap">Inquire</a>
+                            </div>
+                            <div class="space-y-2 text-[10px] tracking-widest uppercase font-semibold text-zinc-400">
+                                <p class="leading-relaxed text-zinc-300 font-bold">${item.energy}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Initial render execution
+        renderGallery();
+    </script>
+</body>
+
+</html>

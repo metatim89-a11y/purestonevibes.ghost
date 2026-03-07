@@ -4,31 +4,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Process | Pure Stone Vibes</title>
+    <title>Pure Stone Vibes | Handcrafted by Fish</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="theme.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #eeeeee;
+            background-image: radial-gradient(circle at top right, #1a1010, transparent);
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Glassmorphism Navigation */
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Glassmorphism Section */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+        }
+
+        .gallery-card {
+            background: rgba(22, 22, 22, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .gallery-card:hover {
+            border-color: #ec4899;
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .img-box img {
+            transition: transform 1.2s ease;
+            filter: brightness(0.9) contrast(1.1);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-card:hover .img-box img {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 
 <body>
-    <nav class="p-6 glass-nav flex justify-between items-center sticky top-0 z-50">
-        <a href="index.html" class="group">
-            <h1 class="text-xl font-bold tracking-tighter text-white uppercase group-hover:text-pink-500 transition">
-                PURE STONE VIBES</h1>
-            <p class="text-[9px] tracking-[0.4em] text-pink-500 font-bold uppercase">← Back to Home</p>
-        </a>
-        <div class="hidden md:flex gap-8 text-[11px] uppercase tracking-widest font-semibold items-center">
-            <a href="gallery.html" class="hover:text-pink-400 transition">The Grove</a>
+    <nav class="p-6 glass-nav flex flex-col md:flex-row justify-between items-center sticky top-0 z-50">
+        <div class="text-center md:text-left">
+            <h1 class="text-3xl font-bold tracking-tighter text-white uppercase">PURE STONE VIBES</h1>
+            <p class="text-[10px] tracking-[0.5em] text-pink-500 font-bold uppercase">Artist: Fish</p>
+        </div>
+        <div class="flex gap-8 text-[11px] uppercase tracking-widest font-semibold mt-4 md:mt-0">
+            <a href="gallery.html"
+                class="text-pink-400 font-bold hover:text-white transition underline decoration-2 underline-offset-8">The
+                Grove</a>
             <a href="auction.html" class="hover:text-pink-400 transition">Auctions</a>
-                            <a href="dashboard.html" class="hover:text-pink-400 transition">Dashboard</a>
-                            <a href="inquiry.html"
-            
+            <a href="process.html" class="hover:text-pink-400 transition">The Process</a>
+            <a href="dashboard.html" class="hover:text-pink-400 transition">Dashboard</a>
+            <a href="inquiry.html"
                 class="border border-pink-500/40 px-6 py-2 text-pink-500 hover:bg-pink-500 hover:text-white transition uppercase rounded-full">Inquire</a>
 
             <!-- Auth & Theme UI -->
-            <div class="flex items-center gap-4 ml-2 pl-4 border-l border-white/10">
+            <div class="flex items-center gap-4 ml-4 pl-4 border-l border-white/10">
                 <button onclick="toggleTheme()" class="hover:text-pink-500 transition" title="Toggle Theme">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -48,82 +104,106 @@
         </div>
     </nav>
 
-    <header class="max-w-4xl mx-auto px-6 py-20 text-center">
-        <h2 class="text-6xl mb-6 italic">The <span class="text-pink-500 font-bold not-italic">Artistry</span></h2>
-        <p class="text-zinc-500 text-lg leading-relaxed">
-            Every sculpture is a meditation. Hand-twisted in Texas, these pieces bridge the gap between raw geological
-            energy and fluid organic form.
+    <header class="max-w-7xl mx-auto px-6 py-32 text-center">
+        <h2 class="text-7xl md:text-9xl mb-8 leading-none">Art with <br><span
+                class="italic text-pink-500 font-light">Vibration.</span></h2>
+        <p class="text-zinc-500 max-w-2xl mx-auto text-lg leading-relaxed mb-10">
+            Unique wire-wrapped sculptures featuring authentic gemstones. Hand-twisted in Texas by Fish.
         </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="auction.html"
+                class="bg-pink-600 hover:bg-pink-700 text-white px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] transition shadow-xl shadow-pink-500/20">
+                View Live Auctions
+            </a>
+            <a href="#grove"
+                class="border border-white/10 hover:border-white/30 px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] transition">
+                Explore The Grove
+            </a>
+        </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 space-y-32 pb-32">
-        <!-- Section 1 -->
-        <section class="grid md:grid-cols-2 gap-16 items-center">
-            <div class="space-y-6">
-                <h3 class="text-4xl">Sourcing the <span class="text-pink-500">Foundation</span></h3>
-                <p class="text-zinc-400 leading-loose">
-                    The process begins with the base. Fish hand-selects raw geodes, polished agates, and petrified wood
-                    from around the world. These bases aren't just weights; they are the anchors for the tree's
-                    energetic frequency.
-                </p>
-                <ul class="text-xs tracking-[0.2em] uppercase space-y-3 text-pink-400 font-bold">
-                    <li>• Raw Fluorite for Healing</li>
-                    <li>• Obsidian for Grounding</li>
-                    <li>• Amethyst for Peace</li>
-                </ul>
-            </div>
-            <div class="relative">
-                <img src="namedpics/Earth_Root_Bonsai.jpg" class="rounded-3xl border border-white/10 shadow-2xl"
-                    alt="Raw Stone Foundation">
-                <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-pink-500/10 blur-3xl rounded-full"></div>
-            </div>
-        </section>
+    <!-- Tailwind Purge Fix: Ensure vibe classes are included -->
+    <div class="hidden">
+        <div class="vibe-rose vibe-amethyst vibe-emerald vibe-sapphire vibe-amber"></div>
+    </div>
 
-        <!-- Section 2 -->
-        <section class="grid md:grid-cols-2 gap-16 items-center">
-            <div class="order-2 md:order-1 relative">
-                <img src="namedpics/Amethyst_Moon_Bonsai_1.jpg" class="rounded-3xl border border-white/10 shadow-2xl"
-                    alt="Wire Wrapping Technique">
-            </div>
-            <div class="order-1 md:order-2 space-y-6">
-                <h3 class="text-4xl">The <span class="text-pink-500">Twist</span></h3>
-                <p class="text-zinc-400 leading-loose">
-                    Using copper, silver, and colored jewelry-grade wire, Fish employs a unique "root-to-canopy"
-                    twisting technique. No glue is used in the tree structure itself—the entire form is held together by
-                    the tension of over 100 individual wire strands.
+    <section id="grove" class="max-w-7xl mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <a href="gallery.html" class="gallery-card group">
+                <div class="img-box aspect-[4/5] md:aspect-square">
+                    <img src="namedpics/Midnight_Shadow_Spire_5.jpg" alt="Midnight Shadow Spire Showcase">
+                </div>
+                <div class="p-8">
+                    <h3 class="text-3xl mb-1 italic">The <span class="text-pink-500 font-bold not-italic">Grove</span>
+                    </h3>
+                    <p class="text-zinc-500 uppercase text-[10px] tracking-widest">Full 28-Piece Collection</p>
+                </div>
+            </a>
+
+            <a href="auction.html" class="gallery-card group border-pink-500/30">
+                <div class="img-box aspect-[4/5] md:aspect-square relative">
+                    <img src="namedpics/Royal_Purple_Oak_7.jpg" alt="Live Auction Display">
+                    <div
+                        class="absolute top-4 right-4 bg-pink-600 text-white text-[8px] font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">
+                        Live Soon</div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-3xl mb-1 italic">Auction <span
+                            class="text-pink-500 font-bold not-italic">House</span></h3>
+                    <p class="text-zinc-500 uppercase text-[10px] tracking-widest">Twice-Weekly Events</p>
+                </div>
+            </a>
+
+            <a href="inquiry.html" class="gallery-card group">
+                <div class="img-box aspect-[4/5] md:aspect-square">
+                    <img src="namedpics/Earth_Root_Bonsai.jpg" alt="Commission Inquiry">
+                </div>
+                <div class="p-8">
+                    <h3 class="text-3xl mb-1 italic">Bespoke <span
+                            class="text-pink-500 font-bold not-italic">Inquiry</span></h3>
+                    <p class="text-zinc-500 uppercase text-[10px] tracking-widest">Custom Commissions</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <section id="process" class="max-w-6xl mx-auto my-24 p-12 glass-panel">
+        <div class="grid md:grid-cols-2 gap-20 items-center">
+            <div class="order-2 md:order-1">
+                <h3 class="text-4xl mb-6 font-bold uppercase">The <span class="text-pink-500 italic">Process</span></h3>
+                <p class="text-zinc-400 leading-loose mb-8">
+                    Fish hand-selects every gemstone and wire strand to ensure each sculpture carries a unique energy.
+                    No two twists are the same.
                 </p>
-                <div class="glass-panel p-6">
-                    <p class="italic text-zinc-300">"The wire represents the flow of life, while the stones represent
-                        the milestones we reach along the way." — Fish</p>
+                <div class="flex flex-wrap gap-4">
+                    <span
+                        class="px-4 py-1 border border-zinc-700 rounded-full text-[10px] uppercase tracking-widest">Genuine
+                        Stones</span>
+                    <span
+                        class="px-4 py-1 border border-zinc-700 rounded-full text-[10px] uppercase tracking-widest">Hand-Twisted</span>
+                    <span
+                        class="px-4 py-1 border border-zinc-700 rounded-full text-[10px] uppercase tracking-widest">Texas
+                        Crafted</span>
                 </div>
             </div>
-        </section>
 
-        <!-- New Section: The Leaflet -->
-        <section class="grid md:grid-cols-2 gap-16 items-center">
-            <div class="space-y-6">
-                <h3 class="text-4xl">The <span class="text-pink-500">Leaflet</span></h3>
-                <p class="text-zinc-400 leading-loose">
-                    The final stage is the crown. Hundreds of individual gemstone "leaflets" are meticulously hand-wired
-                    onto the branches. Each leaflet is chosen for its specific vibration, creating a symphony of color
-                    and energy that brings the sculpture to life.
-                </p>
-                <p class="text-zinc-500 text-sm italic">
-                    From Citrine clusters to Lapis Lazuli points, every leaflet is a unique expression of nature's
-                    beauty.
-                </p>
+
+
+            <div class="order-1 md:order-2 grid grid-cols-2 gap-4">
+                <img src="namedpics/Earth_Root_Bonsai.jpg" alt="Artistic Detail 1"
+                    class="rounded-2xl border border-white/5 shadow-2xl">
+                <img src="namedpics/Amethyst_Moon_Bonsai_1.jpg" alt="Artistic Detail 2"
+                    class="rounded-2xl border border-white/5 shadow-2xl translate-y-8">
             </div>
-            <div class="relative">
-                <img src="namedpics/Emerald_Vibe_Bonsai_11.jpg" class="rounded-3xl border border-white/10 shadow-2xl"
-                    alt="Gemstone Leaflet Detail">
-                <div class="absolute -top-6 -left-6 w-32 h-32 bg-pink-500/10 blur-3xl rounded-full"></div>
-            </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
     <footer class="py-20 text-center opacity-30">
-        <p class="text-[10px] tracking-[0.6em] uppercase text-white">Pure Stone Vibes &copy; 2026</p>
+        <p class="text-[10px] tracking-[0.6em] uppercase text-white">Pure Stone Vibes &copy; 2026 | <span class="opacity-50">v1.051</span></p>
     </footer>
+
     <script src="theme.js"></script>
 </body>
 

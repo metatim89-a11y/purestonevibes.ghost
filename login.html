@@ -4,91 +4,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Pure Stone Vibes</title>
+    <title>Pure Stone Vibes | Handcrafted by Fish</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="theme.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #eeeeee;
+            background-image: radial-gradient(circle at top right, #1a1010, transparent);
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Glassmorphism Navigation */
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Glassmorphism Section */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+        }
+
+        .gallery-card {
+            background: rgba(22, 22, 22, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .gallery-card:hover {
+            border-color: #ec4899;
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .img-box img {
+            transition: transform 1.2s ease;
+            filter: brightness(0.9) contrast(1.1);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-card:hover .img-box img {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-6">
-
-    <div class="glass-panel max-w-md w-full p-10 space-y-8 relative overflow-hidden">
-        <!-- Decoration -->
-        <div class="absolute -top-10 -right-10 w-32 h-32 bg-pink-500/20 blur-3xl rounded-full"></div>
-
-        <div class="text-center relative z-10">
-            <h1 class="text-4xl font-bold mb-2 italic">Access <span
-                    class="text-pink-500 not-italic font-bold">Vibration</span></h1>
-            <p class="text-zinc-500 text-xs uppercase tracking-[0.3em]">Demo Marketplace Entrance</p>
+<body>
+    <nav class="p-6 glass-nav flex flex-col md:flex-row justify-between items-center sticky top-0 z-50">
+        <div class="text-center md:text-left">
+            <h1 class="text-3xl font-bold tracking-tighter text-white uppercase">PURE STONE VIBES</h1>
+            <p class="text-[10px] tracking-[0.5em] text-pink-500 font-bold uppercase">Artist: Fish</p>
         </div>
+        <div class="flex gap-8 text-[11px] uppercase tracking-widest font-semibold mt-4 md:mt-0">
+            <a href="gallery.html"
+                class="text-pink-400 font-bold hover:text-white transition underline decoration-2 underline-offset-8">The
+                Grove</a>
+            <a href="auction.html" class="hover:text-pink-400 transition">Auctions</a>
+            <a href="process.html" class="hover:text-pink-400 transition">The Process</a>
+            <a href="dashboard.html" class="hover:text-pink-400 transition">Dashboard</a>
+            <a href="inquiry.html"
+                class="border border-pink-500/40 px-6 py-2 text-pink-500 hover:bg-pink-500 hover:text-white transition uppercase rounded-full">Inquire</a>
 
-        <form id="login-form" class="space-y-6 relative z-10">
-            <div class="space-y-4">
-                <div>
-                    <label class="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 block">Username</label>
-                    <input type="text" id="username" placeholder="tester1" required
-                        class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none transition">
+            <!-- Auth & Theme UI -->
+            <div class="flex items-center gap-4 ml-4 pl-4 border-l border-white/10">
+                <button onclick="toggleTheme()" class="hover:text-pink-500 transition" title="Toggle Theme">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707zM12 5a7 7 0 100 14 7 7 0 000-14z">
+                        </path>
+                    </svg>
+                </button>
+                <a href="login.html" id="login-link"
+                    class="text-[10px] uppercase tracking-widest hover:text-pink-500 transition">Login</a>
+                <div id="user-display"
+                    class="hidden text-[10px] uppercase tracking-widest text-pink-500 font-bold flex items-center gap-3">
+                    <span id="username-val"></span>
+                    <button onclick="logout()"
+                        class="text-zinc-500 hover:text-white transition lowercase font-normal">[logout]</button>
                 </div>
-                <div>
-                    <label class="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 block">Password</label>
-                    <input type="password" id="password" placeholder="••••••••" required
-                        class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none transition">
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-7xl mx-auto px-6 py-32 text-center">
+        <h2 class="text-7xl md:text-9xl mb-8 leading-none">Art with <br><span
+                class="italic text-pink-500 font-light">Vibration.</span></h2>
+        <p class="text-zinc-500 max-w-2xl mx-auto text-lg leading-relaxed mb-10">
+            Unique wire-wrapped sculptures featuring authentic gemstones. Hand-twisted in Texas by Fish.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="auction.html"
+                class="bg-pink-600 hover:bg-pink-700 text-white px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] transition shadow-xl shadow-pink-500/20">
+                View Live Auctions
+            </a>
+            <a href="#grove"
+                class="border border-white/10 hover:border-white/30 px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] transition">
+                Explore The Grove
+            </a>
+        </div>
+    </header>
+
+    <!-- Tailwind Purge Fix: Ensure vibe classes are included -->
+    <div class="hidden">
+        <div class="vibe-rose vibe-amethyst vibe-emerald vibe-sapphire vibe-amber"></div>
+    </div>
+
+    <section id="grove" class="max-w-7xl mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <a href="gallery.html" class="gallery-card group">
+                <div class="img-box aspect-[4/5] md:aspect-square">
+                    <img src="namedpics/Midnight_Shadow_Spire_5.jpg" alt="Midnight Shadow Spire Showcase">
+                </div>
+                <div class="p-8">
+                    <h3 class="text-3xl mb-1 italic">The <span class="text-pink-500 font-bold not-italic">Grove</span>
+                    </h3>
+                    <p class="text-zinc-500 uppercase text-[10px] tracking-widest">Full 28-Piece Collection</p>
+                </div>
+            </a>
+
+            <a href="auction.html" class="gallery-card group border-pink-500/30">
+                <div class="img-box aspect-[4/5] md:aspect-square relative">
+                    <img src="namedpics/Royal_Purple_Oak_7.jpg" alt="Live Auction Display">
+                    <div
+                        class="absolute top-4 right-4 bg-pink-600 text-white text-[8px] font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">
+                        Live Soon</div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-3xl mb-1 italic">Auction <span
+                            class="text-pink-500 font-bold not-italic">House</span></h3>
+                    <p class="text-zinc-500 uppercase text-[10px] tracking-widest">Twice-Weekly Events</p>
+                </div>
+            </a>
+
+            <a href="inquiry.html" class="gallery-card group">
+                <div class="img-box aspect-[4/5] md:aspect-square">
+                    <img src="namedpics/Earth_Root_Bonsai.jpg" alt="Commission Inquiry">
+                </div>
+                <div class="p-8">
+                    <h3 class="text-3xl mb-1 italic">Bespoke <span
+                            class="text-pink-500 font-bold not-italic">Inquiry</span></h3>
+                    <p class="text-zinc-500 uppercase text-[10px] tracking-widest">Custom Commissions</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <section id="process" class="max-w-6xl mx-auto my-24 p-12 glass-panel">
+        <div class="grid md:grid-cols-2 gap-20 items-center">
+            <div class="order-2 md:order-1">
+                <h3 class="text-4xl mb-6 font-bold uppercase">The <span class="text-pink-500 italic">Process</span></h3>
+                <p class="text-zinc-400 leading-loose mb-8">
+                    Fish hand-selects every gemstone and wire strand to ensure each sculpture carries a unique energy.
+                    No two twists are the same.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <span
+                        class="px-4 py-1 border border-zinc-700 rounded-full text-[10px] uppercase tracking-widest">Genuine
+                        Stones</span>
+                    <span
+                        class="px-4 py-1 border border-zinc-700 rounded-full text-[10px] uppercase tracking-widest">Hand-Twisted</span>
+                    <span
+                        class="px-4 py-1 border border-zinc-700 rounded-full text-[10px] uppercase tracking-widest">Texas
+                        Crafted</span>
                 </div>
             </div>
 
-            <p id="error-msg" class="text-red-400 text-[10px] uppercase tracking-widest text-center hidden">Invalid
-                credentials</p>
 
-            <button type="submit"
-                class="w-full bg-pink-600 hover:bg-pink-700 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-xs transition shadow-lg shadow-pink-500/20">
-                Enter Marketplace
-            </button>
-        </form>
 
-        <div class="text-center pt-4">
-            <a href="index.html"
-                class="text-[10px] uppercase tracking-widest text-zinc-500 hover:text-pink-500 transition">← Back to
-                Site</a>
+            <div class="order-1 md:order-2 grid grid-cols-2 gap-4">
+                <img src="namedpics/Earth_Root_Bonsai.jpg" alt="Artistic Detail 1"
+                    class="rounded-2xl border border-white/5 shadow-2xl">
+                <img src="namedpics/Amethyst_Moon_Bonsai_1.jpg" alt="Artistic Detail 2"
+                    class="rounded-2xl border border-white/5 shadow-2xl translate-y-8">
+            </div>
         </div>
-    </div>
+    </section>
+
+    <footer class="py-20 text-center opacity-30">
+        <p class="text-[10px] tracking-[0.6em] uppercase text-white">Pure Stone Vibes &copy; 2026 | <span class="opacity-50">v1.051</span></p>
+    </footer>
 
     <script src="theme.js"></script>
-    <script>
-        const loginForm = document.getElementById('login-form');
-        const errorMsg = document.getElementById('error-msg');
-
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                const response = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-
-                const data = await response.json();
-
-                if (response.ok && data.success) {
-                    // Store the session data from server
-                    localStorage.setItem('isLoggedIn', 'true');
-                    localStorage.setItem('currentUser', data.username);
-                    localStorage.setItem('sessionToken', data.token); // Store the "Bearer" token
-                    
-                    window.location.href = 'index.html';
-                } else {
-                    errorMsg.textContent = data.error || 'Invalid credentials';
-                    errorMsg.classList.remove('hidden');
-                    setTimeout(() => errorMsg.classList.add('hidden'), 3000);
-                }
-            } catch (err) {
-                console.error("Login Error:", err);
-                errorMsg.textContent = "Server connection lost.";
-                errorMsg.classList.remove('hidden');
-            }
-        });
-    </script>
 </body>
 
 </html>

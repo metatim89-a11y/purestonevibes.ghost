@@ -4,325 +4,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Grove | Pure Stone Vibes Inventory</title>
+    <title>Pure Stone Vibes | Handcrafted by Fish</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="theme.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
 
-        .gallery-card-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 100%;
-            /* Square thumbnails */
-            z-index: 1;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #eeeeee;
+            background-image: radial-gradient(circle at top right, #1a1010, transparent);
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Glassmorphism Navigation */
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Glassmorphism Section */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
         }
 
         .gallery-card {
-            position: absolute;
-            top: 0;
-            left: 0;
+            background: rgba(22, 22, 22, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .gallery-card:hover {
+            border-color: #ec4899;
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .img-box img {
+            transition: transform 1.2s ease;
+            filter: brightness(0.9) contrast(1.1);
             width: 100%;
             height: 100%;
-            display: flex;
-            flex-direction: column;
-            border-radius: 4px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            background: #111;
-            /* Solid dark background */
-            border: 2px solid rgba(236, 72, 153, 0.4);
-            /* Pink/colorful border on every cell */
-            cursor: pointer;
+            object-fit: cover;
         }
 
-        /* Enhanced colorful glow on hover, no layout shift */
-        .gallery-card-wrapper:hover .gallery-card {
-            border-color: rgba(236, 72, 153, 1);
+        .gallery-card:hover .img-box img {
             transform: scale(1.1);
-            /* Slight pop/hover effect */
-            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
-            /* Colorful glow */
-            z-index: 20;
-        }
-
-        .price-tag {
-            background: linear-gradient(to right, var(--accent-color), #be185d);
-            padding: 4px 12px;
-            border-radius: 99px;
-            font-weight: 800;
-            font-size: 14px;
         }
     </style>
 </head>
 
 <body>
-    <nav class="p-6 glass-nav flex justify-between items-center sticky top-0 z-50">
-        <a href="index.html" class="group">
-            <h1 class="text-xl font-bold tracking-tighter text-white uppercase group-hover:text-pink-500 transition">
-                PURE STONE VIBES</h1>
-            <p class="text-[9px] tracking-[0.4em] text-pink-500 font-bold uppercase">← Back to Home</p>
-        </a>
-        <div class="flex items-center gap-6">
-            <div class="hidden md:flex gap-6 text-[10px] uppercase tracking-widest font-bold text-zinc-400">
-                <a href="process.html" class="hover:text-pink-400 transition">The Process</a>
-                <a href="dashboard.html" class="hover:text-pink-400 transition">Dashboard</a>
-                <a href="auction.html" class="hover:text-pink-400 transition">Auctions</a>
-                <a href="inquiry.html" class="hover:text-pink-400 transition">Inquire</a>
+    <nav class="p-6 glass-nav flex flex-col md:flex-row justify-between items-center sticky top-0 z-50">
+        <div class="text-center md:text-left">
+            <h1 class="text-3xl font-bold tracking-tighter text-white uppercase">PURE STONE VIBES</h1>
+            <p class="text-[10px] tracking-[0.5em] text-pink-500 font-bold uppercase">Artist: Fish</p>
+        </div>
+        <div class="flex gap-8 text-[11px] uppercase tracking-widest font-semibold mt-4 md:mt-0">
+            <a href="gallery.html"
+                class="text-pink-400 font-bold hover:text-white transition underline decoration-2 underline-offset-8">The
+                Grove</a>
+            <a href="auction.html" class="hover:text-pink-400 transition">Auctions</a>
+            <a href="process.html" class="hover:text-pink-400 transition">The Process</a>
+            <a href="dashboard.html" class="hover:text-pink-400 transition">Dashboard</a>
+            <a href="inquiry.html"
+                class="border border-pink-500/40 px-6 py-2 text-pink-500 hover:bg-pink-500 hover:text-white transition uppercase rounded-full">Inquire</a>
 
-                <!-- Auth & Theme UI -->
-                <div class="flex items-center gap-4 ml-2 pl-4 border-l border-white/10">
-                    <button onclick="toggleTheme()" class="hover:text-pink-500 transition" title="Toggle Theme">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707zM12 5a7 7 0 100 14 7 7 0 000-14z">
-                            </path>
-                        </svg>
-                    </button>
-                    <a href="login.html" id="login-link"
-                        class="text-[10px] uppercase tracking-widest hover:text-pink-500 transition">Login</a>
-                    <div id="user-display"
-                        class="hidden text-[10px] uppercase tracking-widest text-pink-500 font-bold flex items-center gap-3">
-                        <span id="username-val"></span>
-                        <button onclick="logout()"
-                            class="text-zinc-500 hover:text-white transition lowercase font-normal">[logout]</button>
-                    </div>
+            <!-- Auth & Theme UI -->
+            <div class="flex items-center gap-4 ml-4 pl-4 border-l border-white/10">
+                <button onclick="toggleTheme()" class="hover:text-pink-500 transition" title="Toggle Theme">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707zM12 5a7 7 0 100 14 7 7 0 000-14z">
+                        </path>
+                    </svg>
+                </button>
+                <a href="login.html" id="login-link"
+                    class="text-[10px] uppercase tracking-widest hover:text-pink-500 transition">Login</a>
+                <div id="user-display"
+                    class="hidden text-[10px] uppercase tracking-widest text-pink-500 font-bold flex items-center gap-3">
+                    <span id="username-val"></span>
+                    <button onclick="logout()"
+                        class="text-zinc-500 hover:text-white transition lowercase font-normal">[logout]</button>
                 </div>
             </div>
-            <select id="priceFilter" onchange="renderGallery()"
-                class="bg-zinc-900 border border-zinc-800 text-xs px-4 py-2 rounded-full text-pink-400 font-bold focus:outline-none">
-                <option value="all">Sort: All Pieces</option>
-                <option value="high">Price: High to Low</option>
-                <option value="low">Price: Low to High</option>
-            </select>
         </div>
     </nav>
 
-    <header class="max-w-7xl mx-auto px-6 py-12 text-center">
-        <h2 class="text-5xl mb-4 italic">The <span class="text-pink-500 font-bold not-italic">Grove</span></h2>
-        <p class="text-zinc-500 max-w-2xl mx-auto text-sm italic">Curated Collection: 16 Unique Hand-Twisted Sculptures
+    <header class="max-w-7xl mx-auto px-6 py-32 text-center">
+        <h2 class="text-7xl md:text-9xl mb-8 leading-none">Art with <br><span
+                class="italic text-pink-500 font-light">Vibration.</span></h2>
+        <p class="text-zinc-500 max-w-2xl mx-auto text-lg leading-relaxed mb-10">
+            Unique wire-wrapped sculptures featuring authentic gemstones. Hand-twisted in Texas by Fish.
         </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="auction.html"
+                class="bg-pink-600 hover:bg-pink-700 text-white px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] transition shadow-xl shadow-pink-500/20">
+                View Live Auctions
+            </a>
+            <a href="#grove"
+                class="border border-white/10 hover:border-white/30 px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] transition">
+                Explore The Grove
+            </a>
+        </div>
     </header>
 
-    <main class="max-w-[1700px] mx-auto px-4 pb-32">
-        <div id="gallery-grid"
-            class="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-3"></div>
-    </main>
-
-    <!-- New Centered Modal -->
-    <div id="centered-modal"
-        class="hidden fixed inset-0 z-[1000] bg-black/90 items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <!-- Close Button -->
-        <button onclick="closeModal()"
-            class="absolute top-6 right-6 text-white hover:text-pink-500 z-[1050] p-2 bg-black/50 rounded-full border border-white/10 hover:border-pink-500 transition-all cursor-pointer">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-        </button>
-
-        <!-- Navigation Arrows -->
-        <button onclick="prevItem(event)"
-            class="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white hover:text-pink-500 z-[1050] p-3 md:p-4 bg-black/50 rounded-full border border-white/10 hover:border-pink-500 transition-all shadow-xl cursor-pointer">
-            <svg class="w-8 h-8 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-            </svg>
-        </button>
-        <button onclick="nextItem(event)"
-            class="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white hover:text-pink-500 z-[1050] p-3 md:p-4 bg-black/50 rounded-full border border-white/10 hover:border-pink-500 transition-all shadow-xl cursor-pointer">
-            <svg class="w-8 h-8 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-        </button>
-
-        <!-- Modal Content Container -->
-        <div id="modal-content"
-            class="bg-[#0f0f0f] border border-pink-500/30 rounded-xl w-full max-w-6xl max-h-[90vh] overflow-y-auto flex flex-col md:flex-row transform scale-95 transition-transform duration-300 shadow-[0_0_80px_rgba(0,0,0,1)] relative z-[1010]">
-            <!-- Image Left -->
-            <div
-                class="w-full md:w-[50%] lg:w-[60%] relative bg-zinc-950 flex items-center justify-center min-h-[40vh] md:min-h-[75vh]">
-                <img id="modal-img" src="" class="w-full h-full object-contain p-4 md:p-8">
-            </div>
-            <!-- Details Right -->
-            <div class="w-full md:w-[50%] lg:w-[40%] p-6 md:p-10 flex flex-col justify-center border-t md:border-t-0 md:border-l border-white/10 text-left"
-                id="modal-details">
-                <!-- Injected via JS -->
-            </div>
-        </div>
+    <!-- Tailwind Purge Fix: Ensure vibe classes are included -->
+    <div class="hidden">
+        <div class="vibe-rose vibe-amethyst vibe-emerald vibe-sapphire vibe-amber"></div>
     </div>
 
-    <script>
-        /**
-         * Fetches inventory data from the backend API and initiates the render.
-         */
-        let inventory = {};
-        let galleryItems = []; // Array to track currently sorted items
-        let currentIndex = 0; // Track which item is open in the modal
+    <section id="grove" class="max-w-7xl mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-        async function initGallery() {
-            try {
-                const response = await fetch('/api/inventory');
-                if (!response.ok) throw new Error('Network response was not ok');
-                inventory = await response.ok ? await response.json() : {};
-                renderGallery();
-            } catch (error) {
-                console.error('Failed to load inventory:', error);
-                document.getElementById('gallery-grid').innerHTML = `
-                    <div class="col-span-full py-20 text-center opacity-50">
-                        <p class="italic">The energy is shifting. Please wait a moment...</p>
-                    </div>
-                `;
-            }
-        }
-
-        function renderGallery() {
-            const grid = document.getElementById('gallery-grid');
-            const sortSelection = document.getElementById('priceFilter')?.value || 'all';
-            grid.innerHTML = '';
-
-            let items = Object.entries(inventory).map(([id, data]) => ({ id, ...data }));
-
-            if (sortSelection === 'high') items.sort((a, b) => b.price - a.price);
-            if (sortSelection === 'low') items.sort((a, b) => a.price - b.price);
-
-            galleryItems = items; // Store globally for navigation
-
-            items.forEach((item, index) => {
-                const cardWrapper = document.createElement('div');
-                cardWrapper.className = 'gallery-card-wrapper group cursor-pointer';
-
-                // Lightbox integration: clicking a card zooms the sculpture image
-                cardWrapper.onclick = () => openModal(index);
-
-                const displayName = item.displayName;
-
-                cardWrapper.innerHTML = `
-                    <div class="gallery-card">
-                        <div class="relative overflow-hidden aspect-square bg-zinc-900 flex items-center justify-center">
-                            <img src="namedpics/${item.id}.${item.ext}" 
-                                 alt="${displayName}" 
-                                 class="w-full h-full object-cover md:group-hover:scale-105 transition-transform duration-700">
-                        </div>
-                        <div class="p-3 flex-grow flex flex-col justify-center items-center bg-[#0a0a0a]">
-                            <h3 class="text-[11px] md:text-[13px] font-bold italic leading-tight bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent group-hover:from-pink-300 group-hover:to-purple-400 transition-all truncate w-full text-center uppercase tracking-wider drop-shadow-sm">${displayName}</h3>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(cardWrapper);
-            });
-        }
-
-        // --- Modals and Navigation Logic ---
-
-        function openModal(index) {
-            currentIndex = index;
-            const item = galleryItems[currentIndex];
-            const modal = document.getElementById('centered-modal');
-            const modalImg = document.getElementById('modal-img');
-            const modalDetails = document.getElementById('modal-details');
-            const content = document.getElementById('modal-content');
-
-            modalImg.src = `namedpics/${item.id}.${item.ext}`;
-
-            modalDetails.innerHTML = `
-                <h2 class="text-3xl md:text-5xl italic font-bold mb-2 bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">${item.displayName}</h2>
-                <div class="flex items-center gap-4 mb-8 pb-4 border-b border-white/10 mt-4">
-                    <span class="price-tag text-white px-4 py-1.5 shadow-lg border border-white/20 text-lg">$${item.price}.00</span>
-                    <a href="inquiry.html?item=${item.id}" class="text-xs bg-pink-500/10 text-pink-500 border border-pink-500/30 px-6 py-2 rounded-full hover:bg-pink-500 hover:text-white transition uppercase tracking-widest font-bold">Inquire Now</a>
+            <a href="gallery.html" class="gallery-card group">
+                <div class="img-box aspect-[4/5] md:aspect-square">
+                    <img src="namedpics/Midnight_Shadow_Spire_5.jpg" alt="Midnight Shadow Spire Showcase">
                 </div>
-                
-                <div class="space-y-6 text-sm tracking-wide text-zinc-400">
-                    <div class="flex gap-8">
-                        <div>
-                            <span class="text-pink-500 block mb-1 uppercase tracking-widest text-[10px] font-bold opacity-80">Collection ID</span>
-                            <p class="text-zinc-100 font-medium">${item.id}</p>
-                        </div>
-                        <div>
-                            <span class="text-pink-500 block mb-1 uppercase tracking-widest text-[10px] font-bold opacity-80">Piece Number</span>
-                            <p class="text-zinc-100 font-medium">#${item.number || item.id}</p>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="text-pink-500 block mb-1 uppercase tracking-widest text-xs font-bold opacity-80">Base Stone</span>
-                        <div class="pl-4 border-l-2 border-pink-500/20">
-                            <p class="text-zinc-100 font-medium text-lg">${item.base}</p>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="text-pink-500 block mb-1 uppercase tracking-widest text-xs font-bold opacity-80">Leaflet Stone</span>
-                        <div class="pl-4 border-l-2 border-pink-500/20">
-                            <p class="text-zinc-100 font-medium text-lg">${item.leaf}</p>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="text-pink-500 block mb-1 uppercase tracking-widest text-xs font-bold opacity-80">Stone Resonance & Energy</span>
-                        <div class="pl-4 border-l-2 border-pink-500/20">
-                            <p class="italic text-zinc-200 text-lg font-serif leading-relaxed">"${item.energy}"</p>
-                        </div>
-                    </div>
+                <div class="p-8">
+                    <h3 class="text-3xl mb-1 italic">The <span class="text-pink-500 font-bold not-italic">Grove</span>
+                    </h3>
+                    <p class="text-zinc-500 uppercase text-[10px] tracking-widest">Full 28-Piece Collection</p>
                 </div>
-            `;
+            </a>
 
-            modal.style.display = 'flex';
-            // Slight delay to allow display flex to apply before opacity transition starts
-            setTimeout(() => {
-                modal.classList.add('opacity-100');
-                content.classList.remove('scale-95');
-                content.classList.add('scale-100');
-            }, 10);
-        }
+            <a href="auction.html" class="gallery-card group border-pink-500/30">
+                <div class="img-box aspect-[4/5] md:aspect-square relative">
+                    <img src="namedpics/Royal_Purple_Oak_7.jpg" alt="Live Auction Display">
+                    <div
+                        class="absolute top-4 right-4 bg-pink-600 text-white text-[8px] font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">
+                        Live Soon</div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-3xl mb-1 italic">Auction <span
+                            class="text-pink-500 font-bold not-italic">House</span></h3>
+                    <p class="text-zinc-500 uppercase text-[10px] tracking-widest">Twice-Weekly Events</p>
+                </div>
+            </a>
 
-        function closeModal() {
-            const modal = document.getElementById('centered-modal');
-            const content = document.getElementById('modal-content');
+            <a href="inquiry.html" class="gallery-card group">
+                <div class="img-box aspect-[4/5] md:aspect-square">
+                    <img src="namedpics/Earth_Root_Bonsai.jpg" alt="Commission Inquiry">
+                </div>
+                <div class="p-8">
+                    <h3 class="text-3xl mb-1 italic">Bespoke <span
+                            class="text-pink-500 font-bold not-italic">Inquiry</span></h3>
+                    <p class="text-zinc-500 uppercase text-[10px] tracking-widest">Custom Commissions</p>
+                </div>
+            </a>
 
-            modal.classList.remove('opacity-100');
-            content.classList.remove('scale-100');
-            content.classList.add('scale-95');
+        </div>
+    </section>
 
-            // Wait for transition before hiding display
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 300);
-        }
+    <section id="process" class="max-w-6xl mx-auto my-24 p-12 glass-panel">
+        <div class="grid md:grid-cols-2 gap-20 items-center">
+            <div class="order-2 md:order-1">
+                <h3 class="text-4xl mb-6 font-bold uppercase">The <span class="text-pink-500 italic">Process</span></h3>
+                <p class="text-zinc-400 leading-loose mb-8">
+                    Fish hand-selects every gemstone and wire strand to ensure each sculpture carries a unique energy.
+                    No two twists are the same.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <span
+                        class="px-4 py-1 border border-zinc-700 rounded-full text-[10px] uppercase tracking-widest">Genuine
+                        Stones</span>
+                    <span
+                        class="px-4 py-1 border border-zinc-700 rounded-full text-[10px] uppercase tracking-widest">Hand-Twisted</span>
+                    <span
+                        class="px-4 py-1 border border-zinc-700 rounded-full text-[10px] uppercase tracking-widest">Texas
+                        Crafted</span>
+                </div>
+            </div>
 
-        function nextItem(e) {
-            e.stopPropagation(); // prevent modal close
-            if (currentIndex < galleryItems.length - 1) {
-                openModal(currentIndex + 1);
-            } else {
-                openModal(0); // loop back
-            }
-        }
 
-        function prevItem(e) {
-            e.stopPropagation(); // prevent modal close
-            if (currentIndex > 0) {
-                openModal(currentIndex - 1);
-            } else {
-                openModal(galleryItems.length - 1); // loop to end
-            }
-        }
 
-        // Close modal when clicking on the dark background
-        document.getElementById('centered-modal').addEventListener('click', function (e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
+            <div class="order-1 md:order-2 grid grid-cols-2 gap-4">
+                <img src="namedpics/Earth_Root_Bonsai.jpg" alt="Artistic Detail 1"
+                    class="rounded-2xl border border-white/5 shadow-2xl">
+                <img src="namedpics/Amethyst_Moon_Bonsai_1.jpg" alt="Artistic Detail 2"
+                    class="rounded-2xl border border-white/5 shadow-2xl translate-y-8">
+            </div>
+        </div>
+    </section>
 
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            const modal = document.getElementById('centered-modal');
-            if (modal.style.display === 'flex') {
-                if (e.key === 'ArrowRight') nextItem(e);
-                if (e.key === 'ArrowLeft') prevItem(e);
-                if (e.key === 'Escape') closeModal();
-            }
-        });
+    <footer class="py-20 text-center opacity-30">
+        <p class="text-[10px] tracking-[0.6em] uppercase text-white">Pure Stone Vibes &copy; 2026 | <span class="opacity-50">v1.051</span></p>
+    </footer>
 
-        // Initial render execution
-        initGallery();
-    </script>
     <script src="theme.js"></script>
 </body>
 

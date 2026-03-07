@@ -9,12 +9,24 @@
     <link rel="stylesheet" href="theme.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+
+        .splat-tool-button {
+            @apply flex items-center justify-center p-4 rounded-xl glass-panel border border-white/10 hover:border-pink-500 hover:shadow-pink-500/20 hover:shadow-lg transition-all duration-300;
+        }
+
+        /* Modal specific styles */
+        .modal-overlay {
+            @apply fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 transition-opacity duration-300;
+        }
+        .modal-content-area {
+            @apply bg-zinc-900 rounded-2xl glass-panel p-8 max-w-2xl w-full mx-4 border border-pink-500/30 shadow-2xl;
+        }
     </style>
 </head>
 
 <body>
     <nav class="p-6 glass-nav flex justify-between items-center sticky top-0 z-50">
-        <a href="index.html" class="group">
+        <a href="/landing" class="group">
             <h1 class="text-xl font-bold tracking-tighter text-white uppercase group-hover:text-pink-500 transition">
                 PURE STONE VIBES <span class="text-zinc-500 text-sm ml-2">/ DASHBOARD</span></h1>
         </a>
@@ -36,99 +48,196 @@
 
     <main class="max-w-7xl mx-auto px-6 py-12">
         <header class="mb-10 text-center">
-            <h2 class="text-5xl mb-4 italic">Inquiry <span class="text-pink-500 font-bold not-italic">Ledger</span></h2>
-            <p class="text-zinc-500 text-sm tracking-widest uppercase">Admin Access Only</p>
+            <h2 class="text-5xl mb-4 italic">Admin <span class="text-pink-500 font-bold not-italic">Splat</span> Area</h2>
+            <p class="text-zinc-500 text-sm tracking-widest uppercase">Your Command Center</p>
         </header>
 
-        <div class="glass-panel rounded-xl overflow-hidden border border-white/10 shadow-2xl">
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr
-                            class="bg-zinc-900 border-b border-white/5 text-[10px] uppercase tracking-widest text-pink-500 bg-pink-500/5">
-                            <th class="py-4 px-6 font-bold">Date Received</th>
-                            <th class="py-4 px-6 font-bold">Name</th>
-                            <th class="py-4 px-6 font-bold">Email</th>
-                            <th class="py-4 px-6 font-bold">Item Ref</th>
-                            <th class="py-4 px-6 font-bold">Message</th>
-                        </tr>
-                    </thead>
-                    <tbody id="inquiriesTableBody" class="text-sm text-zinc-300 divide-y divide-white/5">
-                        <!-- Populated by JS -->
-                        <tr>
-                            <td colspan="5" class="py-8 text-center text-zinc-500 italic">Connecting to database...</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <!-- Tool Buttons -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
+            <button class="splat-tool-button" onclick="openSplatModal('Inquiry Ledger', getInquiryLedgerContent())">
+                <span class="text-3xl text-pink-500">📜</span>
+                <span class="ml-3 text-lg font-semibold text-white">Inquiry Ledger</span>
+            </button>
+            <button class="splat-tool-button" onclick="openSplatModal('Server Control', getServerControlContent())">
+                <span class="text-3xl text-blue-400">⚙️</span>
+                <span class="ml-3 text-lg font-semibold text-white">Server Control</span>
+            </button>
+            <button class="splat-tool-button" onclick="openSplatModal('Image Uploader', getImageUploaderContent())">
+                <span class="text-3xl text-emerald-400">🏞️</span>
+                <span class="ml-3 text-lg font-semibold text-white">Image Uploader</span>
+            </button>
+            <button class="splat-tool-button" onclick="openSplatModal('Settings', getSettingsContent())">
+                <span class="text-3xl text-orange-400">🛠️</span>
+                <span class="ml-3 text-lg font-semibold text-white">Settings</span>
+            </button>
+        </div>
+
+        <!-- Single Reusable Modal -->
+        <div id="splat-modal" class="modal-overlay hidden opacity-0">
+            <div class="modal-content-area relative">
+                <button onclick="closeSplatModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-pink-500 text-2xl">&times;</button>
+                <h3 id="modal-title" class="text-2xl font-bold mb-6 text-white border-b border-white/10 pb-3"></h3>
+                <div id="modal-content" class="text-zinc-300">
+                    <!-- Dynamic content will be loaded here -->
+                </div>
             </div>
         </div>
     </main>
 
     <script src="theme.js"></script>
     <script>
-        // Security check
         document.addEventListener('DOMContentLoaded', () => {
+            // Initial security check for the dashboard
             if (localStorage.getItem('isLoggedIn') !== 'true') {
-                // If not logged in, redirect to login page
-                window.location.href = 'login.html';
-                return;
+                window.location.href = '/login.html'; // Redirect to login page
             }
-            fetchInquiries();
         });
 
-        async function fetchInquiries() {
-            const token = localStorage.getItem('sessionToken');
-            
-            try {
-                const response = await fetch('/api/inquiries', {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
+        const splatModal = document.getElementById('splat-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
 
-                if (response.status === 403 || response.status === 401) {
-                    // Token is invalid or missing
-                    localStorage.clear();
-                    window.location.href = 'login.html';
-                    return;
-                }
+        function openSplatModal(title, content) {
+            modalTitle.innerHTML = title;
+            modalContent.innerHTML = content;
+            splatModal.classList.remove('hidden', 'opacity-0');
+            splatModal.classList.add('flex', 'opacity-100');
+            document.body.classList.add('overflow-hidden'); // Prevent scrolling
+        }
 
-                if (!response.ok) throw new Error('Failed to fetch inquiries');
+        function closeSplatModal() {
+            splatModal.classList.remove('flex', 'opacity-100');
+            splatModal.classList.add('hidden', 'opacity-0');
+            document.body.classList.remove('overflow-hidden');
+            modalContent.innerHTML = ''; // Clear content on close
+        }
 
-                const inquiries = await response.json();
-                const tbody = document.getElementById('inquiriesTableBody');
-
-                if (inquiries.length === 0) {
-                    tbody.innerHTML = `
-                        <tr>
-                            <td colspan="5" class="py-12 text-center text-zinc-500 italic">No inquiries found in the ledger.</td>
-                        </tr>
-                    `;
-                    return;
-                }
-
-                tbody.innerHTML = ''; // Clear loading
-
-                inquiries.forEach(inq => {
-                    const date = new Date(inq.created_at).toLocaleString();
-                    const tr = document.createElement('tr');
-                    tr.className = "hover:bg-white/5 transition-colors cursor-default";
-                    tr.innerHTML = `
-                        <td class="py-4 px-6 whitespace-nowrap text-xs text-zinc-500 font-mono">${date}</td>
-                        <td class="py-4 px-6 font-semibold text-white">${inq.name}</td>
-                        <td class="py-4 px-6 text-pink-400 hover:text-pink-300"><a href="mailto:${inq.email}">${inq.email}</a></td>
-                        <td class="py-4 px-6"><span class="bg-zinc-800 text-xs px-2 py-1 rounded border border-white/10 uppercase tracking-widest">${inq.sculpture}</span></td>
-                        <td class="py-4 px-6 italic text-zinc-400 max-w-xs truncate" title="${inq.message || 'No message provided.'}">${inq.message || '-'}</td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-
-            } catch (error) {
-                console.error("Error fetching inquiries:", error);
-                document.getElementById('inquiriesTableBody').innerHTML = `
-                    <tr>
-                        <td colspan="5" class="py-8 text-center text-red-500 font-bold">Error loading ledger data.</td>
-                    </tr>
-                `;
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !splatModal.classList.contains('hidden')) {
+                closeSplatModal();
             }
+        });
+
+        // Example Content Functions (will be replaced by actual tool logic)
+        function getInquiryLedgerContent() {
+            // This is the original content from dashboard.html, modified to fit modal
+            // In a real app, you'd fetch this data dynamically for each tool.
+            return `
+                <div class="glass-panel rounded-xl overflow-hidden border border-white/10 shadow-2xl mb-6">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-zinc-900 border-b border-white/5 text-[10px] uppercase tracking-widest text-pink-500 bg-pink-500/5">
+                                    <th class="py-4 px-6 font-bold">Date Received</th>
+                                    <th class="py-4 px-6 font-bold">Name</th>
+                                    <th class="py-4 px-6 font-bold">Email</th>
+                                    <th class="py-4 px-6 font-bold">Item Ref</th>
+                                    <th class="py-4 px-6 font-bold">Message</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inquiriesTableBody" class="text-sm text-zinc-300 divide-y divide-white/5">
+                                <tr>
+                                    <td colspan="5" class="py-8 text-center text-zinc-500 italic">Loading inquiries...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <script>
+                    async function fetchInquiriesForModal() {
+                        const token = localStorage.getItem('sessionToken');
+                        const tbody = document.getElementById('inquiriesTableBody');
+
+                        if (!token) {
+                            tbody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-red-500 font-bold">Not logged in. Redirecting...</td></tr>';
+                            setTimeout(() => window.location.href = '/login.html', 1500);
+                            return;
+                        }
+
+                        try {
+                            const response = await fetch('/api/inquiries', {
+                                headers: { 'Authorization': \`Bearer \${token}\` }
+                            });
+
+                            if (response.status === 403 || response.status === 401) {
+                                localStorage.clear();
+                                tbody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-red-500 font-bold">Session expired. Redirecting...</td></tr>';
+                                setTimeout(() => window.location.href = '/login.html', 1500);
+                                return;
+                            }
+
+                            if (!response.ok) throw new Error('Failed to fetch inquiries');
+
+                            const inquiries = await response.json();
+
+                            if (inquiries.length === 0) {
+                                tbody.innerHTML = '<tr><td colspan="5" class="py-12 text-center text-zinc-500 italic">No inquiries found in the ledger.</td></tr>';
+                                return;
+                            }
+
+                            tbody.innerHTML = ''; 
+
+                            inquiries.forEach(inq => {
+                                const date = new Date(inq.created_at).toLocaleString();
+                                const tr = document.createElement('tr');
+                                tr.className = "hover:bg-white/5 transition-colors cursor-default";
+                                tr.innerHTML = \`
+                                    <td class="py-4 px-6 whitespace-nowrap text-xs text-zinc-500 font-mono">\${date}</td>
+                                    <td class="py-4 px-6 font-semibold text-white">\${inq.name}</td>
+                                    <td class="py-4 px-6 text-pink-400 hover:text-pink-300"><a href="mailto:\${inq.email}">\${inq.email}</a></td>
+                                    <td class="py-4 px-6"><span class="bg-zinc-800 text-xs px-2 py-1 rounded border border-white/10 uppercase tracking-widest">\${inq.sculpture}</span></td>
+                                    <td class="py-4 px-6 italic text-zinc-400 max-w-xs truncate" title="\${inq.message || 'No message provided.'}">\${inq.message || '-'}</td>
+                                \`;
+                                tbody.appendChild(tr);
+                            });
+
+                        } catch (error) {
+                            console.error("Error fetching inquiries:", error);
+                            tbody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-red-500 font-bold">Error loading ledger data.</td></tr>';
+                        }
+                    }
+                    // Call this function when the modal is opened with this content
+                    setTimeout(fetchInquiriesForModal, 0); 
+                <\/script>
+            `;
+        }
+
+        function getServerControlContent() {
+            return `
+                <h4 class="text-xl font-bold text-white mb-4">Server Actions</h4>
+                <p class="text-zinc-400 mb-6">Manage the FastAPI server directly from here.</p>
+                <button class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full font-bold uppercase tracking-widest text-xs transition">Restart Server</button>
+                <p class="mt-4 text-zinc-500 text-sm">Note: Server restart functionality not yet implemented.</p>
+            `;
+        }
+        
+        function getImageUploaderContent() {
+            return `
+                <h4 class="text-xl font-bold text-white mb-4">Upload New Images</h4>
+                <p class="text-zinc-400 mb-6">Easily add new sculpture images to the namedpics directory.</p>
+                <input type="file" class="block w-full text-zinc-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-full file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-pink-50 file:text-pink-700
+                    hover:file:bg-pink-100 transition" />
+                <button class="mt-6 bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-full font-bold uppercase tracking-widest text-xs transition">Upload Image</button>
+            `;
+        }
+
+        function getSettingsContent() {
+            return `
+                <h4 class="text-xl font-bold text-white mb-4">Application Settings</h4>
+                <p class="text-zinc-400 mb-6">Configure various aspects of your Pure Stone Vibes site.</p>
+                <label class="block mb-2 text-zinc-400">Theme Preference:</label>
+                <select class="p-2 rounded-lg bg-zinc-800 border border-zinc-700 text-white">
+                    <option>Rose (Default)</option>
+                    <option>Amethyst</option>
+                    <option>Emerald</option>
+                </select>
+                <p class="mt-4 text-zinc-500 text-sm">More settings coming soon.</p>
+            `;
         }
     </script>
 </body>

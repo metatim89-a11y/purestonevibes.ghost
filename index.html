@@ -4,171 +4,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pure Stone Vibes | Handcrafted by Fish</title>
+    <title>PSV | Real-Time Error Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="theme.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
 
-        /* Custom Hover Effects & Layout specifics not in theme.css */
-        .gallery-card {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-            border-radius: 12px;
+        /* Custom Scrollbar for Chatbox */
+        #error-chat::-webkit-scrollbar {
+            width: 4px;
+        }
+        #error-chat::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        #error-chat::-webkit-scrollbar-thumb {
+            background: var(--vibe-accent);
+            border-radius: 10px;
         }
 
-        .gallery-card:hover {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 40px rgba(236, 72, 153, 0.15);
-            transform: translateY(-8px);
+        .error-entry {
+            border-left: 2px solid var(--vibe-accent);
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.3s ease;
         }
 
-        .img-box img {
-            transition: transform 1.2s ease;
-            filter: brightness(0.9) contrast(1.1);
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .error-entry:hover {
+            background: rgba(244, 114, 182, 0.05);
+            transform: translateX(4px);
         }
 
-        .gallery-card:hover .img-box img {
-            transform: scale(1.1);
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
         }
+
+        .status-online { background: #10b981; box-shadow: 0 0 10px #10b981; }
+        .status-offline { background: #ef4444; }
     </style>
 </head>
 
-<body>
+<body class="overflow-hidden">
     <nav class="p-6 glass-nav flex flex-col md:flex-row justify-between items-center sticky top-0 z-50">
         <div class="text-center md:text-left">
-            <h1 class="text-3xl font-bold tracking-tighter text-white uppercase">PURE STONE VIBES</h1>
-            <p class="text-[10px] tracking-[0.5em] text-pink-500 font-bold uppercase">Artist: Fish</p>
+            <h1 class="text-3xl font-bold tracking-tighter text-white uppercase">PSV | DEBUGGER</h1>
+            <p class="text-[10px] tracking-[0.5em] text-pink-500 font-bold uppercase">Real-Time Error Stream</p>
         </div>
         <div class="flex gap-8 text-[11px] uppercase tracking-widest font-semibold mt-4 md:mt-0">
-            <a href="gallery.html"
-                class="text-pink-400 font-bold hover:text-white transition underline decoration-2 underline-offset-8">The
-                Grove</a>
-            <a href="auction.html" class="hover:text-pink-400 transition">Auctions</a>
-            <a href="process.html" class="hover:text-pink-400 transition">The Process</a>
-            <a href="inquiry.html"
-                class="border border-pink-500/40 px-6 py-2 text-pink-500 hover:bg-pink-500 hover:text-white transition uppercase rounded-full">Inquire</a>
-
-            <!-- Auth & Theme UI -->
+            <a href="gallery.html" class="hover:text-pink-400 transition">The Grove</a>
+            <a href="inquiry.html" class="hover:text-pink-400 transition">Inquire</a>
             <div class="flex items-center gap-4 ml-4 pl-4 border-l border-white/10">
-                <button onclick="toggleTheme()" class="hover:text-pink-500 transition" title="Toggle Theme">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707zM12 5a7 7 0 100 14 7 7 0 000-14z">
-                        </path>
-                    </svg>
-                </button>
-                <a href="login.html" id="login-link"
-                    class="text-[10px] uppercase tracking-widest hover:text-pink-500 transition">Login</a>
-                <div id="user-display"
-                    class="hidden text-[10px] uppercase tracking-widest text-pink-500 font-bold flex items-center gap-3">
-                    <span id="username-val"></span>
-                    <button onclick="logout()"
-                        class="text-zinc-500 hover:text-white transition lowercase font-normal">[logout]</button>
+                <div class="flex items-center">
+                    <span id="ws-status-dot" class="status-dot status-offline"></span>
+                    <span id="ws-status-text" class="text-[9px] uppercase tracking-widest text-zinc-500">Connecting...</span>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header class="max-w-7xl mx-auto px-6 py-32 text-center">
-        <h2 class="text-7xl md:text-9xl mb-8 leading-none">Art with <br><span
-                class="italic text-pink-500 font-light">Vibration.</span></h2>
-        <p class="text-zinc-500 max-w-2xl mx-auto text-lg leading-relaxed mb-10">
-            Unique wire-wrapped sculptures featuring authentic gemstones. Hand-twisted in Texas by Fish.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="auction.html"
-                class="bg-pink-600 hover:bg-pink-700 text-white px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] transition shadow-xl shadow-pink-500/20">
-                View Live Auctions
-            </a>
-            <a href="#grove"
-                class="border border-white/10 hover:border-white/30 px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] transition">
-                Explore The Grove
-            </a>
-        </div>
-    </header>
-
-    <section id="grove" class="max-w-7xl mx-auto px-6 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-            <a href="gallery.html" class="gallery-card group">
-                <div class="img-box aspect-[4/5] md:aspect-square">
-                    <img src="namedpics/Midnight_Shadow_Spire_5.jpg" alt="Midnight Shadow Spire Showcase">
+    <main class="max-w-7xl mx-auto px-6 h-[calc(100vh-120px)] flex flex-col py-12">
+        <div class="flex-1 glass-panel rounded-3xl overflow-hidden flex flex-col border border-white/5 relative">
+            <!-- Header -->
+            <div class="p-6 border-b border-white/5 bg-white/5 flex justify-between items-center">
+                <div>
+                    <h2 class="text-xl font-bold uppercase tracking-widest text-white">Live Error Feed</h2>
+                    <p class="text-[10px] text-zinc-500 uppercase tracking-widest">Watching 0.0.0.0:8000</p>
                 </div>
-                <div class="p-8">
-                    <h3 class="text-3xl mb-1 italic">The <span class="text-pink-500 font-bold not-italic">Grove</span>
-                    </h3>
-                    <p class="text-zinc-500 uppercase text-[10px] tracking-widest">Full 28-Piece Collection</p>
-                </div>
-            </a>
+                <button onclick="clearLogs()" class="text-[10px] uppercase tracking-widest text-zinc-500 hover:text-pink-400 transition">
+                    [ Clear Logs ]
+                </button>
+            </div>
 
-            <a href="auction.html" class="gallery-card group border-pink-500/30">
-                <div class="img-box aspect-[4/5] md:aspect-square relative">
-                    <img src="namedpics/Royal_Purple_Oak_7.jpg" alt="Live Auction Display">
-                    <div
-                        class="absolute top-4 right-4 bg-pink-600 text-white text-[8px] font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">
-                        Live Soon</div>
-                </div>
-                <div class="p-8">
-                    <h3 class="text-3xl mb-1 italic">Auction <span
-                            class="text-pink-500 font-bold not-italic">House</span></h3>
-                    <p class="text-zinc-500 uppercase text-[10px] tracking-widest">Twice-Weekly Events</p>
-                </div>
-            </a>
-
-            <a href="inquiry.html" class="gallery-card group">
-                <div class="img-box aspect-[4/5] md:aspect-square">
-                    <img src="namedpics/Earth_Root_Bonsai.jpg" alt="Commission Inquiry">
-                </div>
-                <div class="p-8">
-                    <h3 class="text-3xl mb-1 italic">Bespoke <span
-                            class="text-pink-500 font-bold not-italic">Inquiry</span></h3>
-                    <p class="text-zinc-500 uppercase text-[10px] tracking-widest">Custom Commissions</p>
-                </div>
-            </a>
-
-        </div>
-    </section>
-
-    <section id="process" class="max-w-6xl mx-auto my-24 p-12 glass-panel">
-        <div class="grid md:grid-cols-2 gap-20 items-center">
-            <div class="order-2 md:order-1">
-                <h3 class="text-4xl mb-6 font-bold uppercase">The <span class="text-pink-500 italic">Process</span></h3>
-                <p class="text-zinc-400 leading-loose mb-8">
-                    Fish hand-selects every gemstone and wire strand to ensure each sculpture carries a unique energy.
-                    No two twists are the same.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <span
-                        class="px-4 py-1 border border-zinc-700 rounded-full text-[10px] uppercase tracking-widest">Genuine
-                        Stones</span>
-                    <span
-                        class="px-4 py-1 border border-zinc-700 rounded-full text-[10px] uppercase tracking-widest">Hand-Twisted</span>
-                    <span
-                        class="px-4 py-1 border border-zinc-700 rounded-full text-[10px] uppercase tracking-widest">Texas
-                        Crafted</span>
+            <!-- Error List -->
+            <div id="error-chat" class="flex-1 overflow-y-auto p-8 space-y-4">
+                <div class="text-center py-20 opacity-20">
+                    <p class="italic text-zinc-400">Waiting for errors to manifest...</p>
                 </div>
             </div>
 
-
-
-            <div class="order-1 md:order-2 grid grid-cols-2 gap-4">
-                <img src="namedpics/Earth_Root_Bonsai.jpg" alt="Artistic Detail 1"
-                    class="rounded-2xl border border-white/5 shadow-2xl">
-                <img src="namedpics/Amethyst_Moon_Bonsai_1.jpg" alt="Artistic Detail 2"
-                    class="rounded-2xl border border-white/5 shadow-2xl translate-y-8">
+            <!-- Controls -->
+            <div class="p-6 border-t border-white/5 bg-white/5 flex gap-4">
+                <button onclick="triggerTestError()" class="bg-pink-600/20 border border-pink-500/40 text-pink-500 px-6 py-2 rounded-full text-[10px] uppercase font-bold tracking-widest hover:bg-pink-500 hover:text-white transition">
+                    Trigger Test Error
+                </button>
+                <div class="flex-1"></div>
+                <p class="text-[9px] text-zinc-600 uppercase tracking-widest self-center">System Version: v1.0.4-DEBUG</p>
             </div>
         </div>
-    </section>
+    </main>
 
-    <footer class="py-20 text-center opacity-30">
-        <p class="text-[10px] tracking-[0.6em] uppercase text-white">Pure Stone Vibes &copy; 2026</p>
-    </footer>
+    <script>
+        const chat = document.getElementById('error-chat');
+        const statusDot = document.getElementById('ws-status-dot');
+        const statusText = document.getElementById('ws-status-text');
 
-    <script src="theme.js"></script>
+        let socket;
+
+        function connect() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            socket = new WebSocket(`${protocol}//${window.location.host}/ws/errors`);
+
+            socket.onopen = () => {
+                statusDot.className = 'status-dot status-online';
+                statusText.innerText = 'Online';
+                console.log('Debugger Connected');
+            };
+
+            socket.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                addErrorToFeed(data);
+            };
+
+            socket.onclose = () => {
+                statusDot.className = 'status-dot status-offline';
+                statusText.innerText = 'Offline';
+                setTimeout(connect, 3000);
+            };
+        }
+
+        function addErrorToFeed(error) {
+            // Remove empty state message
+            if (chat.querySelector('.opacity-20')) {
+                chat.innerHTML = '';
+            }
+
+            const entry = document.createElement('div');
+            entry.className = 'error-entry p-6 rounded-xl animate-in fade-in slide-in-from-left duration-500';
+            
+            const timestamp = new Date(error.timestamp).toLocaleTimeString();
+            
+            entry.innerHTML = `
+                <div class="flex justify-between items-start mb-2">
+                    <span class="text-pink-500 text-[10px] font-bold uppercase tracking-widest">${error.type}</span>
+                    <span class="text-zinc-600 text-[9px] uppercase tracking-widest">${timestamp}</span>
+                </div>
+                <p class="text-white font-mono text-sm mb-3"># ${error.message}</p>
+                <div class="flex gap-4 text-[9px] text-zinc-500 uppercase tracking-widest bg-black/20 p-2 rounded">
+                    <span><strong class="text-zinc-400">Path:</strong> ${error.path}</span>
+                    <span><strong class="text-zinc-400">Method:</strong> ${error.method}</span>
+                </div>
+            `;
+
+            chat.prepend(entry);
+        }
+
+        function clearLogs() {
+            chat.innerHTML = `
+                <div class="text-center py-20 opacity-20">
+                    <p class="italic text-zinc-400">Logs cleared. Waiting for new manifests...</p>
+                </div>
+            `;
+        }
+
+        async function triggerTestError() {
+            try {
+                await fetch('/api/trigger_error');
+            } catch (e) {
+                // Fetch itself might fail if server is down
+                console.error('Trigger failed', e);
+            }
+        }
+
+        // Initialize connection
+        connect();
+    </script>
 </body>
 
 </html>

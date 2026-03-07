@@ -4,84 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pure Stone Vibes | Handcrafted by Fish</title>
+    <title>Inquire | Pure Stone Vibes</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="theme.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #050505;
-            color: #eeeeee;
-            background-image: radial-gradient(circle at top right, #1a1010, transparent);
+        .submit-btn {
+            background: linear-gradient(to right, var(--accent-color), #be185d);
+            padding: 18px 32px;
+            border-radius: 99px;
+            font-weight: 800;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: white;
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
         }
 
-        h1,
-        h2,
-        h3 {
-            font-family: 'Playfair Display', serif;
+        .submit-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(236, 72, 153, 0.3);
         }
 
-        /* Glassmorphism Navigation */
-        .glass-nav {
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        /* Success Message Styling */
+        #successPopup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Glassmorphism Section */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-        }
-
-        .gallery-card {
-            background: rgba(22, 22, 22, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-            border-radius: 12px;
-        }
-
-        .gallery-card:hover {
-            border-color: #ec4899;
-            box-shadow: 0 0 40px rgba(236, 72, 153, 0.15);
-            transform: translateY(-8px);
-        }
-
-        .img-box img {
-            transition: transform 1.2s ease;
-            filter: brightness(0.9) contrast(1.1);
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .gallery-card:hover .img-box img {
-            transform: scale(1.1);
+        #successPopup.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -60%);
         }
     </style>
 </head>
 
 <body>
-    <nav class="p-6 glass-nav flex flex-col md:flex-row justify-between items-center sticky top-0 z-50">
-        <div class="text-center md:text-left">
-            <h1 class="text-3xl font-bold tracking-tighter text-white uppercase">PURE STONE VIBES</h1>
-            <p class="text-[10px] tracking-[0.5em] text-pink-500 font-bold uppercase">Artist: Fish</p>
-        </div>
-        <div class="flex gap-8 text-[11px] uppercase tracking-widest font-semibold mt-4 md:mt-0">
-            <a href="gallery.html"
-                class="text-pink-400 font-bold hover:text-white transition underline decoration-2 underline-offset-8">The
-                Grove</a>
+    <nav class="p-6 glass-nav flex justify-between items-center sticky top-0 z-50">
+        <a href="index.html" class="group">
+            <h1 class="text-xl font-bold tracking-tighter text-white uppercase group-hover:text-pink-500 transition">
+                PURE STONE VIBES</h1>
+            <p class="text-[9px] tracking-[0.4em] text-pink-500 font-bold uppercase">← Back to Home</p>
+        </a>
+        <div class="hidden md:flex gap-8 text-[11px] uppercase tracking-widest font-semibold">
+            <a href="gallery.html" class="hover:text-pink-400 transition">The Grove</a>
             <a href="auction.html" class="hover:text-pink-400 transition">Auctions</a>
             <a href="process.html" class="hover:text-pink-400 transition">The Process</a>
-            <a href="dashboard.html" class="hover:text-pink-400 transition">Dashboard</a>
-            <a href="inquiry.html"
-                class="border border-pink-500/40 px-6 py-2 text-pink-500 hover:bg-pink-500 hover:text-white transition uppercase rounded-full">Inquire</a>
 
             <!-- Auth & Theme UI -->
             <div class="flex items-center gap-4 ml-4 pl-4 border-l border-white/10">
@@ -104,112 +82,475 @@
         </div>
     </nav>
 
-    <header class="max-w-7xl mx-auto px-6 py-32 text-center">
-        <h2 class="text-7xl md:text-9xl mb-8 leading-none">Art with <br><span
-                class="italic text-pink-500 font-light">Vibration.</span></h2>
-        <p class="text-zinc-500 max-w-2xl mx-auto text-lg leading-relaxed mb-10">
-            Unique wire-wrapped sculptures featuring authentic gemstones. Hand-twisted in Texas by Fish.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="auction.html"
-                class="bg-pink-600 hover:bg-pink-700 text-white px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] transition shadow-xl shadow-pink-500/20">
-                View Live Auctions
-            </a>
-            <a href="#grove"
-                class="border border-white/10 hover:border-white/30 px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] transition">
-                Explore The Grove
-            </a>
-        </div>
-    </header>
+    <main class="max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row gap-20">
+        <div class="md:w-1/2 space-y-8">
+            <h2 class="text-6xl mb-4 italic">The <span class="text-pink-500 font-bold not-italic">Connection</span></h2>
+            <p class="text-zinc-500 leading-relaxed text-lg">
+                Interested in a specific piece or a custom commission? Fish is currently taking orders for bespoke
+                gemstone trees tailored to your unique energy.
+            </p>
 
-    <!-- Tailwind Purge Fix: Ensure vibe classes are included -->
-    <div class="hidden">
-        <div class="vibe-rose vibe-amethyst vibe-emerald vibe-sapphire vibe-amber"></div>
-    </div>
-
-    <section id="grove" class="max-w-7xl mx-auto px-6 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-            <a href="gallery.html" class="gallery-card group">
-                <div class="img-box aspect-[4/5] md:aspect-square">
-                    <img src="namedpics/5.jpg" alt="Midnight Shadow Spire Showcase">
-                </div>
-                <div class="p-8">
-                    <h3 class="text-3xl mb-1 italic">The <span class="text-pink-500 font-bold not-italic">Grove</span>
-                    </h3>
-                    <p class="text-zinc-500 uppercase text-[10px] tracking-widest">Full 28-Piece Collection</p>
-                </div>
-            </a>
-
-            <a href="auction.html" class="gallery-card group border-pink-500/30">
-                <div class="img-box aspect-[4/5] md:aspect-square relative">
-                    <img src="namedpics/7.jpg" alt="Live Auction Display">
+            <!-- Dynamic Details Box -->
+            <div id="selectionDetails" class="hidden glass-panel p-8 space-y-6 border-l-4 border-l-pink-500">
+                <div class="flex flex-col sm:flex-row gap-8 items-start">
                     <div
-                        class="absolute top-4 right-4 bg-pink-600 text-white text-[8px] font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">
-                        Live Soon</div>
-                </div>
-                <div class="p-8">
-                    <h3 class="text-3xl mb-1 italic">Auction <span
-                            class="text-pink-500 font-bold not-italic">House</span></h3>
-                    <p class="text-zinc-500 uppercase text-[10px] tracking-widest">Twice-Weekly Events</p>
-                </div>
-            </a>
-
-            <a href="inquiry.html" class="gallery-card group">
-                <div class="img-box aspect-[4/5] md:aspect-square">
-                    <img src="namedpics/21.jpg" alt="Commission Inquiry">
-                </div>
-                <div class="p-8">
-                    <h3 class="text-3xl mb-1 italic">Bespoke <span
-                            class="text-pink-500 font-bold not-italic">Inquiry</span></h3>
-                    <p class="text-zinc-500 uppercase text-[10px] tracking-widest">Custom Commissions</p>
-                </div>
-            </a>
-
-        </div>
-    </section>
-
-    <section id="process" class="max-w-6xl mx-auto my-24 p-12 glass-panel">
-        <div class="grid md:grid-cols-2 gap-20 items-center">
-            <div class="order-2 md:order-1">
-                <h3 class="text-4xl mb-6 font-bold uppercase">The <span class="text-pink-500 italic">Process</span></h3>
-                <p class="text-zinc-400 leading-loose mb-8">
-                    Fish hand-selects every gemstone and wire strand to ensure each sculpture carries a unique energy.
-                    No two twists are the same.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <span
-                        class="px-4 py-1 border border-zinc-700 rounded-full text-[10px] uppercase tracking-widest">Genuine
-                        Stones</span>
-                    <span
-                        class="px-4 py-1 border border-zinc-700 rounded-full text-[10px] uppercase tracking-widest">Hand-Twisted</span>
-                    <span
-                        class="px-4 py-1 border border-zinc-700 rounded-full text-[10px] uppercase tracking-widest">Texas
-                        Crafted</span>
+                        class="w-full sm:w-1/3 aspect-square bg-zinc-900 rounded-lg overflow-hidden border border-white/5">
+                        <img id="detailImage" src="" alt="Sculpture Preview" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-grow space-y-4">
+                        <h3 id="detailName" class="text-2xl italic text-white"></h3>
+                        <div class="space-y-3">
+                            <p class="text-xs uppercase tracking-widest text-pink-500 font-bold">Energy Pairing</p>
+                            <p id="detailEnergy" class="text-zinc-300 text-sm leading-relaxed"></p>
+                            <p class="text-xs uppercase tracking-widest text-pink-500 font-bold mt-4">Gemstones</p>
+                            <p id="detailGems" class="text-zinc-300 text-sm"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-
-
-            <div class="order-1 md:order-2 grid grid-cols-2 gap-4">
-                <img src="namedpics/21.jpg" alt="Artistic Detail 1"
-                    class="rounded-2xl border border-white/5 shadow-2xl">
-                <img src="namedpics/1.jpg" alt="Artistic Detail 2"
-                    class="rounded-2xl border border-white/5 shadow-2xl translate-y-8">
+            <div class="space-y-4 pt-8">
+                <div class="flex items-center gap-4 text-zinc-400">
+                    <div class="w-12 h-[1px] bg-pink-500"></div>
+                    <p class="text-[10px] tracking-widest uppercase font-bold">Texas, USA</p>
+                </div>
+                <div class="flex items-center gap-4 text-zinc-400">
+                    <div class="w-12 h-[1px] bg-pink-500"></div>
+                    <p class="text-[10px] tracking-widest uppercase font-bold">Handcrafted in small batches</p>
+                </div>
             </div>
         </div>
-    </section>
+
+        <div class="md:w-1/2 glass-panel p-10 space-y-6">
+            <form id="inquiryForm" class="space-y-6">
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 block">Full Name</label>
+                    <input type="text" name="name" placeholder="John Doe" required>
+                </div>
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 block">Email Address</label>
+                    <input type="email" name="email" placeholder="john@example.com" required>
+                </div>
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 block">Select
+                        Sculpture</label>
+                    <select id="sculptureSelect" name="sculpture" onchange="updateDetails()" required>
+                        <option value="">Choose a piece...</option>
+                        <option value="custom">Bespoke Custom Tree</option>
+                        <optgroup label="Available Pieces" id="sculptureOptions">
+                            <!-- Options populated via JS -->
+                        </optgroup>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 block">Message</label>
+                    <textarea name="message" rows="5" placeholder="Share your energy or inquiry..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn w-full">Send Inquiry</button>
+            </form>
+        </div>
+    </main>
 
     <footer class="py-20 text-center opacity-30">
-        <p class="text-[10px] tracking-[0.6em] uppercase text-white">Pure Stone Vibes &copy; 2026 | <span class="opacity-50">v1.051</span></p>
+        <p class="text-[10px] tracking-[0.6em] uppercase text-white">Pure Stone Vibes &copy; 2026</p>
     </footer>
 
-    <script src="theme.js"></script>
-
-    <!-- Tailwind Purge Fix: Ensure vibe classes are included -->
-    <div class="hidden">
-        <div class="vibe-rose vibe-amethyst vibe-emerald vibe-sapphire vibe-amber"></div>
+    <!-- Success Modal -->
+    <div id="successPopup" class="glass-panel p-12 text-center max-w-md w-full border-pink-500/30">
+        <div
+            class="mb-6 inline-flex items-center justify-center w-20 h-20 bg-pink-500/10 rounded-full border border-pink-500/40">
+            <svg class="w-10 h-10 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+        </div>
+        <h3 class="text-3xl mb-4 italic">Vibration <span class="text-pink-500 font-bold not-italic">Received</span></h3>
+        <p class="text-zinc-400 mb-8 leading-relaxed">Your inquiry has been successfully sent to Fish. Expect a response
+            soon to begin your gemstone journey.</p>
+        <button onclick="closeSuccess()" class="submit-btn text-xs">Return to Grove</button>
     </div>
+
+    <script>
+        // The 'inventory' object provides the source of truth for all available items.
+        // It is shared across the site to maintain data consistency (Gems, Energies, Prices).
+        const inventory = {
+            "Amethyst_Moon_Bonsai_1": {
+                "base": "Amethyst (med)",
+                "leaf": "Moonstone (high)",
+                "energy": "Harmonic Pairing: Moonstone for new beginnings + Amethyst for intuition, calm. Standard root-wrap on raw stone.",
+                "price": 45,
+                "ext": "jpg",
+                "displayName": "Amethyst Moon Bonsai"
+            },
+            "Rose_Quartz_Willow_2": {
+                "base": "Rose Quartz (low)",
+                "leaf": "Rose Quartz (low)",
+                "energy": "Heart Pairing: Rose Quartz for love, compassion + Rose Quartz for love, compassion. Standard root-wrap on raw stone.",
+                "price": 35,
+                "ext": "jpg",
+                "displayName": "Rose Quartz Willow"
+            },
+            "Verdant_Jade_Sphere_3": {
+                "base": "Clear Quartz (med)",
+                "leaf": "Green Jade (med)",
+                "energy": "Abundance Pairing: Green Jade for luck, prosperity + Clear Quartz for amplification, clarity. Standard root-wrap on raw stone.",
+                "price": 81,
+                "ext": "jpg",
+                "displayName": "Verdant Jade Sphere"
+            },
+            "Malachite_Fire_Tree_4": {
+                "base": "Green Aventurine (low)",
+                "leaf": "Malachite (high)",
+                "energy": "Harmonic Pairing: Malachite for transformation + Green Aventurine for opportunity, optimism. Intricate root-wrap on raw stone.",
+                "price": 50,
+                "ext": "jpg",
+                "displayName": "Malachite Fire Tree"
+            },
+            "Midnight_Shadow_Spire_5": {
+                "base": "Obsidian (high)",
+                "leaf": "Black Tourmaline (high)",
+                "energy": "Stability Pairing: Black Tourmaline for protection + Obsidian for protection, grounding. Intricate root-wrap on raw stone.",
+                "price": 75,
+                "ext": "jpg",
+                "displayName": "Midnight Shadow Spire"
+            },
+            "Lavender_Mist_Tree_6": {
+                "base": "Clear Quartz (med)",
+                "leaf": "Amethyst (med)",
+                "energy": "Insight Pairing: Amethyst for intuition, calm + Clear Quartz for amplification, clarity. Standard root-wrap on raw stone.",
+                "price": 73,
+                "ext": "jpg",
+                "displayName": "Lavender Mist Tree"
+            },
+            "Royal_Purple_Oak_7": {
+                "base": "Rose Quartz (low)",
+                "leaf": "Purple Fluorite (med)",
+                "energy": "Insight Pairing: Purple Fluorite for focus, order + Rose Quartz for love, compassion. Intricate root-wrap on raw stone.",
+                "price": 98,
+                "ext": "jpg",
+                "displayName": "Royal Purple Oak"
+            },
+            "Sky_Turquoise_Bonsai_8": {
+                "base": "Jasper (med)",
+                "leaf": "Turquoise (high)",
+                "energy": "Stability Pairing: Turquoise for wholeness, truth + Jasper for nurturing, grounding. Standard root-wrap on raw stone.",
+                "price": 68,
+                "ext": "jpg",
+                "displayName": "Sky Turquoise Bonsai"
+            },
+            "Rose_Passion_Petite_9": {
+                "base": "Wire Root (low)",
+                "leaf": "Rose Quartz (low)",
+                "energy": "Heart Pairing: Rose Quartz for love, compassion + Wire Root for grounding stability. Standard root-wrap on raw stone.",
+                "price": 71,
+                "ext": "jpg",
+                "displayName": "Rose Passion Petite"
+            },
+            "Cobalt_Sky_Willow_10": {
+                "base": "Selenite (high)",
+                "leaf": "Lapis Lazuli (high)",
+                "energy": "Insight Pairing: Lapis Lazuli for wisdom, truth + Selenite for cleansing, peace. Standard root-wrap on raw stone.",
+                "price": 78,
+                "ext": "jpg",
+                "displayName": "Cobalt Sky Willow"
+            },
+            "Emerald_Vibe_Bonsai_11": {
+                "base": "Clear Quartz (med)",
+                "leaf": "Aventurine (med)",
+                "energy": "Harmonic Pairing: Aventurine for opportunity + Clear Quartz for amplification, clarity. Standard root-wrap on raw stone.",
+                "price": 68,
+                "ext": "jpg",
+                "displayName": "Emerald Vibe Bonsai"
+            },
+            "Golden_Tiger_Oak_12": {
+                "base": "Wire Root (low)",
+                "leaf": "Tiger's Eye (med)",
+                "energy": "Stability Pairing: Tiger's Eye for protection, willpower + Wire Root for grounding stability. Standard root-wrap on raw stone.",
+                "price": 75,
+                "ext": "jpg",
+                "displayName": "Golden Tiger Oak"
+            },
+            "Magenta_Berry_Bonsai_13": {
+                "base": "Wire Root (low)",
+                "leaf": "Pink Agate (med)",
+                "energy": "Stability Pairing: Pink Agate for stability, composure + Wire Root for grounding stability. Standard root-wrap on raw stone.",
+                "price": 68,
+                "ext": "jpg",
+                "displayName": "Magenta Berry Bonsai"
+            },
+            "Prosperity_Willow_14": {
+                "base": "Wire Root (low)",
+                "leaf": "Citrine (med)",
+                "energy": "Abundance Pairing: Citrine for abundance, joy + Wire Root for grounding stability. Intricate root-wrap on raw stone.",
+                "price": 93,
+                "ext": "jpg",
+                "displayName": "Prosperity Willow"
+            },
+            "Spring_Bloom_Willow_15": {
+                "base": "Wire Root (low)",
+                "leaf": "Rhodonite (med)",
+                "energy": "Stability Pairing: Rhodonite for emotional healing + Wire Root for grounding stability. Intricate root-wrap on raw stone.",
+                "price": 71,
+                "ext": "jpg",
+                "displayName": "Spring Bloom Willow"
+            },
+            "Rose_Aura_Bonsai_16": {
+                "base": "Amethyst (med)",
+                "leaf": "Rose Quartz (low)",
+                "energy": "Heart Pairing: Rose Quartz for love, compassion + Amethyst for intuition, calm. Intricate root-wrap on raw stone.",
+                "price": 88,
+                "ext": "jpg",
+                "displayName": "Rose Aura Bonsai"
+            },
+            "Solar_Flare_Willow_17": {
+                "base": "Calcite (med)",
+                "leaf": "Carnelian (high)",
+                "energy": "Harmonic Pairing: Carnelian for creativity, motivation + Calcite for energy, cleansing. Intricate root-wrap on raw stone.",
+                "price": 83,
+                "ext": "jpg",
+                "displayName": "Solar Flare Willow"
+            },
+            "Forest_Guardian_Tree_18": {
+                "base": "Jasper (med)",
+                "leaf": "Unakite (med)",
+                "energy": "Stability Pairing: Unakite for vision, balance + Jasper for nurturing, grounding. Standard root-wrap on raw stone.",
+                "price": 40,
+                "ext": "jpg",
+                "displayName": "Forest Guardian Tree"
+            },
+            "Ocean_Breath_Bonsai_19": {
+                "base": "Rose Quartz (low)",
+                "leaf": "Apatite (high)",
+                "energy": "Harmonic Pairing: Apatite for manifestation, service + Rose Quartz for love, compassion. Standard root-wrap on raw stone.",
+                "price": 88,
+                "ext": "jpg",
+                "displayName": "Ocean Breath Bonsai"
+            },
+            "Fire_Spirit_Oak_20": {
+                "base": "Wire Root (low)",
+                "leaf": "Red Jasper (med)",
+                "energy": "Stability Pairing: Red Jasper for endurance, grounding + Wire Root for grounding stability. Intricate root-wrap on raw stone.",
+                "price": 78,
+                "ext": "jpg",
+                "displayName": "Fire Spirit Oak"
+            },
+            "Moonlit_Winter_Oak_21": {
+                "base": "Wire Root (low)",
+                "leaf": "Moonstone (high)",
+                "energy": "Stability Pairing: Moonstone for new beginnings + Wire Root for grounding stability. Standard root-wrap on raw stone.",
+                "price": 48,
+                "ext": "jpg",
+                "displayName": "Moonlit Winter Oak"
+            },
+            "Amethyst_Cloud_Oak_22": {
+                "base": "Amethyst (med)",
+                "leaf": "Aventurine (med)",
+                "energy": "Harmonic Pairing: Aventurine for opportunity + Amethyst for intuition, calm. Standard root-wrap on raw stone.",
+                "price": 83,
+                "ext": "jpg",
+                "displayName": "Amethyst Cloud Oak"
+            },
+            "Ethereal_Amethyst_Petite_23": {
+                "base": "Rose Quartz (low)",
+                "leaf": "Amethyst (med)",
+                "energy": "Insight Pairing: Amethyst for intuition, calm + Rose Quartz for love, compassion. Intricate root-wrap on raw stone.",
+                "price": 73,
+                "ext": "jpg",
+                "displayName": "Ethereal Amethyst Petite"
+            },
+            "Soft_Rose_Zen_24": {
+                "base": "Green Aventurine (low)",
+                "leaf": "Rose Quartz (low)",
+                "energy": "Heart Pairing: Rose Quartz for love, compassion + Green Aventurine for opportunity, optimism. Standard root-wrap on raw stone.",
+                "price": 85,
+                "ext": "jpg",
+                "displayName": "Soft Rose Zen"
+            },
+            "Prosperity_Jade_Spire_25": {
+                "base": "Jasper (med)",
+                "leaf": "Jade (med)",
+                "energy": "Abundance Pairing: Jade for luck, prosperity + Jasper for nurturing, grounding. Intricate root-wrap on raw stone.",
+                "price": 45,
+                "ext": "jpg",
+                "displayName": "Prosperity Jade Spire"
+            },
+            "Verdant_Jade_Sphere_26": {
+                "base": "Obsidian (high)",
+                "leaf": "Jade (med)",
+                "energy": "Abundance Pairing: Jade for luck, prosperity + Obsidian for protection, grounding. Standard root-wrap on raw stone.",
+                "price": 81,
+                "ext": "jpg",
+                "displayName": "Verdant Jade Sphere"
+            },
+            "Emerald_Vibe_Bonsai_27": {
+                "base": "Clear Quartz (med)",
+                "leaf": "Aventurine (med)",
+                "energy": "Harmonic Pairing: Aventurine for opportunity + Clear Quartz for amplification, clarity. Standard root-wrap on raw stone.",
+                "price": 68,
+                "ext": "jpg",
+                "displayName": "Emerald Vibe Bonsai"
+            },
+            "Sodalite_Solar_Tree_28": {
+                "base": "Red Jasper (med)",
+                "leaf": "Sodalite (high)",
+                "energy": "Stability Pairing: Sodalite for insight, clarity + Red Jasper for endurance, grounding. Standard root-wrap on raw stone.",
+                "price": 81,
+                "ext": "jpg",
+                "displayName": "Sodalite Solar Tree"
+            }
+        };
+
+        // DOM Elements
+        const optGroup = document.getElementById('sculptureOptions');
+
+        // Initialization: Populating the dropdown menu with available inventory items.
+        // This makes the form dynamic and easy to update via the inventory object above.
+        Object.keys(inventory).forEach(key => {
+            const opt = document.createElement('option');
+            opt.value = key;
+            opt.textContent = inventory[key].displayName || key.replace(/_/g, ' ');
+            optGroup.appendChild(opt);
+        });
+
+        /**
+         * Updates the UI to show details about the currently selected sculpture.
+         * Why: This provides immediate feedback to the customer, reinforcing their choice 
+         * with energetic descriptions and stone specifications.
+         */
+        function updateDetails() {
+            const select = document.getElementById('sculptureSelect');
+            const details = document.getElementById('selectionDetails');
+            const val = select.value;
+
+            if (val && inventory[val]) {
+                const item = inventory[val];
+                document.getElementById('detailName').textContent = item.displayName || val.replace(/_/g, ' ');
+
+                // Parsing logic (consistent with gallery.html)
+                // Inject full energy layout
+                document.getElementById('detailEnergy').innerHTML = `
+                    <div class="space-y-4 pt-4">
+                        <div class="flex gap-10">
+                            <div class="group/info">
+                                <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Collection ID:</span>
+                                <div class="pl-3 border-l-2 border-pink-500/10 transition-colors">
+                                    <p class="text-zinc-200 text-xs font-semibold uppercase tracking-wider">${val}</p>
+                                </div>
+                            </div>
+                            <div class="group/info">
+                                <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Piece Number:</span>
+                                <div class="pl-3 border-l-2 border-pink-500/10 transition-colors">
+                                    <p class="text-zinc-200 text-xs font-semibold uppercase tracking-wider">#${item.number || val}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group/info">
+                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Base Stone:</span>
+                            <div class="pl-3 border-l-2 border-pink-500/10 transition-colors">
+                                <p class="text-zinc-200 text-xs font-semibold uppercase tracking-wider">${item.base}</p>
+                            </div>
+                        </div>
+                        <div class="group/info">
+                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Leaflet Stone:</span>
+                            <div class="pl-3 border-l-2 border-pink-500/10 transition-colors">
+                                <p class="text-zinc-200 text-xs font-semibold uppercase tracking-wider">${item.leaf}</p>
+                            </div>
+                        </div>
+                        <div class="group/info">
+                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Stone Resonance & Energy:</span>
+                            <p class="pl-3 border-l-2 border-pink-500/10 transition-colors italic text-zinc-300 text-xs leading-relaxed">"${item.energy}"</p>
+                        </div>
+                    </div>
+                `;
+
+                // Content is now integrated into detailEnergy, so we hide old detailGems section
+                const gemsLabel = document.getElementById('detailGems').previousElementSibling;
+                if (gemsLabel) gemsLabel.classList.add('hidden');
+                document.getElementById('detailGems').textContent = "";
+
+                // Update the preview image source using the ID and extension from the inventory data
+                const imgElement = document.getElementById('detailImage');
+                imgElement.src = `namedpics/${val}.${item.ext || 'jpg'}`;
+                imgElement.alt = item.displayName || val.replace(/_/g, ' ');
+
+                // Update hidden ID field for server
+                document.getElementById('sculpture_id_input').value = val;
+
+                details.classList.remove('hidden'); // Show the glass-morphic info panel
+            } else if (val === 'custom') {
+                // Special case for custom commissions
+                document.getElementById('detailName').textContent = 'Bespoke Custom Tree';
+                document.getElementById('detailEnergy').innerHTML = '<p class="text-zinc-400 italic text-sm">A unique collaboration tailored to your personal frequency and space.</p>';
+
+                // Hide or reset other fields
+                const gemsLabel = document.getElementById('detailGems').previousElementSibling;
+                if (gemsLabel) gemsLabel.classList.add('hidden');
+                document.getElementById('detailGems').textContent = "";
+
+                document.getElementById('detailImage').src = '2.jfif'; // Use a high-quality placeholder for custom
+                details.classList.remove('hidden');
+            } else {
+                details.classList.add('hidden'); // Hide if no selection
+            }
+        }
+
+        /**
+         * URL Parameter Handling: Auto-selects a sculpture if passed via the 'item' query param.
+         * Why: Allows users to click 'Inquire' from the gallery and have the form pre-filled.
+         */
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Success Handling
+        if (urlParams.get('success') === 'true') {
+            document.getElementById('successPopup').classList.add('show');
+            // Remove the param from URL for a cleaner look
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
+        function closeSuccess() {
+            document.getElementById('successPopup').classList.remove('show');
+            window.location.href = 'gallery.html';
+        }
+
+        // Check url params for 'item' manually if needed, 
+        // but now it's handled in the DOMContentLoaded fetch block above to ensure inventory is loaded first.
+
+        // --- Custom Submisison Logic for Node.js Backend ---
+        document.getElementById('inquiryForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const btn = e.target.querySelector('.submit-btn');
+            const originalText = btn.textContent;
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const res = await fetch('/api/inquiry', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (res.ok) {
+                    // Show success popup and clear form
+                    document.getElementById('successPopup').classList.add('show');
+                    e.target.reset();
+                    updateDetails();
+                } else {
+                    alert('There was an issue sending your inquiry. Please try again.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Network error. Please try again later.');
+            } finally {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        });
+    </script>
+    <script src="theme.js"></script>
 </body>
 
 </html>

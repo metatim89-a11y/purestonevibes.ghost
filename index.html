@@ -10,45 +10,15 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #050505;
-            color: #eeeeee;
-            background-image: radial-gradient(circle at top right, #1a1010, transparent);
-        }
-
-        h1,
-        h2,
-        h3 {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Glassmorphism Navigation */
-        .glass-nav {
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Glassmorphism Section */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-        }
-
+        /* Custom Hover Effects & Layout specifics not in theme.css */
         .gallery-card {
-            background: rgba(22, 22, 22, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.08);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
             border-radius: 12px;
         }
 
         .gallery-card:hover {
-            border-color: #ec4899;
+            border-color: var(--accent-color);
             box-shadow: 0 0 40px rgba(236, 72, 153, 0.15);
             transform: translateY(-8px);
         }
@@ -79,7 +49,6 @@
                 Grove</a>
             <a href="auction.html" class="hover:text-pink-400 transition">Auctions</a>
             <a href="process.html" class="hover:text-pink-400 transition">The Process</a>
-            <a href="dashboard.html" class="hover:text-pink-400 transition">Dashboard</a>
             <a href="inquiry.html"
                 class="border border-pink-500/40 px-6 py-2 text-pink-500 hover:bg-pink-500 hover:text-white transition uppercase rounded-full">Inquire</a>
 
@@ -122,17 +91,12 @@
         </div>
     </header>
 
-    <!-- Tailwind Purge Fix: Ensure vibe classes are included -->
-    <div class="hidden">
-        <div class="vibe-rose vibe-amethyst vibe-emerald vibe-sapphire vibe-amber"></div>
-    </div>
-
     <section id="grove" class="max-w-7xl mx-auto px-6 py-12">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
             <a href="gallery.html" class="gallery-card group">
                 <div class="img-box aspect-[4/5] md:aspect-square">
-                    <img src="namedpics/5.jpg" alt="Midnight Shadow Spire Showcase">
+                    <img src="namedpics/Midnight_Shadow_Spire_5.jpg" alt="Midnight Shadow Spire Showcase">
                 </div>
                 <div class="p-8">
                     <h3 class="text-3xl mb-1 italic">The <span class="text-pink-500 font-bold not-italic">Grove</span>
@@ -143,7 +107,7 @@
 
             <a href="auction.html" class="gallery-card group border-pink-500/30">
                 <div class="img-box aspect-[4/5] md:aspect-square relative">
-                    <img src="namedpics/7.jpg" alt="Live Auction Display">
+                    <img src="namedpics/Royal_Purple_Oak_7.jpg" alt="Live Auction Display">
                     <div
                         class="absolute top-4 right-4 bg-pink-600 text-white text-[8px] font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">
                         Live Soon</div>
@@ -157,7 +121,7 @@
 
             <a href="inquiry.html" class="gallery-card group">
                 <div class="img-box aspect-[4/5] md:aspect-square">
-                    <img src="namedpics/21.jpg" alt="Commission Inquiry">
+                    <img src="namedpics/Earth_Root_Bonsai.jpg" alt="Commission Inquiry">
                 </div>
                 <div class="p-8">
                     <h3 class="text-3xl mb-1 italic">Bespoke <span
@@ -192,16 +156,16 @@
 
 
             <div class="order-1 md:order-2 grid grid-cols-2 gap-4">
-                <img src="namedpics/21.jpg" alt="Artistic Detail 1"
+                <img src="namedpics/Earth_Root_Bonsai.jpg" alt="Artistic Detail 1"
                     class="rounded-2xl border border-white/5 shadow-2xl">
-                <img src="namedpics/1.jpg" alt="Artistic Detail 2"
+                <img src="namedpics/Amethyst_Moon_Bonsai_1.jpg" alt="Artistic Detail 2"
                     class="rounded-2xl border border-white/5 shadow-2xl translate-y-8">
             </div>
         </div>
     </section>
 
     <footer class="py-20 text-center opacity-30">
-        <p class="text-[10px] tracking-[0.6em] uppercase text-white">Pure Stone Vibes &copy; 2026 | <span class="opacity-50">v1.051</span></p>
+        <p class="text-[10px] tracking-[0.6em] uppercase text-white">Pure Stone Vibes &copy; 2026</p>
     </footer>
 
     <script src="theme.js"></script>

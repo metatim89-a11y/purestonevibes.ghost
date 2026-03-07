@@ -10,19 +10,20 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
 
-        /* --- Existing Styles --- */
         .gallery-card-wrapper {
             position: relative;
             width: 100%;
-            /* Removed fixed square aspect ratio to allow text + image stacking */
+            padding-bottom: 100%;
+            /* Square thumbnails */
             z-index: 1;
         }
 
         .gallery-card {
-            position: relative; /* Changed from absolute */
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto; /* Allow growth */
-            min-height: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             border-radius: 4px;
@@ -52,69 +53,6 @@
             font-weight: 800;
             font-size: 14px;
         }
-        
-        /* --- NEW STYLES FOR GRAPHIC TEXT --- */
-        .graphic-text {
-            font-family: 'Playfair Display', serif;
-            font-weight: 900; /* Bolder for graphic effect */
-            text-transform: uppercase;
-            color: #fff; /* Base white color */
-            letter-spacing: 0.1em; /* Wider spacing for impact */
-            
-            /* Glowing effect */
-            text-shadow:
-                0 0 5px #ec4899, /* Pink glow */
-                0 0 10px #ec4899,
-                0 0 15px #ec4899,
-                0 0 20px #9d174d, /* Darker pink/purple glow */
-                0 0 30px #9d174d;
-        }
-
-        /* Staggering specific styles */
-        .gallery-card-content {
-            display: flex;
-            flex-direction: column; /* Default to column for single line */
-            justify-content: center;
-            align-items: center;
-            padding: 12px;
-            background: #0a0a0a;
-            height: auto; /* Let content define height */
-            transition: background-color 0.3s ease;
-        }
-
-        .gallery-card-wrapper:hover .gallery-card-content {
-            background: #121212; /* Slightly brighter on hover */
-        }
-        
-        .item-name-wrapper {
-            width: 100%;
-            text-align: center;
-        }
-
-        .item-image-wrapper {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 1 / 1; /* Ensure square image container */
-            overflow: hidden;
-            background-color: #1a1a1a; /* Darker background for image */
-            transition: transform 0.7s ease-in-out;
-        }
-        .item-image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s ease-in-out;
-        }
-        .gallery-card-wrapper:hover .item-image-wrapper img {
-            transform: scale(1.1); /* Zoom effect on image */
-        }
-
-        /* Styles for staggering */
-        .name-above .item-name-wrapper { order: 1; }
-        .name-above .item-image-wrapper { order: 2; }
-        .name-below .item-name-wrapper { order: 2; }
-        .name-below .item-image-wrapper { order: 1; }
-
     </style>
 </head>
 
@@ -161,7 +99,7 @@
 
     <header class="max-w-7xl mx-auto px-6 py-12 text-center">
         <h2 class="text-5xl mb-4 italic">The <span class="text-pink-500 font-bold not-italic">Grove</span></h2>
-        <p class="text-zinc-500 max-w-2xl mx-auto text-sm italic">Curated Collection: <span id="collection-count">16</span> Unique Hand-Twisted Sculptures
+        <p class="text-zinc-500 max-w-2xl mx-auto text-sm italic">Curated Collection: 16 Unique Hand-Twisted Sculptures
         </p>
     </header>
 
@@ -221,17 +159,9 @@
 
         async function initGallery() {
             try {
-                // The API endpoint is confirmed to exist by reading server.js
                 const response = await fetch('/api/inventory');
-                if (!response.ok) {
-                    throw new Error(`Network response was not ok: ${response.statusText}`);
-                }
-                const data = await response.json();
-                inventory = data || {}; // Ensure inventory is an object
-                
-                // Update collection count in header
-                document.getElementById('collection-count').textContent = Object.keys(inventory).length;
-
+                if (!response.ok) throw new Error('Network response was not ok');
+                inventory = await response.ok ? await response.json() : {};
                 renderGallery();
             } catch (error) {
                 console.error('Failed to load inventory:', error);
@@ -263,28 +193,16 @@
                 cardWrapper.onclick = () => openModal(index);
 
                 const displayName = item.displayName;
-                const ext = item.ext || 'jpg'; // Default to jpg if extension is missing
 
-                // Determine staggering class: 'name-above' for even, 'name-below' for odd
-                const staggerClass = index % 2 === 0 ? 'name-above' : 'name-below';
-
-                // Dynamically generate inner HTML for staggered layout and graphic text
                 cardWrapper.innerHTML = `
-                    <div class="gallery-card ${staggerClass}">
-                        <div class="item-image-wrapper">
-                            <img src="namedpics/${item.id}.${ext}" 
+                    <div class="gallery-card">
+                        <div class="relative overflow-hidden aspect-square bg-zinc-900 flex items-center justify-center">
+                            <img src="namedpics/${item.id}.${item.ext}" 
                                  alt="${displayName}" 
-                                 loading="lazy">
+                                 class="w-full h-full object-cover md:group-hover:scale-105 transition-transform duration-700">
                         </div>
-                        <div class="gallery-card-content">
-                            <div class="item-name-wrapper">
-                                <h3 class="text-[11px] md:text-[13px] font-bold uppercase leading-tight 
-                                           ${displayName.length > 25 ? 'text-xs' : ''} 
-                                           graphic-text
-                                           truncate w-full text-center drop-shadow-sm">
-                                    ${displayName}
-                                </h3>
-                            </div>
+                        <div class="p-3 flex-grow flex flex-col justify-center items-center bg-[#0a0a0a]">
+                            <h3 class="text-[11px] md:text-[13px] font-bold italic leading-tight bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent group-hover:from-pink-300 group-hover:to-purple-400 transition-all truncate w-full text-center uppercase tracking-wider drop-shadow-sm">${displayName}</h3>
                         </div>
                     </div>
                 `;
@@ -302,8 +220,7 @@
             const modalDetails = document.getElementById('modal-details');
             const content = document.getElementById('modal-content');
 
-            const ext = item.ext || 'jpg'; // Default to jpg if extension is missing
-            modalImg.src = `namedpics/${item.id}.${ext}`;
+            modalImg.src = `namedpics/${item.id}.${item.ext}`;
 
             modalDetails.innerHTML = `
                 <h2 class="text-3xl md:text-5xl italic font-bold mb-2 bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">${item.displayName}</h2>

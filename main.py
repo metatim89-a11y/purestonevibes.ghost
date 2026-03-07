@@ -256,7 +256,7 @@ async def custom_swagger_ui_html(request: Request):
 
 # --- Static File Serving ---
 
-@app.get("/", response_class=FileResponse)
+@app.get("/landing", response_class=FileResponse)
 async def read_index():
     return FileResponse(os.path.join(BASE_DIR, "index.html"))
 

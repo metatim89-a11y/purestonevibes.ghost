@@ -597,11 +597,19 @@ To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
 [1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
 [1;35m--- PURE STONE VIBES SYNC ---[0m
 Staging all changes...
-3-07 12:36:39,471 - INFO - Served static file (cached): theme.css (Status: 304)
-2026-03-07 12:36:39,494 - INFO - Served static file (cached): theme.js (Status: 304)
-2026-03-07 12:36:40,262 - ERROR - ERROR: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 130627588208320 and this is thread id 130627631898880. | Path: /api/stats | Method: GET
-2026-03-07 12:37:12,361 - INFO - Served static file (cached): login.html (Status: 304)
-2026-03-07 12:37:25,136 - INFO - Served static file: index.html (Status: 200)
+Committing with message: Amethyst-powered sync: 28 gems secured.
+[master 4b65d85] Amethyst-powered sync: 28 gems secured.
+ 2 files changed, 142 insertions(+), 190 deletions(-)
+Syncing with GitHub...
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+Pushing to the remote Grove...
+To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
+   815bdb9..4b65d85  master -> master
+[1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
+[1;35m--- PURE STONE VIBES SYNC ---[0m
+Staging all changes...
+ex.html (Status: 200)
 2026-03-07 12:37:44,049 - INFO - Served static file (cached): gallery.html (Status: 304)
 2026-03-07 12:37:44,630 - INFO - Served static file (cached): 2.jpg (Status: 304)
 2026-03-07 12:37:44,634 - INFO - Served static file (cached): 3.jpg (Status: 304)

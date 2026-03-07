@@ -260,6 +260,10 @@ async def custom_swagger_ui_html(request: Request):
 async def read_index():
     return FileResponse(os.path.join(BASE_DIR, "index.html"))
 
+@app.get("/debug", response_class=FileResponse)
+async def read_debug():
+    return FileResponse(os.path.join(BASE_DIR, "debug.html"))
+
 app.mount("/namedpics", LoggedStaticFiles(directory=os.path.join(BASE_DIR, "namedpics")), name="namedpics")
 app.mount("/", LoggedStaticFiles(directory=BASE_DIR, html=True), name="root")
 

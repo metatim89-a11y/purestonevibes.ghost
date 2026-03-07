@@ -154,19 +154,8 @@ async def custom_swagger_ui_html(request: Request):
 # --- Static File Serving ---
 
 # Serve the main HTML pages directly from root
-@app.get("/", response_class=HTMLResponse)
-async def read_index():
-    with open(os.path.join(BASE_DIR, "index.html"), "r", encoding="utf-8") as f:
-        return HTMLResponse(content=f.read())
 
 # Explicit routes for key pages to ensure they resolve without .html if needed
-@app.get("/{page_name}.html", response_class=HTMLResponse)
-async def read_page(page_name: str):
-    file_path = os.path.join(BASE_DIR, f"{page_name}.html")
-    if os.path.exists(file_path):
-        with open(file_path, "r", encoding="utf-8") as f:
-            return HTMLResponse(content=f.read())
-    return HTMLResponse(content="<h1>404 Not Found</h1>", status_code=404)
 
 # Mount asset directories
 app.mount("/namedpics", StaticFiles(directory=os.path.join(BASE_DIR, "namedpics")), name="namedpics")

@@ -122,12 +122,46 @@
         const modalTitle = document.getElementById('modal-title');
         const modalContent = document.getElementById('modal-content');
 
-        function openSplatModal(title, content) {
+        // Function to execute scripts within a given HTML string
+        function executeScripts(htmlString, targetElement) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlString, 'text/html');
+            const scripts = doc.querySelectorAll('script');
+
+            scripts.forEach(oldScript => {
+                const newScript = document.createElement('script');
+                Array.from(oldScript.attributes).forEach(attr => {
+                    newScript.setAttribute(attr.name, attr.value);
+                });
+                newScript.textContent = oldScript.textContent;
+                targetElement.appendChild(newScript);
+            });
+        }
+
+        async function openSplatModal(title, contentUrl) {
             modalTitle.innerHTML = title;
-            modalContent.innerHTML = content;
+            modalContent.innerHTML = '<p class="text-zinc-400">Loading...</p>'; // Show loading indicator
             splatModal.classList.remove('hidden', 'opacity-0');
             splatModal.classList.add('flex', 'opacity-100');
             document.body.classList.add('overflow-hidden'); // Prevent scrolling
+
+            try {
+                const response = await fetch(contentUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const html = await response.text();
+                modalContent.innerHTML = ''; // Clear loading
+                // Append content and then execute scripts
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+                Array.from(tempDiv.children).forEach(child => modalContent.appendChild(child));
+                executeScripts(html, modalContent);
+
+            } catch (error) {
+                console.error("Error loading modal content:", error);
+                modalContent.innerHTML = `<p class="text-red-400">Failed to load content: ${error.message}</p>`;
+            }
         }
 
         function closeSplatModal() {

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Process | Pure Stone Vibes</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="theme.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
 
@@ -44,11 +45,30 @@
                 PURE STONE VIBES</h1>
             <p class="text-[9px] tracking-[0.4em] text-pink-500 font-bold uppercase">← Back to Home</p>
         </a>
-        <div class="hidden md:flex gap-8 text-[11px] uppercase tracking-widest font-semibold">
+        <div class="hidden md:flex gap-8 text-[11px] uppercase tracking-widest font-semibold items-center">
             <a href="gallery.html" class="hover:text-pink-400 transition">The Grove</a>
             <a href="auction.html" class="hover:text-pink-400 transition">Auctions</a>
             <a href="inquiry.html"
                 class="border border-pink-500/40 px-6 py-2 text-pink-500 hover:bg-pink-500 hover:text-white transition uppercase rounded-full">Inquire</a>
+
+            <!-- Auth & Theme UI -->
+            <div class="flex items-center gap-4 ml-2 pl-4 border-l border-white/10">
+                <button onclick="toggleTheme()" class="hover:text-pink-500 transition" title="Toggle Theme">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707zM12 5a7 7 0 100 14 7 7 0 000-14z">
+                        </path>
+                    </svg>
+                </button>
+                <a href="login.html" id="login-link"
+                    class="text-[10px] uppercase tracking-widest hover:text-pink-500 transition">Login</a>
+                <div id="user-display"
+                    class="hidden text-[10px] uppercase tracking-widest text-pink-500 font-bold flex items-center gap-3">
+                    <span id="username-val"></span>
+                    <button onclick="logout()"
+                        class="text-zinc-500 hover:text-white transition lowercase font-normal">[logout]</button>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -128,6 +148,7 @@
     <footer class="py-20 text-center opacity-30">
         <p class="text-[10px] tracking-[0.6em] uppercase text-white">Pure Stone Vibes &copy; 2026</p>
     </footer>
+    <script src="theme.js"></script>
 </body>
 
 </html>

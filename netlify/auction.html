@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Auctions | Pure Stone Vibes</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="theme.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
 
@@ -97,6 +98,25 @@
                 class="text-pink-500 underline decoration-2 underline-offset-8 font-bold">Auctions</a>
             <a href="process.html" class="hover:text-pink-400 transition">The Process</a>
             <a href="inquiry.html" class="hover:text-pink-400 transition">Inquire</a>
+
+            <!-- Auth & Theme UI -->
+            <div class="flex items-center gap-4 ml-4 pl-4 border-l border-white/10">
+                <button onclick="toggleTheme()" class="hover:text-pink-500 transition" title="Toggle Theme">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707zM12 5a7 7 0 100 14 7 7 0 000-14z">
+                        </path>
+                    </svg>
+                </button>
+                <a href="login.html" id="login-link"
+                    class="text-[10px] uppercase tracking-widest hover:text-pink-500 transition">Login</a>
+                <div id="user-display"
+                    class="hidden text-[10px] uppercase tracking-widest text-pink-500 font-bold flex items-center gap-3">
+                    <span id="username-val"></span>
+                    <button onclick="logout()"
+                        class="text-zinc-500 hover:text-white transition lowercase font-normal">[logout]</button>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -248,40 +268,17 @@
         <p class="text-[10px] tracking-[0.6em] uppercase text-white">Pure Stone Vibes &copy; 2026</p>
     </footer>
 
-    <!-- DUMMY SIMULATION TOGGLE -->
-    <div class="fixed bottom-8 left-8 z-[100]">
-        <button id="sim-toggle"
-            class="bg-zinc-900 border border-white/10 px-6 py-3 rounded-full text-[10px] uppercase tracking-widest font-bold hover:border-pink-500 transition shadow-2xl">
-            Toggle Demo Mode
-        </button>
-    </div>
-
     <script>
         // COUNTDOWN TIMER LOGIC
-        let simActive = false;
-        const simToggle = document.getElementById('sim-toggle');
-        const countdownContainer = document.getElementById('countdown-container');
-
         function updateCountdown() {
-            if (simActive) {
-                countdownContainer.innerHTML = `
-                    <div class="animate-pulse">
-                        <span class="live-indicator"></span>
-                        <h3 class="text-2xl mb-2 italic text-pink-500 font-bold">Bidding is LIVE</h3>
-                        <p class="text-[10px] uppercase tracking-widest text-zinc-500">Auction ends in 02:45</p>
-                    </div>
-                `;
-                return;
-            } else {
-                // Restore static countdown if simulation ends (optional, usually just refresh)
-            }
-
             // Set next auction to next Tuesday or Thursday at 8PM CST
             const now = new Date();
             const nextAuction = new Date();
 
-            let daysUntil = (2 - now.getDay() + 7) % 7;
-            let daysUntilThu = (4 - now.getDay() + 7) % 7;
+            // This is a simplified logic to find the next Tue/Thu
+            // In a real app, this would be synced with the FastAPI server time
+            let daysUntil = (2 - now.getDay() + 7) % 7; // Days to Tuesday
+            let daysUntilThu = (4 - now.getDay() + 7) % 7; // Days to Thursday
 
             let targetDays = (daysUntil < daysUntilThu && daysUntil !== 0) || (daysUntil === 0 && now.getHours() < 20) ? daysUntil : daysUntilThu;
 
@@ -305,71 +302,30 @@
         const bidForm = document.getElementById('bid-form');
         const currentBidEl = document.getElementById('current-bid');
         const bidHistory = document.getElementById('bid-history');
-        const bidCountEl = document.getElementById('bid-count');
-
-        function addBidToHistory(name, amount, time, isUser = false) {
-            const newBid = document.createElement('div');
-            newBid.className = `flex justify-between items-center text-xs border-l-2 ${isUser ? 'border-pink-500 bg-pink-500/5' : 'border-zinc-700 bg-white/5'} pl-4 py-2 rounded-r-lg animate-in slide-in-from-left duration-500`;
-            newBid.innerHTML = `
-                <p class="text-zinc-300"><span class="font-bold ${isUser ? 'text-white' : 'text-zinc-400'}">${name}</span> just bid <span class="text-pink-400 font-bold">$${amount}</span></p>
-                <p class="text-zinc-600">${time}</p>
-            `;
-            bidHistory.prepend(newBid);
-            currentBidEl.textContent = `$${amount}.00`;
-
-            // Increment bidder count occasionally
-            if (Math.random() > 0.7) {
-                const count = parseInt(bidCountEl.textContent);
-                bidCountEl.textContent = `${count + 1} Active Bidders`;
-            }
-        }
 
         bidForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const amountInput = document.getElementById('bid-amount');
-            const amount = parseInt(amountInput.value);
+            const amount = document.getElementById('bid-amount').value;
             const currentBid = parseInt(currentBidEl.textContent.replace('$', ''));
 
             if (amount > currentBid) {
-                addBidToHistory("You", amount, "Just now", true);
-                amountInput.value = '';
+                // Update UI visually (In the future, this will be handled by Websockets/FastAPI)
+                currentBidEl.textContent = `$${amount}.00`;
+
+                const newBid = document.createElement('div');
+                newBid.className = 'flex justify-between items-center text-xs border-l-2 border-pink-500 pl-4 py-2 bg-pink-500/5 rounded-r-lg animate-pulse';
+                newBid.innerHTML = `
+                    <p class="text-zinc-300"><span class="font-bold text-white">You</span> just bid <span class="text-pink-400 font-bold">$${amount}</span></p>
+                    <p class="text-zinc-600">Just now</p>
+                `;
+                bidHistory.prepend(newBid);
+                bidForm.reset();
             } else {
                 alert("Bid must be higher than current price!");
             }
         });
-
-        // SIMULATION LOGIC
-        const dummyNames = ["Sage W.", "Jade K.", "Onyx R.", "Crystal V.", "Jasper D.", "Amber L.", "River S."];
-
-        simToggle.addEventListener('click', () => {
-            simActive = !simActive;
-            simToggle.textContent = simActive ? "Simulation Running..." : "Start Demo Run";
-            simToggle.classList.toggle('border-pink-500');
-
-            if (simActive) {
-                runSimulation();
-            }
-        });
-
-        function runSimulation() {
-            if (!simActive) return;
-
-            const randomDelay = Math.random() * 5000 + 3000; // 3-8 seconds
-
-            setTimeout(() => {
-                if (!simActive) return;
-
-                const currentBid = parseInt(currentBidEl.textContent.replace('$', ''));
-                const increment = Math.floor(Math.random() * 3) * 5 + 5; // $5, $10, or $15
-                const newBid = currentBid + increment;
-                const name = dummyNames[Math.floor(Math.random() * dummyNames.length)];
-
-                addBidToHistory(name, newBid, "Just now");
-
-                runSimulation();
-            }, randomDelay);
-        }
     </script>
+    <script src="theme.js"></script>
 </body>
 
 </html>

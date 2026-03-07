@@ -524,11 +524,8 @@
             window.location.href = 'gallery.html';
         }
 
-        const itemParam = urlParams.get('item');
-        if (itemParam) {
-            document.getElementById('sculptureSelect').value = itemParam;
-            updateDetails();
-        }
+        // Check url params for 'item' manually if needed, 
+        // but now it's handled in the DOMContentLoaded fetch block above to ensure inventory is loaded first.
 
         // --- Custom Submisison Logic for Node.js Backend ---
         document.getElementById('inquiryForm').addEventListener('submit', async (e) => {

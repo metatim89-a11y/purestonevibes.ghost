@@ -792,16 +792,22 @@ To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
 [1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
 [1;35m--- PURE STONE VIBES SYNC ---[0m
 Staging all changes...
-INFO - Served static file: 3.jpg (Status: 200)
-2026-03-07 13:20:30,667 - INFO - Served static file: 1.jpg (Status: 200)
-2026-03-07 13:20:30,670 - INFO - Served static file: 2.jpg (Status: 200)
-2026-03-07 13:20:30,710 - INFO - Served static file: 4.jpg (Status: 200)
-2026-03-07 13:20:30,715 - INFO - Served static file: 5.jpg (Status: 200)
-2026-03-07 13:20:30,716 - INFO - Served static file: 6.jpg (Status: 200)
-2026-03-07 13:20:30,773 - INFO - Served static file: 7.jpg (Status: 200)
-2026-03-07 13:20:30,781 - INFO - Served static file: 26.jpg (Status: 200)
-2026-03-07 13:20:30,793 - INFO - Served static file: 14.jpg (Status: 200)
-2026-03-07 13:20:30,856 - INFO - Served static file: 15.jpg (Status: 200)
+Committing with message: Amethyst-powered sync: 28 gems secured.
+[master 931b285] Amethyst-powered sync: 28 gems secured.
+ 4 files changed, 38 insertions(+), 10 deletions(-)
+ create mode 100644 templates/_image_uploader.html
+ create mode 100644 templates/_server_control.html
+ create mode 100644 templates/_settings.html
+Syncing with GitHub...
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+Pushing to the remote Grove...
+To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
+   af05483..931b285  master -> master
+[1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
+[1;35m--- PURE STONE VIBES SYNC ---[0m
+Staging all changes...
+g (Status: 200)
 2026-03-07 13:20:30,867 - INFO - Served static file: 19.jpg (Status: 200)
 2026-03-07 13:20:30,870 - INFO - Served static file: 13.jpg (Status: 200)
 2026-03-07 13:20:30,934 - INFO - Served static file: 21.jpg (Status: 200)

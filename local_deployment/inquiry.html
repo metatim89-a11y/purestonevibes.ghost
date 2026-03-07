@@ -10,54 +10,8 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #050505;
-            color: #eeeeee;
-            background-image: radial-gradient(circle at top right, #1a1010, transparent);
-        }
-
-        h1,
-        h2,
-        h3 {
-            font-family: 'Playfair Display', serif;
-        }
-
-        .glass-nav {
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-        }
-
-        input,
-        select,
-        textarea {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 16px;
-            color: #fff;
-            width: 100%;
-            font-size: 14px;
-        }
-
-        input:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #ec4899;
-            box-shadow: 0 0 10px rgba(236, 72, 153, 0.1);
-        }
-
         .submit-btn {
-            background: linear-gradient(to right, #ec4899, #be185d);
+            background: linear-gradient(to right, var(--accent-color), #be185d);
             padding: 18px 32px;
             border-radius: 99px;
             font-weight: 800;
@@ -168,12 +122,7 @@
         </div>
 
         <div class="md:w-1/2 glass-panel p-10 space-y-6">
-            <form name="inquiry" netlify data-netlify="true" netlify-honeypot="bot-field"
-                action="/inquiry.html?success=true" method="POST" class="space-y-6">
-                <!-- Hidden bot-field for Netlify spam protection -->
-                <p class="hidden">
-                    <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
-                </p>
+            <form id="inquiryForm" class="space-y-6">
                 <div>
                     <label class="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 block">Full Name</label>
                     <input type="text" name="name" placeholder="John Doe" required>
@@ -475,8 +424,48 @@
             if (val && inventory[val]) {
                 const item = inventory[val];
                 document.getElementById('detailName').textContent = item.displayName || val.replace(/_/g, ' ');
-                document.getElementById('detailEnergy').textContent = item.energy;
-                document.getElementById('detailGems').textContent = `${item.leaf} on ${item.base}`;
+
+                // Parsing logic (consistent with gallery.html)
+                // Inject full energy layout
+                document.getElementById('detailEnergy').innerHTML = `
+                    <div class="space-y-4 pt-4">
+                        <div class="flex gap-10">
+                            <div class="group/info">
+                                <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Collection ID:</span>
+                                <div class="pl-3 border-l-2 border-pink-500/10 transition-colors">
+                                    <p class="text-zinc-200 text-xs font-semibold uppercase tracking-wider">${val}</p>
+                                </div>
+                            </div>
+                            <div class="group/info">
+                                <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Piece Number:</span>
+                                <div class="pl-3 border-l-2 border-pink-500/10 transition-colors">
+                                    <p class="text-zinc-200 text-xs font-semibold uppercase tracking-wider">#${item.number || val}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group/info">
+                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Base Stone:</span>
+                            <div class="pl-3 border-l-2 border-pink-500/10 transition-colors">
+                                <p class="text-zinc-200 text-xs font-semibold uppercase tracking-wider">${item.base}</p>
+                            </div>
+                        </div>
+                        <div class="group/info">
+                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Leaflet Stone:</span>
+                            <div class="pl-3 border-l-2 border-pink-500/10 transition-colors">
+                                <p class="text-zinc-200 text-xs font-semibold uppercase tracking-wider">${item.leaf}</p>
+                            </div>
+                        </div>
+                        <div class="group/info">
+                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Stone Resonance & Energy:</span>
+                            <p class="pl-3 border-l-2 border-pink-500/10 transition-colors italic text-zinc-300 text-xs leading-relaxed">"${item.energy}"</p>
+                        </div>
+                    </div>
+                `;
+
+                // Content is now integrated into detailEnergy, so we hide old detailGems section
+                const gemsLabel = document.getElementById('detailGems').previousElementSibling;
+                if (gemsLabel) gemsLabel.classList.add('hidden');
+                document.getElementById('detailGems').textContent = "";
 
                 // Update the preview image source using the ID and extension from the inventory data
                 const imgElement = document.getElementById('detailImage');
@@ -487,8 +476,13 @@
             } else if (val === 'custom') {
                 // Special case for custom commissions
                 document.getElementById('detailName').textContent = 'Bespoke Custom Tree';
-                document.getElementById('detailEnergy').textContent = 'A unique collaboration tailored to your personal frequency and space.';
-                document.getElementById('detailGems').textContent = 'Consultation required for stone selection.';
+                document.getElementById('detailEnergy').innerHTML = '<p class="text-zinc-400 italic text-sm">A unique collaboration tailored to your personal frequency and space.</p>';
+
+                // Hide or reset other fields
+                const gemsLabel = document.getElementById('detailGems').previousElementSibling;
+                if (gemsLabel) gemsLabel.classList.add('hidden');
+                document.getElementById('detailGems').textContent = "";
+
                 document.getElementById('detailImage').src = '2.jfif'; // Use a high-quality placeholder for custom
                 details.classList.remove('hidden');
             } else {
@@ -514,11 +508,44 @@
             window.location.href = 'gallery.html';
         }
 
-        const itemParam = urlParams.get('item');
-        if (itemParam) {
-            document.getElementById('sculptureSelect').value = itemParam;
-            updateDetails();
-        }
+        // Check url params for 'item' manually if needed, 
+        // but now it's handled in the DOMContentLoaded fetch block above to ensure inventory is loaded first.
+
+        // --- Custom Submisison Logic for Node.js Backend ---
+        document.getElementById('inquiryForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const btn = e.target.querySelector('.submit-btn');
+            const originalText = btn.textContent;
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const res = await fetch('/api/inquiry', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (res.ok) {
+                    // Show success popup and clear form
+                    document.getElementById('successPopup').classList.add('show');
+                    e.target.reset();
+                    updateDetails();
+                } else {
+                    alert('There was an issue sending your inquiry. Please try again.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Network error. Please try again later.');
+            } finally {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        });
     </script>
     <script src="theme.js"></script>
 </body>

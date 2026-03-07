@@ -426,54 +426,38 @@
                 document.getElementById('detailName').textContent = item.displayName || val.replace(/_/g, ' ');
 
                 // Parsing logic (consistent with gallery.html)
-                let baseVibe = "";
-                let leafletVibe = "";
-                let bindings = "";
-                let combined = "";
-
-                const energyParts = item.energy.split(':');
-                if (energyParts.length > 1) {
-                    combined = energyParts[0].trim();
-                    const mainDesc = energyParts[1].split('.');
-                    const vibesPart = mainDesc[0].split('+');
-
-                    if (vibesPart.length > 0) {
-                        leafletVibe = vibesPart[0].split('for')[1]?.trim() || "";
-                    }
-                    if (vibesPart.length > 1) {
-                        baseVibe = vibesPart[1].split('for')[1]?.trim() || "";
-                    }
-                    if (mainDesc.length > 1) {
-                        bindings = mainDesc[1].trim();
-                    }
-                } else {
-                    combined = "Unique Energy";
-                    bindings = item.energy;
-                }
-
-                // Inject structured vertical layout
+                // Inject full energy layout
                 document.getElementById('detailEnergy').innerHTML = `
                     <div class="space-y-4 pt-4">
+                        <div class="flex gap-10">
+                            <div class="group/info">
+                                <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Collection ID:</span>
+                                <div class="pl-3 border-l-2 border-pink-500/10 transition-colors">
+                                    <p class="text-zinc-200 text-xs font-semibold uppercase tracking-wider">${val}</p>
+                                </div>
+                            </div>
+                            <div class="group/info">
+                                <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Piece Number:</span>
+                                <div class="pl-3 border-l-2 border-pink-500/10 transition-colors">
+                                    <p class="text-zinc-200 text-xs font-semibold uppercase tracking-wider">#${item.number || val}</p>
+                                </div>
+                            </div>
+                        </div>
                         <div class="group/info">
-                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">BaseStone:</span>
+                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Base Stone:</span>
                             <div class="pl-3 border-l-2 border-pink-500/10 transition-colors">
                                 <p class="text-zinc-200 text-xs font-semibold uppercase tracking-wider">${item.base}</p>
-                                <p class="lowercase text-zinc-500 italic text-[11px] mt-1 line-clamp-2">${baseVibe}</p>
                             </div>
                         </div>
                         <div class="group/info">
-                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">LeafletStone:</span>
+                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Leaflet Stone:</span>
                             <div class="pl-3 border-l-2 border-pink-500/10 transition-colors">
-                                <p class="text-zinc-200 text-xs font-semibold uppercase tracking-wider">${item.leaf} <span class="lowercase text-zinc-500 italic font-normal ml-1">(${leafletVibe})</span></p>
+                                <p class="text-zinc-200 text-xs font-semibold uppercase tracking-wider">${item.leaf}</p>
                             </div>
                         </div>
                         <div class="group/info">
-                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Bindings:</span>
-                            <p class="pl-3 border-l-2 border-pink-500/10 transition-colors lowercase text-zinc-500 text-[11px]">${bindings}</p>
-                        </div>
-                        <div class="group/info">
-                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Combined:</span>
-                            <p class="pl-3 border-l-2 border-pink-500/10 transition-colors italic text-zinc-300 text-xs">${combined}</p>
+                            <span class="text-pink-500 block mb-1 opacity-70 text-[9px] uppercase tracking-widest">Stone Resonance & Energy:</span>
+                            <p class="pl-3 border-l-2 border-pink-500/10 transition-colors italic text-zinc-300 text-xs leading-relaxed">"${item.energy}"</p>
                         </div>
                     </div>
                 `;

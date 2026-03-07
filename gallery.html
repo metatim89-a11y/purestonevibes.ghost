@@ -7,64 +7,51 @@
     <title>The Grove | Pure Stone Vibes Inventory</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="theme.css">
-    <link rel="stylesheet" href="gallery_style.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #050505;
-            color: #eeeeee;
-            background-image: radial-gradient(circle at top right, #1a1010, transparent);
-        }
-
-        h1,
-        h2,
-        h3 {
-            font-family: 'Playfair Display', serif;
-        }
-
-        .glass-nav {
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        .gallery-card-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%;
+            /* Square thumbnails */
+            z-index: 1;
         }
 
         .gallery-card {
-            background: rgba(22, 22, 22, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.4s ease;
-            border-radius: 12px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .gallery-card:hover {
-            border-color: #ec4899;
-            transform: translateY(-4px);
-        }
-
-        .price-tag {
-            background: linear-gradient(to right, #ec4899, #be185d);
-            padding: 4px 12px;
-            border-radius: 99px;
-            font-weight: 800;
-            font-size: 14px;
-        }
-
-        #lightbox {
-            display: none;
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            display: flex;
+            flex-direction: column;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: #111;
+            /* Solid dark background */
+            border: 2px solid rgba(236, 72, 153, 0.4);
+            /* Pink/colorful border on every cell */
             cursor: pointer;
+        }
+
+        /* Enhanced colorful glow on hover, no layout shift */
+        .gallery-card-wrapper:hover .gallery-card {
+            border-color: rgba(236, 72, 153, 1);
+            transform: scale(1.1);
+            /* Slight pop/hover effect */
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+            /* Colorful glow */
+            z-index: 20;
+        }
+
+        .price-tag {
+            background: linear-gradient(to right, var(--accent-color), #be185d);
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-weight: 800;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -112,93 +99,228 @@
 
     <header class="max-w-7xl mx-auto px-6 py-12 text-center">
         <h2 class="text-5xl mb-4 italic">The <span class="text-pink-500 font-bold not-italic">Grove</span></h2>
-        <p class="text-zinc-500 max-w-2xl mx-auto text-sm italic">Curated Collection: <span id="collection-count">28</span> Unique Hand-Twisted Sculptures
+        <p class="text-zinc-500 max-w-2xl mx-auto text-sm italic">Curated Collection: 16 Unique Hand-Twisted Sculptures
         </p>
     </header>
 
-    <main class="max-w-[1400px] mx-auto px-6 pb-32">
-        <div id="gallery-grid-container">
-            <div id="gallery-grid"></div>
-        </div>
+    <main class="max-w-[1700px] mx-auto px-4 pb-32">
+        <div id="gallery-grid"
+            class="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-3"></div>
     </main>
 
-    <div id="lightbox" onclick="this.style.display='none'">
-        <img id="lightbox-img" src="" class="max-w-[90%] max-h-[90%] rounded shadow-2xl border border-white/10">
+    <!-- New Centered Modal -->
+    <div id="centered-modal"
+        class="hidden fixed inset-0 z-[1000] bg-black/90 items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <!-- Close Button -->
+        <button onclick="closeModal()"
+            class="absolute top-6 right-6 text-white hover:text-pink-500 z-[1050] p-2 bg-black/50 rounded-full border border-white/10 hover:border-pink-500 transition-all cursor-pointer">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <!-- Navigation Arrows -->
+        <button onclick="prevItem(event)"
+            class="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white hover:text-pink-500 z-[1050] p-3 md:p-4 bg-black/50 rounded-full border border-white/10 hover:border-pink-500 transition-all shadow-xl cursor-pointer">
+            <svg class="w-8 h-8 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </button>
+        <button onclick="nextItem(event)"
+            class="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white hover:text-pink-500 z-[1050] p-3 md:p-4 bg-black/50 rounded-full border border-white/10 hover:border-pink-500 transition-all shadow-xl cursor-pointer">
+            <svg class="w-8 h-8 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </button>
+
+        <!-- Modal Content Container -->
+        <div id="modal-content"
+            class="bg-[#0f0f0f] border border-pink-500/30 rounded-xl w-full max-w-6xl max-h-[90vh] overflow-y-auto flex flex-col md:flex-row transform scale-95 transition-transform duration-300 shadow-[0_0_80px_rgba(0,0,0,1)] relative z-[1010]">
+            <!-- Image Left -->
+            <div
+                class="w-full md:w-[50%] lg:w-[60%] relative bg-zinc-950 flex items-center justify-center min-h-[40vh] md:min-h-[75vh]">
+                <img id="modal-img" src="" class="w-full h-full object-contain p-4 md:p-8">
+            </div>
+            <!-- Details Right -->
+            <div class="w-full md:w-[50%] lg:w-[40%] p-6 md:p-10 flex flex-col justify-center border-t md:border-t-0 md:border-l border-white/10 text-left"
+                id="modal-details">
+                <!-- Injected via JS -->
+            </div>
+        </div>
     </div>
 
     <script>
-        let fullInventory = {}; // Holds the master list of all items
-
         /**
-         * Fetches the master inventory data from the JSON file.
-         * This ensures the gallery is always up-to-date with the latest data.
+         * Fetches inventory data from the backend API and initiates the render.
          */
-        async function loadInventory() {
+        let inventory = {};
+        let galleryItems = []; // Array to track currently sorted items
+        let currentIndex = 0; // Track which item is open in the modal
+
+        async function initGallery() {
             try {
-                const response = await fetch('inventory_final.json');
-                const data = await response.json();
-                fullInventory = data;
-                renderGallery(); // Initial render after data is loaded
+                const response = await fetch('/api/inventory');
+                if (!response.ok) throw new Error('Network response was not ok');
+                inventory = await response.ok ? await response.json() : {};
+                renderGallery();
             } catch (error) {
-                console.error("Failed to load inventory:", error);
-                document.getElementById('gallery-grid').innerHTML = '<p class="text-pink-500">Could not load The Grove. Please try again later.</p>';
+                console.error('Failed to load inventory:', error);
+                document.getElementById('gallery-grid').innerHTML = `
+                    <div class="col-span-full py-20 text-center opacity-50">
+                        <p class="italic">The energy is shifting. Please wait a moment...</p>
+                    </div>
+                `;
             }
         }
 
-        /**
-         * Renders the gallery grid based on current sorting and inventory state.
-         */
         function renderGallery() {
             const grid = document.getElementById('gallery-grid');
-            const sort = document.getElementById('priceFilter').value;
-            grid.innerHTML = ''; // Clear existing items
+            const sortSelection = document.getElementById('priceFilter')?.value || 'all';
+            grid.innerHTML = '';
 
-            // Transform object into a list for easier sorting and iteration
-            let items = Object.values(fullInventory);
+            let items = Object.entries(inventory).map(([id, data]) => ({ id, ...data }));
 
-            // Apply price sorting logic
-            if (sort === 'high') items.sort((a, b) => b.price - a.price);
-            if (sort === 'low') items.sort((a, b) => a.price - b.price);
+            if (sortSelection === 'high') items.sort((a, b) => b.price - a.price);
+            if (sortSelection === 'low') items.sort((a, b) => a.price - b.price);
 
-            // Create and append a card for each sculpture
-            items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'gallery-card group cursor-pointer';
+            galleryItems = items; // Store globally for navigation
 
-                // Lightbox integration
-                card.onclick = () => {
-                    document.getElementById('lightbox-img').src = `namedpics/${item.number}.${item.ext}`;
-                    document.getElementById('lightbox').style.display = 'flex';
-                };
+            items.forEach((item, index) => {
+                const cardWrapper = document.createElement('div');
+                cardWrapper.className = 'gallery-card-wrapper group cursor-pointer';
+
+                // Lightbox integration: clicking a card zooms the sculpture image
+                cardWrapper.onclick = () => openModal(index);
 
                 const displayName = item.displayName;
-                const priceDisplay = `$${item.price}.00`;
 
-                card.innerHTML = `
-                    <div class="relative overflow-hidden">
-                        <img src="namedpics/${item.number}.${item.ext}" 
-                             alt="${displayName}" 
-                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute top-3 right-3 price-tag text-white shadow-lg">${priceDisplay}</div>
-                    </div>
-                    <div class="p-4 flex-grow flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-lg italic leading-tight group-hover:text-pink-400 transition mb-2">${displayName}</h3>
-                            <p class="text-xs text-zinc-400 leading-relaxed">${item.labor_highlight}</p>
+                cardWrapper.innerHTML = `
+                    <div class="gallery-card">
+                        <div class="relative overflow-hidden aspect-square bg-zinc-900 flex items-center justify-center">
+                            <img src="namedpics/${item.id}.${item.ext}" 
+                                 alt="${displayName}" 
+                                 class="w-full h-full object-cover md:group-hover:scale-105 transition-transform duration-700">
                         </div>
-                        <a href="inquiry.html?item=${item.number}" class="mt-4 text-[10px] bg-pink-500/10 text-pink-500 border border-pink-500/30 px-3 py-1 rounded-full hover:bg-pink-500 hover:text-white transition uppercase tracking-tighter whitespace-nowrap text-center">
-                            Inquire about this Piece
-                        </a>
+                        <div class="p-3 flex-grow flex flex-col justify-center items-center bg-[#0a0a0a]">
+                            <h3 class="text-[11px] md:text-[13px] font-bold italic leading-tight bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent group-hover:from-pink-300 group-hover:to-purple-400 transition-all truncate w-full text-center uppercase tracking-wider drop-shadow-sm">${displayName}</h3>
+                        </div>
                     </div>
                 `;
-                grid.appendChild(card);
+                grid.appendChild(cardWrapper);
             });
-             // Update the collection count dynamically
-            document.getElementById('collection-count').textContent = items.length;
         }
 
-        // Initial load
-        loadInventory();
+        // --- Modals and Navigation Logic ---
+
+        function openModal(index) {
+            currentIndex = index;
+            const item = galleryItems[currentIndex];
+            const modal = document.getElementById('centered-modal');
+            const modalImg = document.getElementById('modal-img');
+            const modalDetails = document.getElementById('modal-details');
+            const content = document.getElementById('modal-content');
+
+            modalImg.src = `namedpics/${item.id}.${item.ext}`;
+
+            modalDetails.innerHTML = `
+                <h2 class="text-3xl md:text-5xl italic font-bold mb-2 bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">${item.displayName}</h2>
+                <div class="flex items-center gap-4 mb-8 pb-4 border-b border-white/10 mt-4">
+                    <span class="price-tag text-white px-4 py-1.5 shadow-lg border border-white/20 text-lg">$${item.price}.00</span>
+                    <a href="inquiry.html?item=${item.id}" class="text-xs bg-pink-500/10 text-pink-500 border border-pink-500/30 px-6 py-2 rounded-full hover:bg-pink-500 hover:text-white transition uppercase tracking-widest font-bold">Inquire Now</a>
+                </div>
+                
+                <div class="space-y-6 text-sm tracking-wide text-zinc-400">
+                    <div class="flex gap-8">
+                        <div>
+                            <span class="text-pink-500 block mb-1 uppercase tracking-widest text-[10px] font-bold opacity-80">Collection ID</span>
+                            <p class="text-zinc-100 font-medium">${item.id}</p>
+                        </div>
+                        <div>
+                            <span class="text-pink-500 block mb-1 uppercase tracking-widest text-[10px] font-bold opacity-80">Piece Number</span>
+                            <p class="text-zinc-100 font-medium">#${item.number || item.id}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-pink-500 block mb-1 uppercase tracking-widest text-xs font-bold opacity-80">Base Stone</span>
+                        <div class="pl-4 border-l-2 border-pink-500/20">
+                            <p class="text-zinc-100 font-medium text-lg">${item.base}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-pink-500 block mb-1 uppercase tracking-widest text-xs font-bold opacity-80">Leaflet Stone</span>
+                        <div class="pl-4 border-l-2 border-pink-500/20">
+                            <p class="text-zinc-100 font-medium text-lg">${item.leaf}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-pink-500 block mb-1 uppercase tracking-widest text-xs font-bold opacity-80">Stone Resonance & Energy</span>
+                        <div class="pl-4 border-l-2 border-pink-500/20">
+                            <p class="italic text-zinc-200 text-lg font-serif leading-relaxed">"${item.energy}"</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.style.display = 'flex';
+            // Slight delay to allow display flex to apply before opacity transition starts
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('centered-modal');
+            const content = document.getElementById('modal-content');
+
+            modal.classList.remove('opacity-100');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+
+            // Wait for transition before hiding display
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        function nextItem(e) {
+            e.stopPropagation(); // prevent modal close
+            if (currentIndex < galleryItems.length - 1) {
+                openModal(currentIndex + 1);
+            } else {
+                openModal(0); // loop back
+            }
+        }
+
+        function prevItem(e) {
+            e.stopPropagation(); // prevent modal close
+            if (currentIndex > 0) {
+                openModal(currentIndex - 1);
+            } else {
+                openModal(galleryItems.length - 1); // loop to end
+            }
+        }
+
+        // Close modal when clicking on the dark background
+        document.getElementById('centered-modal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('centered-modal');
+            if (modal.style.display === 'flex') {
+                if (e.key === 'ArrowRight') nextItem(e);
+                if (e.key === 'ArrowLeft') prevItem(e);
+                if (e.key === 'Escape') closeModal();
+            }
+        });
+
+        // Initial render execution
+        initGallery();
     </script>
     <script src="theme.js"></script>
 </body>

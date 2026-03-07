@@ -10,60 +10,48 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #050505;
-            color: #eeeeee;
-            background-image: radial-gradient(circle at top right, #1a1010, transparent);
-        }
-
-        h1,
-        h2,
-        h3 {
-            font-family: 'Playfair Display', serif;
-        }
-
-        .glass-nav {
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        .gallery-card-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%;
+            /* Square thumbnails */
+            z-index: 1;
         }
 
         .gallery-card {
-            background: rgba(22, 22, 22, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.4s ease;
-            border-radius: 12px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .gallery-card:hover {
-            border-color: #ec4899;
-            transform: translateY(-4px);
-        }
-
-        .price-tag {
-            background: linear-gradient(to right, #ec4899, #be185d);
-            padding: 4px 12px;
-            border-radius: 99px;
-            font-weight: 800;
-            font-size: 14px;
-        }
-
-        #lightbox {
-            display: none;
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            display: flex;
+            flex-direction: column;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: #111;
+            /* Solid dark background */
+            border: 2px solid rgba(236, 72, 153, 0.4);
+            /* Pink/colorful border on every cell */
             cursor: pointer;
+        }
+
+        /* Enhanced colorful glow on hover, no layout shift */
+        .gallery-card-wrapper:hover .gallery-card {
+            border-color: rgba(236, 72, 153, 1);
+            transform: scale(1.1);
+            /* Slight pop/hover effect */
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+            /* Colorful glow */
+            z-index: 20;
+        }
+
+        .price-tag {
+            background: linear-gradient(to right, var(--accent-color), #be185d);
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-weight: 800;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -115,303 +103,224 @@
         </p>
     </header>
 
-    <main class="max-w-[1400px] mx-auto px-6 pb-32">
-        <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+    <main class="max-w-[1700px] mx-auto px-4 pb-32">
+        <div id="gallery-grid"
+            class="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-3"></div>
     </main>
 
-    <div id="lightbox" onclick="this.style.display='none'">
-        <img id="lightbox-img" src="" class="max-w-[90%] max-h-[90%] rounded shadow-2xl border border-white/10">
+    <!-- New Centered Modal -->
+    <div id="centered-modal"
+        class="hidden fixed inset-0 z-[1000] bg-black/90 items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <!-- Close Button -->
+        <button onclick="closeModal()"
+            class="absolute top-6 right-6 text-white hover:text-pink-500 z-[1050] p-2 bg-black/50 rounded-full border border-white/10 hover:border-pink-500 transition-all cursor-pointer">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <!-- Navigation Arrows -->
+        <button onclick="prevItem(event)"
+            class="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white hover:text-pink-500 z-[1050] p-3 md:p-4 bg-black/50 rounded-full border border-white/10 hover:border-pink-500 transition-all shadow-xl cursor-pointer">
+            <svg class="w-8 h-8 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </button>
+        <button onclick="nextItem(event)"
+            class="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white hover:text-pink-500 z-[1050] p-3 md:p-4 bg-black/50 rounded-full border border-white/10 hover:border-pink-500 transition-all shadow-xl cursor-pointer">
+            <svg class="w-8 h-8 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </button>
+
+        <!-- Modal Content Container -->
+        <div id="modal-content"
+            class="bg-[#0f0f0f] border border-pink-500/30 rounded-xl w-full max-w-6xl max-h-[90vh] overflow-y-auto flex flex-col md:flex-row transform scale-95 transition-transform duration-300 shadow-[0_0_80px_rgba(0,0,0,1)] relative z-[1010]">
+            <!-- Image Left -->
+            <div
+                class="w-full md:w-[50%] lg:w-[60%] relative bg-zinc-950 flex items-center justify-center min-h-[40vh] md:min-h-[75vh]">
+                <img id="modal-img" src="" class="w-full h-full object-contain p-4 md:p-8">
+            </div>
+            <!-- Details Right -->
+            <div class="w-full md:w-[50%] lg:w-[40%] p-6 md:p-10 flex flex-col justify-center border-t md:border-t-0 md:border-l border-white/10 text-left"
+                id="modal-details">
+                <!-- Injected via JS -->
+            </div>
+        </div>
     </div>
 
     <script>
-        // The 'inventory' object acts as the primary data source for the gallery.
-        // It maps unique sculpture IDs (Name_Number) to their physical and energetic metadata.
-        // This is used for rendering cards, filtering by price, and image lookups.
-        const inventory = {
-            "Amethyst_Moon_Bonsai_1": {
-                "base": "Amethyst (med)",
-                "leaf": "Moonstone (high)",
-                "energy": "Harmonic Pairing: Moonstone for new beginnings + Amethyst for intuition, calm. Standard root-wrap on raw stone.",
-                "price": 45,
-                "ext": "jpg",
-                "displayName": "Amethyst Moon Bonsai"
-            },
-            "Rose_Quartz_Willow_2": {
-                "base": "Rose Quartz (low)",
-                "leaf": "Rose Quartz (low)",
-                "energy": "Heart Pairing: Rose Quartz for love, compassion + Rose Quartz for love, compassion. Standard root-wrap on raw stone.",
-                "price": 35,
-                "ext": "jpg",
-                "displayName": "Rose Quartz Willow"
-            },
-            "Verdant_Jade_Sphere_3": {
-                "base": "Clear Quartz (med)",
-                "leaf": "Green Jade (med)",
-                "energy": "Abundance Pairing: Green Jade for luck, prosperity + Clear Quartz for amplification, clarity. Standard root-wrap on raw stone.",
-                "price": 81,
-                "ext": "jpg",
-                "displayName": "Verdant Jade Sphere"
-            },
-            "Malachite_Fire_Tree_4": {
-                "base": "Green Aventurine (low)",
-                "leaf": "Malachite (high)",
-                "energy": "Harmonic Pairing: Malachite for transformation + Green Aventurine for opportunity, optimism. Intricate root-wrap on raw stone.",
-                "price": 50,
-                "ext": "jpg",
-                "displayName": "Malachite Fire Tree"
-            },
-            "Midnight_Shadow_Spire_5": {
-                "base": "Obsidian (high)",
-                "leaf": "Black Tourmaline (high)",
-                "energy": "Stability Pairing: Black Tourmaline for protection + Obsidian for protection, grounding. Intricate root-wrap on raw stone.",
-                "price": 75,
-                "ext": "jpg",
-                "displayName": "Midnight Shadow Spire"
-            },
-            "Lavender_Mist_Tree_6": {
-                "base": "Clear Quartz (med)",
-                "leaf": "Amethyst (med)",
-                "energy": "Insight Pairing: Amethyst for intuition, calm + Clear Quartz for amplification, clarity. Standard root-wrap on raw stone.",
-                "price": 73,
-                "ext": "jpg",
-                "displayName": "Lavender Mist Tree"
-            },
-            "Royal_Purple_Oak_7": {
-                "base": "Rose Quartz (low)",
-                "leaf": "Purple Fluorite (med)",
-                "energy": "Insight Pairing: Purple Fluorite for focus, order + Rose Quartz for love, compassion. Intricate root-wrap on raw stone.",
-                "price": 98,
-                "ext": "jpg",
-                "displayName": "Royal Purple Oak"
-            },
-            "Sky_Turquoise_Bonsai_8": {
-                "base": "Jasper (med)",
-                "leaf": "Turquoise (high)",
-                "energy": "Stability Pairing: Turquoise for wholeness, truth + Jasper for nurturing, grounding. Standard root-wrap on raw stone.",
-                "price": 68,
-                "ext": "jpg",
-                "displayName": "Sky Turquoise Bonsai"
-            },
-            "Rose_Passion_Petite_9": {
-                "base": "Wire Root (low)",
-                "leaf": "Rose Quartz (low)",
-                "energy": "Heart Pairing: Rose Quartz for love, compassion + Wire Root for grounding stability. Standard root-wrap on raw stone.",
-                "price": 71,
-                "ext": "jpg",
-                "displayName": "Rose Passion Petite"
-            },
-            "Cobalt_Sky_Willow_10": {
-                "base": "Selenite (high)",
-                "leaf": "Lapis Lazuli (high)",
-                "energy": "Insight Pairing: Lapis Lazuli for wisdom, truth + Selenite for cleansing, peace. Standard root-wrap on raw stone.",
-                "price": 78,
-                "ext": "jpg",
-                "displayName": "Cobalt Sky Willow"
-            },
-            "Emerald_Vibe_Bonsai_11": {
-                "base": "Clear Quartz (med)",
-                "leaf": "Aventurine (med)",
-                "energy": "Harmonic Pairing: Aventurine for opportunity + Clear Quartz for amplification, clarity. Standard root-wrap on raw stone.",
-                "price": 68,
-                "ext": "jpg",
-                "displayName": "Emerald Vibe Bonsai"
-            },
-            "Golden_Tiger_Oak_12": {
-                "base": "Wire Root (low)",
-                "leaf": "Tiger's Eye (med)",
-                "energy": "Stability Pairing: Tiger's Eye for protection, willpower + Wire Root for grounding stability. Standard root-wrap on raw stone.",
-                "price": 75,
-                "ext": "jpg",
-                "displayName": "Golden Tiger Oak"
-            },
-            "Magenta_Berry_Bonsai_13": {
-                "base": "Wire Root (low)",
-                "leaf": "Pink Agate (med)",
-                "energy": "Stability Pairing: Pink Agate for stability, composure + Wire Root for grounding stability. Standard root-wrap on raw stone.",
-                "price": 68,
-                "ext": "jpg",
-                "displayName": "Magenta Berry Bonsai"
-            },
-            "Prosperity_Willow_14": {
-                "base": "Wire Root (low)",
-                "leaf": "Citrine (med)",
-                "energy": "Abundance Pairing: Citrine for abundance, joy + Wire Root for grounding stability. Intricate root-wrap on raw stone.",
-                "price": 93,
-                "ext": "jpg",
-                "displayName": "Prosperity Willow"
-            },
-            "Spring_Bloom_Willow_15": {
-                "base": "Wire Root (low)",
-                "leaf": "Rhodonite (med)",
-                "energy": "Stability Pairing: Rhodonite for emotional healing + Wire Root for grounding stability. Intricate root-wrap on raw stone.",
-                "price": 71,
-                "ext": "jpg",
-                "displayName": "Spring Bloom Willow"
-            },
-            "Rose_Aura_Bonsai_16": {
-                "base": "Amethyst (med)",
-                "leaf": "Rose Quartz (low)",
-                "energy": "Heart Pairing: Rose Quartz for love, compassion + Amethyst for intuition, calm. Intricate root-wrap on raw stone.",
-                "price": 88,
-                "ext": "jpg",
-                "displayName": "Rose Aura Bonsai"
-            },
-            "Solar_Flare_Willow_17": {
-                "base": "Calcite (med)",
-                "leaf": "Carnelian (high)",
-                "energy": "Harmonic Pairing: Carnelian for creativity, motivation + Calcite for energy, cleansing. Intricate root-wrap on raw stone.",
-                "price": 83,
-                "ext": "jpg",
-                "displayName": "Solar Flare Willow"
-            },
-            "Forest_Guardian_Tree_18": {
-                "base": "Jasper (med)",
-                "leaf": "Unakite (med)",
-                "energy": "Stability Pairing: Unakite for vision, balance + Jasper for nurturing, grounding. Standard root-wrap on raw stone.",
-                "price": 40,
-                "ext": "jpg",
-                "displayName": "Forest Guardian Tree"
-            },
-            "Ocean_Breath_Bonsai_19": {
-                "base": "Rose Quartz (low)",
-                "leaf": "Apatite (high)",
-                "energy": "Harmonic Pairing: Apatite for manifestation, service + Rose Quartz for love, compassion. Standard root-wrap on raw stone.",
-                "price": 88,
-                "ext": "jpg",
-                "displayName": "Ocean Breath Bonsai"
-            },
-            "Fire_Spirit_Oak_20": {
-                "base": "Wire Root (low)",
-                "leaf": "Red Jasper (med)",
-                "energy": "Stability Pairing: Red Jasper for endurance, grounding + Wire Root for grounding stability. Intricate root-wrap on raw stone.",
-                "price": 78,
-                "ext": "jpg",
-                "displayName": "Fire Spirit Oak"
-            },
-            "Moonlit_Winter_Oak_21": {
-                "base": "Wire Root (low)",
-                "leaf": "Moonstone (high)",
-                "energy": "Stability Pairing: Moonstone for new beginnings + Wire Root for grounding stability. Standard root-wrap on raw stone.",
-                "price": 48,
-                "ext": "jpg",
-                "displayName": "Moonlit Winter Oak"
-            },
-            "Amethyst_Cloud_Oak_22": {
-                "base": "Amethyst (med)",
-                "leaf": "Aventurine (med)",
-                "energy": "Harmonic Pairing: Aventurine for opportunity + Amethyst for intuition, calm. Standard root-wrap on raw stone.",
-                "price": 83,
-                "ext": "jpg",
-                "displayName": "Amethyst Cloud Oak"
-            },
-            "Ethereal_Amethyst_Petite_23": {
-                "base": "Rose Quartz (low)",
-                "leaf": "Amethyst (med)",
-                "energy": "Insight Pairing: Amethyst for intuition, calm + Rose Quartz for love, compassion. Intricate root-wrap on raw stone.",
-                "price": 73,
-                "ext": "jpg",
-                "displayName": "Ethereal Amethyst Petite"
-            },
-            "Soft_Rose_Zen_24": {
-                "base": "Green Aventurine (low)",
-                "leaf": "Rose Quartz (low)",
-                "energy": "Heart Pairing: Rose Quartz for love, compassion + Green Aventurine for opportunity, optimism. Standard root-wrap on raw stone.",
-                "price": 85,
-                "ext": "jpg",
-                "displayName": "Soft Rose Zen"
-            },
-            "Prosperity_Jade_Spire_25": {
-                "base": "Jasper (med)",
-                "leaf": "Jade (med)",
-                "energy": "Abundance Pairing: Jade for luck, prosperity + Jasper for nurturing, grounding. Intricate root-wrap on raw stone.",
-                "price": 45,
-                "ext": "jpg",
-                "displayName": "Prosperity Jade Spire"
-            },
-            "Verdant_Jade_Sphere_26": {
-                "base": "Obsidian (high)",
-                "leaf": "Jade (med)",
-                "energy": "Abundance Pairing: Jade for luck, prosperity + Obsidian for protection, grounding. Standard root-wrap on raw stone.",
-                "price": 81,
-                "ext": "jpg",
-                "displayName": "Verdant Jade Sphere"
-            },
-            "Emerald_Vibe_Bonsai_27": {
-                "base": "Clear Quartz (med)",
-                "leaf": "Aventurine (med)",
-                "energy": "Harmonic Pairing: Aventurine for opportunity + Clear Quartz for amplification, clarity. Standard root-wrap on raw stone.",
-                "price": 68,
-                "ext": "jpg",
-                "displayName": "Emerald Vibe Bonsai"
-            },
-            "Sodalite_Solar_Tree_28": {
-                "base": "Red Jasper (med)",
-                "leaf": "Sodalite (high)",
-                "energy": "Stability Pairing: Sodalite for insight, clarity + Red Jasper for endurance, grounding. Standard root-wrap on raw stone.",
-                "price": 81,
-                "ext": "jpg",
-                "displayName": "Sodalite Solar Tree"
-            }
-        };
-
         /**
-         * Renders the gallery grid based on current sorting and inventory state.
-         * Why: This function separates data from presentation, allowing for dynamic sorting 
-         * and a consistent user experience across the collection.
+         * Fetches inventory data from the backend API and initiates the render.
          */
+        let inventory = {};
+        let galleryItems = []; // Array to track currently sorted items
+        let currentIndex = 0; // Track which item is open in the modal
+
+        async function initGallery() {
+            try {
+                const response = await fetch('/api/inventory');
+                if (!response.ok) throw new Error('Network response was not ok');
+                inventory = await response.ok ? await response.json() : {};
+                renderGallery();
+            } catch (error) {
+                console.error('Failed to load inventory:', error);
+                document.getElementById('gallery-grid').innerHTML = `
+                    <div class="col-span-full py-20 text-center opacity-50">
+                        <p class="italic">The energy is shifting. Please wait a moment...</p>
+                    </div>
+                `;
+            }
+        }
+
         function renderGallery() {
             const grid = document.getElementById('gallery-grid');
-            const sort = document.getElementById('priceFilter').value;
-            grid.innerHTML = ''; // Clear existing items
+            const sortSelection = document.getElementById('priceFilter')?.value || 'all';
+            grid.innerHTML = '';
 
-            // Transform object into a list for easier sorting and iteration
             let items = Object.entries(inventory).map(([id, data]) => ({ id, ...data }));
 
-            // Apply price sorting logic
-            if (sort === 'high') items.sort((a, b) => b.price - a.price);
-            if (sort === 'low') items.sort((a, b) => a.price - b.price);
+            if (sortSelection === 'high') items.sort((a, b) => b.price - a.price);
+            if (sortSelection === 'low') items.sort((a, b) => a.price - b.price);
 
-            // Create and append a card for each sculpture
-            items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'gallery-card group cursor-pointer';
+            galleryItems = items; // Store globally for navigation
+
+            items.forEach((item, index) => {
+                const cardWrapper = document.createElement('div');
+                cardWrapper.className = 'gallery-card-wrapper group cursor-pointer';
 
                 // Lightbox integration: clicking a card zooms the sculpture image
-                card.onclick = () => {
-                    document.getElementById('lightbox-img').src = `namedpics/${item.id}.${item.ext}`;
-                    document.getElementById('lightbox').style.display = 'flex';
-                };
+                cardWrapper.onclick = () => openModal(index);
 
                 const displayName = item.displayName;
-                const priceDisplay = `$${item.price}.00`;
 
-                // Build the visual card structure using Tailwind CSS and custom glassmorphism styles
-                card.innerHTML = `
-                    <div class="relative overflow-hidden aspect-square bg-zinc-900 flex items-center justify-center">
-                        <img src="namedpics/${item.id}.${item.ext}" 
-                             alt="${displayName}" 
-                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 price-tag text-white shadow-lg border border-white/20">${priceDisplay}</div>
-                    </div>
-                    <div class="p-6 flex-grow flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-start gap-4 mb-3">
-                                <h3 class="text-xl italic leading-tight group-hover:text-pink-400 transition">${displayName}</h3>
-                                <!-- Lead generation: Inquire button passes the item ID via URL params -->
-                                <a href="inquiry.html?item=${item.id}" class="text-[9px] bg-pink-500/10 text-pink-500 border border-pink-500/30 px-3 py-1 rounded-full hover:bg-pink-500 hover:text-white transition uppercase tracking-tighter whitespace-nowrap">Inquire</a>
-                            </div>
-                            <div class="space-y-2 text-[10px] tracking-widest uppercase font-semibold text-zinc-400">
-                                <p class="leading-relaxed text-zinc-300 font-bold">${item.energy}</p>
-                            </div>
+                cardWrapper.innerHTML = `
+                    <div class="gallery-card">
+                        <div class="relative overflow-hidden aspect-square bg-zinc-900 flex items-center justify-center">
+                            <img src="namedpics/${item.id}.${item.ext}" 
+                                 alt="${displayName}" 
+                                 class="w-full h-full object-cover md:group-hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="p-3 flex-grow flex flex-col justify-center items-center bg-[#0a0a0a]">
+                            <h3 class="text-[11px] md:text-[13px] font-bold italic leading-tight bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent group-hover:from-pink-300 group-hover:to-purple-400 transition-all truncate w-full text-center uppercase tracking-wider drop-shadow-sm">${displayName}</h3>
                         </div>
                     </div>
                 `;
-                grid.appendChild(card);
+                grid.appendChild(cardWrapper);
             });
         }
 
+        // --- Modals and Navigation Logic ---
+
+        function openModal(index) {
+            currentIndex = index;
+            const item = galleryItems[currentIndex];
+            const modal = document.getElementById('centered-modal');
+            const modalImg = document.getElementById('modal-img');
+            const modalDetails = document.getElementById('modal-details');
+            const content = document.getElementById('modal-content');
+
+            modalImg.src = `namedpics/${item.id}.${item.ext}`;
+
+            modalDetails.innerHTML = `
+                <h2 class="text-3xl md:text-5xl italic font-bold mb-2 bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">${item.displayName}</h2>
+                <div class="flex items-center gap-4 mb-8 pb-4 border-b border-white/10 mt-4">
+                    <span class="price-tag text-white px-4 py-1.5 shadow-lg border border-white/20 text-lg">$${item.price}.00</span>
+                    <a href="inquiry.html?item=${item.id}" class="text-xs bg-pink-500/10 text-pink-500 border border-pink-500/30 px-6 py-2 rounded-full hover:bg-pink-500 hover:text-white transition uppercase tracking-widest font-bold">Inquire Now</a>
+                </div>
+                
+                <div class="space-y-6 text-sm tracking-wide text-zinc-400">
+                    <div class="flex gap-8">
+                        <div>
+                            <span class="text-pink-500 block mb-1 uppercase tracking-widest text-[10px] font-bold opacity-80">Collection ID</span>
+                            <p class="text-zinc-100 font-medium">${item.id}</p>
+                        </div>
+                        <div>
+                            <span class="text-pink-500 block mb-1 uppercase tracking-widest text-[10px] font-bold opacity-80">Piece Number</span>
+                            <p class="text-zinc-100 font-medium">#${item.number || item.id}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-pink-500 block mb-1 uppercase tracking-widest text-xs font-bold opacity-80">Base Stone</span>
+                        <div class="pl-4 border-l-2 border-pink-500/20">
+                            <p class="text-zinc-100 font-medium text-lg">${item.base}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-pink-500 block mb-1 uppercase tracking-widest text-xs font-bold opacity-80">Leaflet Stone</span>
+                        <div class="pl-4 border-l-2 border-pink-500/20">
+                            <p class="text-zinc-100 font-medium text-lg">${item.leaf}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-pink-500 block mb-1 uppercase tracking-widest text-xs font-bold opacity-80">Stone Resonance & Energy</span>
+                        <div class="pl-4 border-l-2 border-pink-500/20">
+                            <p class="italic text-zinc-200 text-lg font-serif leading-relaxed">"${item.energy}"</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.style.display = 'flex';
+            // Slight delay to allow display flex to apply before opacity transition starts
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('centered-modal');
+            const content = document.getElementById('modal-content');
+
+            modal.classList.remove('opacity-100');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+
+            // Wait for transition before hiding display
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        function nextItem(e) {
+            e.stopPropagation(); // prevent modal close
+            if (currentIndex < galleryItems.length - 1) {
+                openModal(currentIndex + 1);
+            } else {
+                openModal(0); // loop back
+            }
+        }
+
+        function prevItem(e) {
+            e.stopPropagation(); // prevent modal close
+            if (currentIndex > 0) {
+                openModal(currentIndex - 1);
+            } else {
+                openModal(galleryItems.length - 1); // loop to end
+            }
+        }
+
+        // Close modal when clicking on the dark background
+        document.getElementById('centered-modal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('centered-modal');
+            if (modal.style.display === 'flex') {
+                if (e.key === 'ArrowRight') nextItem(e);
+                if (e.key === 'ArrowLeft') prevItem(e);
+                if (e.key === 'Escape') closeModal();
+            }
+        });
+
         // Initial render execution
-        renderGallery();
+        initGallery();
     </script>
     <script src="theme.js"></script>
 </body>

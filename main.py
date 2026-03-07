@@ -126,12 +126,14 @@ def verify_token(request: Request):
 @app.websocket("/ws/errors")
 async def websocket_endpoint(websocket: WebSocket):
     await manager.connect(websocket)
+    logger.info("📡 [SYSTEM] Dashboard client connected via WebSocket.")
+    print("✅ Dashboard Connected.")
     try:
         while True:
-            # Keep connection open
             await websocket.receive_text()
     except WebSocketDisconnect:
         manager.disconnect(websocket)
+        logger.info("📡 [SYSTEM] Dashboard client disconnected.")
 
 # --- API Endpoints ---
 

@@ -461,10 +461,27 @@ To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
 [1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
 [1;35m--- PURE STONE VIBES SYNC ---[0m
 Staging all changes...
- dashboard.html (Status: 304)
-2026-03-07 10:08:49,374 - WARNING - Failed to serve static file: theme.js (Status: 304)
-2026-03-07 10:08:49,378 - WARNING - Failed to serve static file: theme.css (Status: 304)
-2026-03-07 10:08:50,142 - WARNING - Failed to serve static file: auction.html (Status: 304)
-2026-03-07 10:09:19,665 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/gallery.html (Status: 200)
-2026-03-07 10:09:30,828 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/gallery.html (Status: 200)
+Committing with message: Root-to-Canopy sync complete. The vibes are rising.
+[master 1a696e1] Root-to-Canopy sync complete. The vibes are rising.
+ 2 files changed, 21 insertions(+)
+Syncing with GitHub...
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+Pushing to the remote Grove...
+To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
+   1891d2f..1a696e1  master -> master
+[1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
+[1;35m--- PURE STONE VIBES SYNC ---[0m
+Staging all changes...
+ry.html (Status: 200)
 2026-03-07 10:10:05,056 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/inquiry.html (Status: 200)
+2026-03-07 10:16:26,128 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/auction.html (Status: 200)
+2026-03-07 10:16:29,110 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/gallery.html (Status: 200)
+2026-03-07 10:16:31,631 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/auction.html (Status: 200)
+2026-03-07 10:16:56,461 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/dashboard.html (Status: 200)
+2026-03-07 10:19:03,576 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/process.html (Status: 200)
+2026-03-07 10:19:03,943 - INFO - Served static file (cached): 5.jpg (Status: 304)
+2026-03-07 10:19:03,945 - INFO - Served static file (cached): 7.jpg (Status: 304)
+2026-03-07 10:19:04,017 - INFO - Served static file (cached): 21.jpg (Status: 304)
+2026-03-07 10:19:04,022 - INFO - Served static file (cached): 1.jpg (Status: 304)
+2026-03-07 10:20:00,510 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/process.html (Status: 200)

@@ -27,6 +27,8 @@ class LoggedStaticFiles(StaticFiles):
         response = await super().get_response(path, scope)
         if response.status_code == 200:
             logger.info(f"Served static file: {path} (Status: {response.status_code})")
+        elif response.status_code == 304:
+            logger.info(f"Served static file (cached): {path} (Status: {response.status_code})")
         else:
             logger.warning(f"Failed to serve static file: {path} (Status: {response.status_code})")
         return response

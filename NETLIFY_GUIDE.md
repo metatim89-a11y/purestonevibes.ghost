@@ -20,9 +20,12 @@ This is the easiest way to see your site live immediately without any complex se
 
 If you use GitHub, Netlify will automatically update your site every time we make a change.
 
-1.  **Connect GitHub**: In the Netlify dashboard, click **Add new site** > **Import an existing project**.
-2.  **Select Repository**: Choose your "Pure Stone Vibes" project from your GitHub account.
-3.  **Deploy**: Click **Deploy site**. From now on, whenever I help you update the code, the website will refresh automatically.
+3.  **Select Repository**: Choose your "Pure Stone Vibes" project from your GitHub account.
+4.  **Configure Build Settings** (IMPORTANT):
+    *   **Base directory**: (Leave Blank)
+    *   **Build command**: (Leave Blank)
+    *   **Publish directory**: `netlify`
+5.  **Deploy**: Click **Deploy site**. From now on, whenever I help you update the code, the website will refresh automatically.
 
 ---
 

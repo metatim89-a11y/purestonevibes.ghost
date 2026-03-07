@@ -1,0 +1,42 @@
+
+#gallery-grid-container {
+    border: 1px solid rgba(236, 72, 153, 0.2); /* Faint pink border for the table */
+    padding: 1.5rem; /* 24px */
+    border-radius: 12px; /* Rounded corners */
+    background: rgba(10, 10, 10, 0.5); /* Subtle dark glassmorphism */
+}
+
+#gallery-grid {
+    display: grid;
+    /* Create a grid with 5 columns. For 28 items, this results in 5 full rows and one row with 3 items, making 6 rows total. */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem; /* 24px */
+}
+
+.gallery-card {
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Faint white border for each cell */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-card img {
+    height: 200px; /* Controls the 'smaller pictures' effect */
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1200px) {
+    #gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media (max-width: 900px) {
+    #gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    #gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

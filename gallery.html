@@ -7,6 +7,7 @@
     <title>The Grove | Pure Stone Vibes Inventory</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="gallery_style.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
 
@@ -111,12 +112,14 @@
 
     <header class="max-w-7xl mx-auto px-6 py-12 text-center">
         <h2 class="text-5xl mb-4 italic">The <span class="text-pink-500 font-bold not-italic">Grove</span></h2>
-        <p class="text-zinc-500 max-w-2xl mx-auto text-sm italic">Curated Collection: 16 Unique Hand-Twisted Sculptures
+        <p class="text-zinc-500 max-w-2xl mx-auto text-sm italic">Curated Collection: <span id="collection-count">28</span> Unique Hand-Twisted Sculptures
         </p>
     </header>
 
     <main class="max-w-[1400px] mx-auto px-6 pb-32">
-        <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+        <div id="gallery-grid-container">
+            <div id="gallery-grid"></div>
+        </div>
     </main>
 
     <div id="lightbox" onclick="this.style.display='none'">
@@ -124,240 +127,26 @@
     </div>
 
     <script>
-        // The 'inventory' object acts as the primary data source for the gallery.
-        // It maps unique sculpture IDs (Name_Number) to their physical and energetic metadata.
-        // This is used for rendering cards, filtering by price, and image lookups.
-        const inventory = {
-            "Amethyst_Moon_Bonsai_1": {
-                "base": "Amethyst (med)",
-                "leaf": "Moonstone (high)",
-                "energy": "Harmonic Pairing: Moonstone for new beginnings + Amethyst for intuition, calm. Standard root-wrap on raw stone.",
-                "price": 45,
-                "ext": "jpg",
-                "displayName": "Amethyst Moon Bonsai"
-            },
-            "Rose_Quartz_Willow_2": {
-                "base": "Rose Quartz (low)",
-                "leaf": "Rose Quartz (low)",
-                "energy": "Heart Pairing: Rose Quartz for love, compassion + Rose Quartz for love, compassion. Standard root-wrap on raw stone.",
-                "price": 35,
-                "ext": "jpg",
-                "displayName": "Rose Quartz Willow"
-            },
-            "Verdant_Jade_Sphere_3": {
-                "base": "Clear Quartz (med)",
-                "leaf": "Green Jade (med)",
-                "energy": "Abundance Pairing: Green Jade for luck, prosperity + Clear Quartz for amplification, clarity. Standard root-wrap on raw stone.",
-                "price": 81,
-                "ext": "jpg",
-                "displayName": "Verdant Jade Sphere"
-            },
-            "Malachite_Fire_Tree_4": {
-                "base": "Green Aventurine (low)",
-                "leaf": "Malachite (high)",
-                "energy": "Harmonic Pairing: Malachite for transformation + Green Aventurine for opportunity, optimism. Intricate root-wrap on raw stone.",
-                "price": 50,
-                "ext": "jpg",
-                "displayName": "Malachite Fire Tree"
-            },
-            "Midnight_Shadow_Spire_5": {
-                "base": "Obsidian (high)",
-                "leaf": "Black Tourmaline (high)",
-                "energy": "Stability Pairing: Black Tourmaline for protection + Obsidian for protection, grounding. Intricate root-wrap on raw stone.",
-                "price": 75,
-                "ext": "jpg",
-                "displayName": "Midnight Shadow Spire"
-            },
-            "Lavender_Mist_Tree_6": {
-                "base": "Clear Quartz (med)",
-                "leaf": "Amethyst (med)",
-                "energy": "Insight Pairing: Amethyst for intuition, calm + Clear Quartz for amplification, clarity. Standard root-wrap on raw stone.",
-                "price": 73,
-                "ext": "jpg",
-                "displayName": "Lavender Mist Tree"
-            },
-            "Royal_Purple_Oak_7": {
-                "base": "Rose Quartz (low)",
-                "leaf": "Purple Fluorite (med)",
-                "energy": "Insight Pairing: Purple Fluorite for focus, order + Rose Quartz for love, compassion. Intricate root-wrap on raw stone.",
-                "price": 98,
-                "ext": "jpg",
-                "displayName": "Royal Purple Oak"
-            },
-            "Sky_Turquoise_Bonsai_8": {
-                "base": "Jasper (med)",
-                "leaf": "Turquoise (high)",
-                "energy": "Stability Pairing: Turquoise for wholeness, truth + Jasper for nurturing, grounding. Standard root-wrap on raw stone.",
-                "price": 68,
-                "ext": "jpg",
-                "displayName": "Sky Turquoise Bonsai"
-            },
-            "Rose_Passion_Petite_9": {
-                "base": "Wire Root (low)",
-                "leaf": "Rose Quartz (low)",
-                "energy": "Heart Pairing: Rose Quartz for love, compassion + Wire Root for grounding stability. Standard root-wrap on raw stone.",
-                "price": 71,
-                "ext": "jpg",
-                "displayName": "Rose Passion Petite"
-            },
-            "Cobalt_Sky_Willow_10": {
-                "base": "Selenite (high)",
-                "leaf": "Lapis Lazuli (high)",
-                "energy": "Insight Pairing: Lapis Lazuli for wisdom, truth + Selenite for cleansing, peace. Standard root-wrap on raw stone.",
-                "price": 78,
-                "ext": "jpg",
-                "displayName": "Cobalt Sky Willow"
-            },
-            "Emerald_Vibe_Bonsai_11": {
-                "base": "Clear Quartz (med)",
-                "leaf": "Aventurine (med)",
-                "energy": "Harmonic Pairing: Aventurine for opportunity + Clear Quartz for amplification, clarity. Standard root-wrap on raw stone.",
-                "price": 68,
-                "ext": "jpg",
-                "displayName": "Emerald Vibe Bonsai"
-            },
-            "Golden_Tiger_Oak_12": {
-                "base": "Wire Root (low)",
-                "leaf": "Tiger's Eye (med)",
-                "energy": "Stability Pairing: Tiger's Eye for protection, willpower + Wire Root for grounding stability. Standard root-wrap on raw stone.",
-                "price": 75,
-                "ext": "jpg",
-                "displayName": "Golden Tiger Oak"
-            },
-            "Magenta_Berry_Bonsai_13": {
-                "base": "Wire Root (low)",
-                "leaf": "Pink Agate (med)",
-                "energy": "Stability Pairing: Pink Agate for stability, composure + Wire Root for grounding stability. Standard root-wrap on raw stone.",
-                "price": 68,
-                "ext": "jpg",
-                "displayName": "Magenta Berry Bonsai"
-            },
-            "Prosperity_Willow_14": {
-                "base": "Wire Root (low)",
-                "leaf": "Citrine (med)",
-                "energy": "Abundance Pairing: Citrine for abundance, joy + Wire Root for grounding stability. Intricate root-wrap on raw stone.",
-                "price": 93,
-                "ext": "jpg",
-                "displayName": "Prosperity Willow"
-            },
-            "Spring_Bloom_Willow_15": {
-                "base": "Wire Root (low)",
-                "leaf": "Rhodonite (med)",
-                "energy": "Stability Pairing: Rhodonite for emotional healing + Wire Root for grounding stability. Intricate root-wrap on raw stone.",
-                "price": 71,
-                "ext": "jpg",
-                "displayName": "Spring Bloom Willow"
-            },
-            "Rose_Aura_Bonsai_16": {
-                "base": "Amethyst (med)",
-                "leaf": "Rose Quartz (low)",
-                "energy": "Heart Pairing: Rose Quartz for love, compassion + Amethyst for intuition, calm. Intricate root-wrap on raw stone.",
-                "price": 88,
-                "ext": "jpg",
-                "displayName": "Rose Aura Bonsai"
-            },
-            "Solar_Flare_Willow_17": {
-                "base": "Calcite (med)",
-                "leaf": "Carnelian (high)",
-                "energy": "Harmonic Pairing: Carnelian for creativity, motivation + Calcite for energy, cleansing. Intricate root-wrap on raw stone.",
-                "price": 83,
-                "ext": "jpg",
-                "displayName": "Solar Flare Willow"
-            },
-            "Forest_Guardian_Tree_18": {
-                "base": "Jasper (med)",
-                "leaf": "Unakite (med)",
-                "energy": "Stability Pairing: Unakite for vision, balance + Jasper for nurturing, grounding. Standard root-wrap on raw stone.",
-                "price": 40,
-                "ext": "jpg",
-                "displayName": "Forest Guardian Tree"
-            },
-            "Ocean_Breath_Bonsai_19": {
-                "base": "Rose Quartz (low)",
-                "leaf": "Apatite (high)",
-                "energy": "Harmonic Pairing: Apatite for manifestation, service + Rose Quartz for love, compassion. Standard root-wrap on raw stone.",
-                "price": 88,
-                "ext": "jpg",
-                "displayName": "Ocean Breath Bonsai"
-            },
-            "Fire_Spirit_Oak_20": {
-                "base": "Wire Root (low)",
-                "leaf": "Red Jasper (med)",
-                "energy": "Stability Pairing: Red Jasper for endurance, grounding + Wire Root for grounding stability. Intricate root-wrap on raw stone.",
-                "price": 78,
-                "ext": "jpg",
-                "displayName": "Fire Spirit Oak"
-            },
-            "Moonlit_Winter_Oak_21": {
-                "base": "Wire Root (low)",
-                "leaf": "Moonstone (high)",
-                "energy": "Stability Pairing: Moonstone for new beginnings + Wire Root for grounding stability. Standard root-wrap on raw stone.",
-                "price": 48,
-                "ext": "jpg",
-                "displayName": "Moonlit Winter Oak"
-            },
-            "Amethyst_Cloud_Oak_22": {
-                "base": "Amethyst (med)",
-                "leaf": "Aventurine (med)",
-                "energy": "Harmonic Pairing: Aventurine for opportunity + Amethyst for intuition, calm. Standard root-wrap on raw stone.",
-                "price": 83,
-                "ext": "jpg",
-                "displayName": "Amethyst Cloud Oak"
-            },
-            "Ethereal_Amethyst_Petite_23": {
-                "base": "Rose Quartz (low)",
-                "leaf": "Amethyst (med)",
-                "energy": "Insight Pairing: Amethyst for intuition, calm + Rose Quartz for love, compassion. Intricate root-wrap on raw stone.",
-                "price": 73,
-                "ext": "jpg",
-                "displayName": "Ethereal Amethyst Petite"
-            },
-            "Soft_Rose_Zen_24": {
-                "base": "Green Aventurine (low)",
-                "leaf": "Rose Quartz (low)",
-                "energy": "Heart Pairing: Rose Quartz for love, compassion + Green Aventurine for opportunity, optimism. Standard root-wrap on raw stone.",
-                "price": 85,
-                "ext": "jpg",
-                "displayName": "Soft Rose Zen"
-            },
-            "Prosperity_Jade_Spire_25": {
-                "base": "Jasper (med)",
-                "leaf": "Jade (med)",
-                "energy": "Abundance Pairing: Jade for luck, prosperity + Jasper for nurturing, grounding. Intricate root-wrap on raw stone.",
-                "price": 45,
-                "ext": "jpg",
-                "displayName": "Prosperity Jade Spire"
-            },
-            "Verdant_Jade_Sphere_26": {
-                "base": "Obsidian (high)",
-                "leaf": "Jade (med)",
-                "energy": "Abundance Pairing: Jade for luck, prosperity + Obsidian for protection, grounding. Standard root-wrap on raw stone.",
-                "price": 81,
-                "ext": "jpg",
-                "displayName": "Verdant Jade Sphere"
-            },
-            "Emerald_Vibe_Bonsai_27": {
-                "base": "Clear Quartz (med)",
-                "leaf": "Aventurine (med)",
-                "energy": "Harmonic Pairing: Aventurine for opportunity + Clear Quartz for amplification, clarity. Standard root-wrap on raw stone.",
-                "price": 68,
-                "ext": "jpg",
-                "displayName": "Emerald Vibe Bonsai"
-            },
-            "Sodalite_Solar_Tree_28": {
-                "base": "Red Jasper (med)",
-                "leaf": "Sodalite (high)",
-                "energy": "Stability Pairing: Sodalite for insight, clarity + Red Jasper for endurance, grounding. Standard root-wrap on raw stone.",
-                "price": 81,
-                "ext": "jpg",
-                "displayName": "Sodalite Solar Tree"
+        let fullInventory = {}; // Holds the master list of all items
+
+        /**
+         * Fetches the master inventory data from the JSON file.
+         * This ensures the gallery is always up-to-date with the latest data.
+         */
+        async function loadInventory() {
+            try {
+                const response = await fetch('inventory_final.json');
+                const data = await response.json();
+                fullInventory = data;
+                renderGallery(); // Initial render after data is loaded
+            } catch (error) {
+                console.error("Failed to load inventory:", error);
+                document.getElementById('gallery-grid').innerHTML = '<p class="text-pink-500">Could not load The Grove. Please try again later.</p>';
             }
-        };
+        }
 
         /**
          * Renders the gallery grid based on current sorting and inventory state.
-         * Why: This function separates data from presentation, allowing for dynamic sorting 
-         * and a consistent user experience across the collection.
          */
         function renderGallery() {
             const grid = document.getElementById('gallery-grid');
@@ -365,7 +154,7 @@
             grid.innerHTML = ''; // Clear existing items
 
             // Transform object into a list for easier sorting and iteration
-            let items = Object.entries(inventory).map(([id, data]) => ({ id, ...data }));
+            let items = Object.values(fullInventory);
 
             // Apply price sorting logic
             if (sort === 'high') items.sort((a, b) => b.price - a.price);
@@ -376,42 +165,40 @@
                 const card = document.createElement('div');
                 card.className = 'gallery-card group cursor-pointer';
 
-                // Lightbox integration: clicking a card zooms the sculpture image
+                // Lightbox integration
                 card.onclick = () => {
-                    document.getElementById('lightbox-img').src = `namedpics/${item.id}.${item.ext}`;
+                    document.getElementById('lightbox-img').src = `namedpics/${item.number}.${item.ext}`;
                     document.getElementById('lightbox').style.display = 'flex';
                 };
 
                 const displayName = item.displayName;
                 const priceDisplay = `$${item.price}.00`;
 
-                // Build the visual card structure using Tailwind CSS and custom glassmorphism styles
                 card.innerHTML = `
-                    <div class="relative overflow-hidden aspect-square bg-zinc-900 flex items-center justify-center">
-                        <img src="namedpics/${item.id}.${item.ext}" 
+                    <div class="relative overflow-hidden">
+                        <img src="namedpics/${item.number}.${item.ext}" 
                              alt="${displayName}" 
                              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 price-tag text-white shadow-lg border border-white/20">${priceDisplay}</div>
+                        <div class="absolute top-3 right-3 price-tag text-white shadow-lg">${priceDisplay}</div>
                     </div>
-                    <div class="p-6 flex-grow flex flex-col justify-between">
+                    <div class="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                            <div class="flex justify-between items-start gap-4 mb-3">
-                                <h3 class="text-xl italic leading-tight group-hover:text-pink-400 transition">${displayName}</h3>
-                                <!-- Lead generation: Inquire button passes the item ID via URL params -->
-                                <a href="inquiry.html?item=${item.id}" class="text-[9px] bg-pink-500/10 text-pink-500 border border-pink-500/30 px-3 py-1 rounded-full hover:bg-pink-500 hover:text-white transition uppercase tracking-tighter whitespace-nowrap">Inquire</a>
-                            </div>
-                            <div class="space-y-2 text-[10px] tracking-widest uppercase font-semibold text-zinc-400">
-                                <p class="leading-relaxed text-zinc-300 font-bold">${item.energy}</p>
-                            </div>
+                            <h3 class="text-lg italic leading-tight group-hover:text-pink-400 transition mb-2">${displayName}</h3>
+                            <p class="text-xs text-zinc-400 leading-relaxed">${item.labor_highlight}</p>
                         </div>
+                        <a href="inquiry.html?item=${item.number}" class="mt-4 text-[10px] bg-pink-500/10 text-pink-500 border border-pink-500/30 px-3 py-1 rounded-full hover:bg-pink-500 hover:text-white transition uppercase tracking-tighter whitespace-nowrap text-center">
+                            Inquire about this Piece
+                        </a>
                     </div>
                 `;
                 grid.appendChild(card);
             });
+             // Update the collection count dynamically
+            document.getElementById('collection-count').textContent = items.length;
         }
 
-        // Initial render execution
-        renderGallery();
+        // Initial load
+        loadInventory();
     </script>
     <script src="theme.js"></script>
 </body>

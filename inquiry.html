@@ -143,7 +143,11 @@
         </div>
 
         <div class="md:w-1/2 glass-panel p-10 space-y-6">
-            <form name="inquiry" data-netlify="true" method="POST" class="space-y-6">
+            <form name="inquiry" data-netlify="true" netlify-honeypot="bot-field" method="POST" class="space-y-6">
+                <!-- Hidden bot-field for Netlify spam protection -->
+                <p class="hidden">
+                    <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+                </p>
                 <div>
                     <label class="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 block">Full Name</label>
                     <input type="text" name="name" placeholder="John Doe" required>

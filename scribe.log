@@ -341,3 +341,15 @@ To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
 [1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
 [1;35m--- PURE STONE VIBES SYNC ---[0m
 Staging all changes...
+Committing with message: Hand-wrapped code committed with 20g tension.
+[master a523e15] Hand-wrapped code committed with 20g tension.
+ 2 files changed, 29 insertions(+)
+Syncing with GitHub...
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+Pushing to the remote Grove...
+To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
+   d6f3b63..a523e15  master -> master
+[1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
+[1;35m--- PURE STONE VIBES SYNC ---[0m
+Staging all changes...

@@ -473,15 +473,28 @@ To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
 [1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
 [1;35m--- PURE STONE VIBES SYNC ---[0m
 Staging all changes...
-ry.html (Status: 200)
-2026-03-07 10:10:05,056 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/inquiry.html (Status: 200)
-2026-03-07 10:16:26,128 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/auction.html (Status: 200)
-2026-03-07 10:16:29,110 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/gallery.html (Status: 200)
-2026-03-07 10:16:31,631 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/auction.html (Status: 200)
-2026-03-07 10:16:56,461 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/dashboard.html (Status: 200)
+Committing with message: Amethyst-powered sync: 28 gems secured.
+[master 2886fdc] Amethyst-powered sync: 28 gems secured.
+ 3 files changed, 1809 insertions(+), 6 deletions(-)
+ create mode 100644 package-lock.json
+ create mode 100644 package.json
+Syncing with GitHub...
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+Pushing to the remote Grove...
+To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
+   1a696e1..2886fdc  master -> master
+[1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
+[1;35m--- PURE STONE VIBES SYNC ---[0m
+Staging all changes...
+age: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/dashboard.html (Status: 200)
 2026-03-07 10:19:03,576 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/process.html (Status: 200)
 2026-03-07 10:19:03,943 - INFO - Served static file (cached): 5.jpg (Status: 304)
 2026-03-07 10:19:03,945 - INFO - Served static file (cached): 7.jpg (Status: 304)
 2026-03-07 10:19:04,017 - INFO - Served static file (cached): 21.jpg (Status: 304)
 2026-03-07 10:19:04,022 - INFO - Served static file (cached): 1.jpg (Status: 304)
 2026-03-07 10:20:00,510 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/process.html (Status: 200)
+2026-03-07 10:26:26,073 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/process.html (Status: 200)
+2026-03-07 10:26:29,007 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/dashboard.html (Status: 200)
+2026-03-07 10:26:30,612 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/process.html (Status: 200)
+2026-03-07 10:26:31,673 - INFO - Served HTML page: /mnt/c/Users/Customer/Desktop/fishesstonevibeexample10mins/auction.html (Status: 200)

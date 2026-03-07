@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FastAPI - Swagger UI (Custom)</title>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.9.0/swagger-ui.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            background-color: #f0f2f5; /* Light background for Swagger UI */
+        }
+        .swagger-ui .topbar {
+            background-color: #303846; /* Darker top bar */
+        }
+        .swagger-ui .opblock .opblock-summary-path {
+            color: #4990e2; /* Blue path text */
+        }
+        .swagger-ui .opblock .opblock-summary-method {
+            background-color: #4990e2; /* Blue method tag */
+            color: white;
+        }
+
+        /* Custom Stats Modal Styles - Matching Swagger UI aesthetic */
+        #stats-modal-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            background-color: #4990e2; /* Matching Swagger blue */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
+        }
+        #stats-modal-btn:hover {
+            background-color: #357bd8;
+        }
+
+        #stats-modal-container {
+            display: none; /* Hidden by default */
+            position: fixed;
+            bottom: 80px; /* Above the button */
+            right: 20px;
+            z-index: 9998;
+            background-color: #303846; /* Dark background matching Swagger topbar */
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            width: 350px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 15px;
+            box-sizing: border-box;
+            transition: all 0.3s ease-out;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        #stats-modal-container.show {
+            display: block;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        #stats-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        #stats-modal-header h3 {
+            margin: 0;
+            color: #f0f2f5;
+        }
+        #stats-modal-minimize {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 5px;
+        }
+        #stats-modal-minimize:hover {
+            color: #4990e2;
+        }
+
+        .stats-item {
+            margin-bottom: 10px;
+        }
+        .stats-item p {
+            margin: 5px 0;
+        }
+        .stats-item strong {
+            color: #4990e2;
+        }
+
+        .stats-table-modal {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 0.85em;
+        }
+        .stats-table-modal th, .stats-table-modal td {
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: left;
+        }
+        .stats-table-modal th {
+            background-color: #444;
+            color: #f0f2f5;
+        }
+        .stats-table-modal tbody tr:nth-child(even) {
+            background-color: #3a3a3a;
+        }
+        .stats-table-modal tbody tr:hover {
+            background-color: #4a4a4a;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="swagger-ui"></div>
+
+    <button id="stats-modal-btn">📊</button>
+
+    <div id="stats-modal-container">
+        <div id="stats-modal-header">
+            <h3>API Stats</h3>
+            <button id="stats-modal-minimize">_</button>
+        </div>
+        <div class="stats-content">
+            <div class="stats-item">
+                <p>Total Inquiries: <strong id="modal-total-inquiries">...</strong></p>
+            </div>
+            <div class="stats-item">
+                <p>Unique Sculptures Inquired: <strong id="modal-unique-sculptures">...</strong></p>
+            </div>
+            <h4>Top 5 Sculptures:</h4>
+            <div class="overflow-x-auto">
+                <table class="stats-table-modal">
+                    <thead>
+                        <tr>
+                            <th>Sculpture</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modal-top-sculptures">
+                        <!-- Top 5 will be injected here -->
+                    </tbody>
+                </table>
+            </div>
+            <h4>Recent Inquiries:</h4>
+            <div class="overflow-x-auto">
+                <table class="stats-table-modal">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Name</th>
+                            <th>Sculpture</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modal-recent-inquiries">
+                        <!-- Recent inquiries will be injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.9.0/swagger-ui-bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.9.0/swagger-ui-standalone-preset.js"></script>
+    <script>
+        window.onload = function() {
+            const ui = SwaggerUIBundle({
+                url: "{{ openapi_url }}",
+                dom_id: '#swagger-ui',
+                deepLinking: true,
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIStandalonePreset
+                ],
+                plugins: [
+                    SwaggerUIBundle.plugins.DownloadUrl
+                ],
+                layout: "StandaloneLayout"
+            });
+
+            window.ui = ui;
+
+            // Stats Modal Logic
+            const statsModalBtn = document.getElementById('stats-modal-btn');
+            const statsModalContainer = document.getElementById('stats-modal-container');
+            const statsModalMinimizeBtn = document.getElementById('stats-modal-minimize');
+
+            let isMinimized = true; // Start minimized (only button visible)
+
+            function toggleModal() {
+                isMinimized = !isMinimized;
+                if (isMinimized) {
+                    statsModalContainer.classList.remove('show');
+                    statsModalBtn.textContent = '📊';
+                } else {
+                    statsModalContainer.classList.add('show');
+                    statsModalBtn.textContent = '✖'; // Change button to 'X' when open
+                    fetchAndRenderStats();
+                }
+            }
+
+            statsModalBtn.addEventListener('click', toggleModal);
+            statsModalMinimizeBtn.addEventListener('click', () => {
+                // Clicking minimize from open state should hide it completely
+                if (!isMinimized) {
+                    toggleModal(); // This will minimize it
+                }
+            });
+
+
+            async function fetchAndRenderStats() {
+                try {
+                    const response = await fetch('/api/stats');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const stats = await response.json();
+                    
+                    document.getElementById('modal-total-inquiries').textContent = stats.total_inquiries;
+                    document.getElementById('modal-unique-sculptures').textContent = stats.unique_sculptures_inquired;
+
+                    const topSculpturesBody = document.getElementById('modal-top-sculptures');
+                    topSculpturesBody.innerHTML = '';
+                    if (stats.top_sculptures.length > 0) {
+                        stats.top_sculptures.forEach(item => {
+                            const row = topSculpturesBody.insertRow();
+                            row.innerHTML = `<td>${item.sculpture || 'N/A'}</td><td>${item.count}</td>`;
+                        });
+                    } else {
+                        topSculpturesBody.innerHTML = `<tr><td colspan="2">No data</td></tr>`;
+                    }
+
+                    const recentInquiriesBody = document.getElementById('modal-recent-inquiries');
+                    recentInquiriesBody.innerHTML = '';
+                    if (stats.recent_inquiries.length > 0) {
+                        stats.recent_inquiries.forEach(inquiry => {
+                            const date = new Date(inquiry.created_at).toLocaleString();
+                            row = recentInquiriesBody.insertRow();
+                            row.innerHTML = `<td>${date}</td><td>${inquiry.name}</td><td>${inquiry.sculpture || 'N/A'}</td>`;
+                        });
+                    } else {
+                        recentInquiriesBody.innerHTML = `<tr><td colspan="3">No recent inquiries</td></tr>`;
+                    }
+
+                } catch (error) {
+                    console.error('Error fetching modal stats:', error);
+                    document.getElementById('modal-total-inquiries').textContent = 'Error';
+                    document.getElementById('modal-unique-sculptures').textContent = 'Error';
+                    document.getElementById('modal-top-sculptures').innerHTML = `<tr><td colspan="2">Error loading</td></tr>`;
+                    document.getElementById('modal-recent-inquiries').innerHTML = `<tr><td colspan="3">Error loading</td></tr>`;
+                }
+            }
+        };
+    </script>
+</body>
+</html>

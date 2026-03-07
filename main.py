@@ -264,6 +264,10 @@ async def read_index():
 async def read_debug():
     return FileResponse(os.path.join(BASE_DIR, "debug.html"))
 
+@app.get("/splat", response_class=FileResponse)
+async def read_splat():
+    return FileResponse(os.path.join(BASE_DIR, "dashboard.html"))
+
 app.mount("/namedpics", LoggedStaticFiles(directory=os.path.join(BASE_DIR, "namedpics")), name="namedpics")
 app.mount("/", LoggedStaticFiles(directory=BASE_DIR, html=True), name="root")
 

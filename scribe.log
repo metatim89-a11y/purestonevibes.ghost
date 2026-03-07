@@ -548,13 +548,19 @@ To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
 [1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
 [1;35m--- PURE STONE VIBES SYNC ---[0m
 Staging all changes...
-2026-03-07 10:57:28,105 - INFO - Served static file (cached): 18.jpg (Status: 304)
-2026-03-07 10:57:28,107 - INFO - Served static file (cached): 27.jpg (Status: 304)
-2026-03-07 10:57:28,109 - INFO - Served static file (cached): 19.jpg (Status: 304)
-2026-03-07 10:57:28,112 - INFO - Served static file (cached): 26.jpg (Status: 304)
-2026-03-07 10:57:28,114 - INFO - Served static file (cached): 20.jpg (Status: 304)
-2026-03-07 10:57:28,124 - INFO - Served static file (cached): 23.jpg (Status: 304)
-2026-03-07 10:57:28,143 - INFO - Served static file (cached): 22.jpg (Status: 304)
+Committing with message: Hand-wrapped code committed with 20g tension.
+[master 16deaef] Hand-wrapped code committed with 20g tension.
+ 2 files changed, 15 insertions(+), 8 deletions(-)
+Syncing with GitHub...
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+Pushing to the remote Grove...
+To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
+   fb34d7f..16deaef  master -> master
+[1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
+[1;35m--- PURE STONE VIBES SYNC ---[0m
+Staging all changes...
+ed): 22.jpg (Status: 304)
 2026-03-07 10:57:28,145 - INFO - Served static file (cached): 28.jpg (Status: 304)
 2026-03-07 10:57:28,148 - INFO - Served static file (cached): 25.jpg (Status: 304)
 2026-03-07 10:57:28,151 - INFO - Served static file (cached): 24.jpg (Status: 304)

@@ -26,10 +26,41 @@ class ConnectionManager:
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
         self.active_connections.append(websocket)
+        # Send immediate health check on connection
+        await self.send_health_status(websocket)
+        await self.broadcast_session_count()
 
     def disconnect(self, websocket: WebSocket):
         if websocket in self.active_connections:
             self.active_connections.remove(websocket)
+            asyncio.create_task(self.broadcast_session_count())
+
+    async def send_health_status(self, websocket: WebSocket):
+        # Verify DB and Inventory
+        db_status = "OK"
+        try:
+            conn = sqlite3.connect(DB_PATH)
+            conn.execute("SELECT 1")
+            conn.close()
+        except:
+            db_status = "ERROR"
+        
+        inventory_status = "OK" if os.path.exists(os.path.join(BASE_DIR, "inventory_final.json")) else "MISSING"
+
+        await websocket.send_text(json.dumps({
+            "type": "system_health",
+            "db": db_status,
+            "inventory": inventory_status,
+            "version": "v1.0.4-PROD",
+            "uptime": "Active"
+        }))
+
+    async def broadcast_session_count(self):
+        count = len(self.active_connections)
+        await self.broadcast(json.dumps({
+            "type": "session_update",
+            "count": count
+        }))
 
     async def broadcast(self, message: str):
         for connection in self.active_connections:

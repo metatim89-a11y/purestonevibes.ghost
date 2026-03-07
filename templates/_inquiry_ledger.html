@@ -1,0 +1,75 @@
+<div class="glass-panel rounded-xl overflow-hidden border border-white/10 shadow-2xl mb-6">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-zinc-900 border-b border-white/5 text-[10px] uppercase tracking-widest text-pink-500 bg-pink-500/5">
+                    <th class="py-4 px-6 font-bold">Date Received</th>
+                    <th class="py-4 px-6 font-bold">Name</th>
+                    <th class="py-4 px-6 font-bold">Email</th>
+                    <th class="py-4 px-6 font-bold">Item Ref</th>
+                    <th class="py-4 px-6 font-bold">Message</th>
+                </tr>
+            </thead>
+            <tbody id="inquiriesTableBody" class="text-sm text-zinc-300 divide-y divide-white/5">
+                <tr>
+                    <td colspan="5" class="py-8 text-center text-zinc-500 italic">Loading inquiries...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    async function fetchInquiriesForModal() {
+        const token = localStorage.getItem('sessionToken');
+        const tbody = document.getElementById('inquiriesTableBody');
+
+        if (!token) {
+            tbody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-red-500 font-bold">Not logged in. Please log in.</td></tr>';
+            setTimeout(() => window.location.href = '/login.html', 1500);
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/inquiries', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (response.status === 403 || response.status === 401) {
+                localStorage.clear();
+                tbody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-red-500 font-bold">Session expired. Please log in.</td></tr>';
+                setTimeout(() => window.location.href = '/login.html', 1500);
+                return;
+            }
+
+            if (!response.ok) throw new Error('Failed to fetch inquiries');
+
+            const inquiries = await response.json();
+
+            if (inquiries.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="py-12 text-center text-zinc-500 italic">No inquiries found in the ledger.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = ''; 
+
+            inquiries.forEach(inq => {
+                const date = new Date(inq.created_at).toLocaleString();
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-white/5 transition-colors cursor-default";
+                tr.innerHTML = `
+                    <td class="py-4 px-6 whitespace-nowrap text-xs text-zinc-500 font-mono">${date}</td>
+                    <td class="py-4 px-6 font-semibold text-white">${inq.name}</td>
+                    <td class="py-4 px-6 text-pink-400 hover:text-pink-300"><a href="mailto:${inq.email}">${inq.email}</a></td>
+                    <td class="py-4 px-6"><span class="bg-zinc-800 text-xs px-2 py-1 rounded border border-white/10 uppercase tracking-widest">${inq.sculpture}</span></td>
+                    <td class="py-4 px-6 italic text-zinc-400 max-w-xs truncate" title="${inq.message || 'No message provided.'}">${inq.message || '-'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+        } catch (error) {
+            console.error("Error fetching inquiries:", error);
+            tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-red-500 font-bold">Error loading ledger data: ${error.message}.</td></tr>`;
+        }
+    }
+    fetchInquiriesForModal(); // Call this function immediately when script is run
+</script>

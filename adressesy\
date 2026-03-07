@@ -1,0 +1,40 @@
+
+      2. Node.js Server (`server.js`)
+          * IP Address: localhost (or 127.0.0.1)
+   │
+          * Port Number: 3000 (assuming its default configuration is unchanged)
+   │
+          * This server typically handles specific API endpoints and static file serving from the
+   netlify │
+            directory, as per its original setup.x"
+▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+╭──────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ ✓  Shell echo "http://localhost:8001/landing: Your main portfolio homepage.           * http://… │
+│                                                                                                  │
+│ http://localhost:8001/landing: Your main portfolio homepage.                                     │
+│            * http://localhost:8001/debug: The real-time error dashboard.                         │
+│            * http://localhost:8001/splat: The admin/dev area dashboard with all the new tools.   │
+│            * http://localhost:8001/api/...: All backend API endpoints (e.g., /api/inventory,     │
+│              /api/stats, /api/system_metrics, /api/logs/...).                                    │
+│            * And other static pages like gallery.html, inquiry.html, etc.                        │
+│                                                                                                  │
+│                                                                                                  │
+│    2. Node.js Server (server.js)                                                                 │
+│        * IP Address: localhost (or 127.0.0.1)                                                    │
+│        * Port Number: 3000 (assuming its default configuration is unchanged)                     │
+│        * This server typically handles specific API endpoints and static file serving from the   │
+│ netlify                                                                                          │
+
+                                                                                        ? for shortcuts
+────────────────────────────────────────────────────────────────────────────────────────────────────────
+ plan shift+tab to manual                                                             3 GEMINI.md files
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+ >
+
+      2. Node.js Server (`server.js`)
+          * IP Address: localhost (or 127.0.0.1)
+        │
+          * Port Number: 3000 (assuming its default configuration is unchanged)
+        │
+          * This server typically handles specific API endpoints and static file serving from the
+   netlify │

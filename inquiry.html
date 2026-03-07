@@ -73,6 +73,24 @@
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(236, 72, 153, 0.3);
         }
+
+        /* Success Message Styling */
+        #successPopup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #successPopup.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -60%);
+        }
     </style>
 </head>
 
@@ -157,6 +175,20 @@
     <footer class="py-20 text-center opacity-30">
         <p class="text-[10px] tracking-[0.6em] uppercase text-white">Pure Stone Vibes &copy; 2026</p>
     </footer>
+
+    <!-- Success Modal -->
+    <div id="successPopup" class="glass-panel p-12 text-center max-w-md w-full border-pink-500/30">
+        <div
+            class="mb-6 inline-flex items-center justify-center w-20 h-20 bg-pink-500/10 rounded-full border border-pink-500/40">
+            <svg class="w-10 h-10 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+        </div>
+        <h3 class="text-3xl mb-4 italic">Vibration <span class="text-pink-500 font-bold not-italic">Received</span></h3>
+        <p class="text-zinc-400 mb-8 leading-relaxed">Your inquiry has been successfully sent to Fish. Expect a response
+            soon to begin your gemstone journey.</p>
+        <button onclick="closeSuccess()" class="submit-btn text-xs">Return to Grove</button>
+    </div>
 
     <script>
         // The 'inventory' object provides the source of truth for all available items.
@@ -439,6 +471,19 @@
          * Why: Allows users to click 'Inquire' from the gallery and have the form pre-filled.
          */
         const urlParams = new URLSearchParams(window.location.search);
+
+        // Success Handling
+        if (urlParams.get('success') === 'true') {
+            document.getElementById('successPopup').classList.add('show');
+            // Remove the param from URL for a cleaner look
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
+        function closeSuccess() {
+            document.getElementById('successPopup').classList.remove('show');
+            window.location.href = 'gallery.html';
+        }
+
         const itemParam = urlParams.get('item');
         if (itemParam) {
             document.getElementById('sculptureSelect').value = itemParam;

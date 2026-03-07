@@ -11,3 +11,41 @@
 [forms]
   # Ensures Netlify matches our inquiry form for automated handling.
   submission_status_success = "/inquiry.html?success=true"
+
+# CLEAN URL REDIRECTS
+# Allows for professional links like /garden or /process instead of .html
+[[redirects]]
+  from = "/garden"
+  to = "/gallery.html"
+  status = 200
+
+[[redirects]]
+  from = "/process"
+  to = "/process.html"
+  status = 200
+
+[[redirects]]
+  from = "/inquiry"
+  to = "/inquiry.html"
+  status = 200
+
+[[redirects]]
+  from = "/home"
+  to = "/index.html"
+  status = 200
+
+# SECURITY & PERFORMANCE HEADERS
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), camera=(), microphone=()"
+    Content-Security-Policy = "default-src 'self' https://cdn.tailwindcss.com https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;"
+
+[[headers]]
+  for = "/namedpics/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

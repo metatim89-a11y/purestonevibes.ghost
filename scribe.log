@@ -413,7 +413,17 @@ To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
 [1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
 [1;35m--- PURE STONE VIBES SYNC ---[0m
 Staging all changes...
+Committing with message: Root-to-Canopy sync complete. The vibes are rising.
+[master dada52a] Root-to-Canopy sync complete. The vibes are rising.
+ 2 files changed, 23 insertions(+), 1 deletion(-)
+Syncing with GitHub...
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+Pushing to the remote Grove...
+To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
+   40b79ad..dada52a  master -> master
+[1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
+[1;35m--- PURE STONE VIBES SYNC ---[0m
+Staging all changes...
  process.html (Status: 304)
-2026-03-07 10:01:41,503 - WARNING - Failed to serve static file: process.html (Status: 304)
-2026-03-07 10:01:42,201 - WARNING - Failed to serve static file: process.html (Status: 304)
-2026-03-07 10:02:07,214 - INFO - Served static file: login.html (Status: 200)
+2026-03-07 10:07:10,626 - WARNING - Failed to serve static file: dashboard.html (Status: 304)

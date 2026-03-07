@@ -572,16 +572,54 @@ To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
 [1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
 [1;35m--- PURE STONE VIBES SYNC ---[0m
 Staging all changes...
-1:40:43,781 - INFO - Served static file: auction.html (Status: 200)
-2026-03-07 11:40:43,897 - INFO - Served static file (cached): theme.css (Status: 304)
-2026-03-07 11:40:43,899 - INFO - Served static file (cached): theme.js (Status: 304)
-2026-03-07 11:40:53,897 - INFO - Served static file: process.html (Status: 200)
-2026-03-07 11:40:57,724 - INFO - Served static file: inquiry.html (Status: 200)
-2026-03-07 11:41:00,354 - INFO - Served static file: gallery.html (Status: 200)
-2026-03-07 11:41:00,848 - INFO - Served static file (cached): 5.jpg (Status: 304)
+Committing with message: Vibes are 100% pure. Pushing to the grove.
+[master 1eb0c3c] Vibes are 100% pure. Pushing to the grove.
+ 2 files changed, 69 insertions(+), 11 deletions(-)
+Syncing with GitHub...
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+Pushing to the remote Grove...
+To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
+   c6ff0c0..1eb0c3c  master -> master
+[1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
+[1;35m--- PURE STONE VIBES SYNC ---[0m
+Staging all changes...
+atus: 304)
 2026-03-07 11:41:00,851 - INFO - Served static file (cached): 1.jpg (Status: 304)
 2026-03-07 11:41:00,878 - INFO - Served static file (cached): 7.jpg (Status: 304)
 2026-03-07 11:41:00,899 - INFO - Served static file (cached): 21.jpg (Status: 304)
 2026-03-07 11:41:18,803 - INFO - Served static file (cached): gallery.html (Status: 304)
 2026-03-07 11:41:20,963 - INFO - Served static file: login.html (Status: 200)
 2026-03-07 11:41:25,828 - INFO - Served static file: index.html (Status: 200)
+2026-03-07 12:36:39,409 - INFO - Served static file: stats.html (Status: 200)
+2026-03-07 12:36:39,471 - INFO - Served static file (cached): theme.css (Status: 304)
+2026-03-07 12:36:39,494 - INFO - Served static file (cached): theme.js (Status: 304)
+2026-03-07 12:36:40,262 - ERROR - ERROR: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 130627588208320 and this is thread id 130627631898880. | Path: /api/stats | Method: GET
+2026-03-07 12:37:12,361 - INFO - Served static file (cached): login.html (Status: 304)
+2026-03-07 12:37:25,136 - INFO - Served static file: index.html (Status: 200)
+2026-03-07 12:37:44,049 - INFO - Served static file (cached): gallery.html (Status: 304)
+2026-03-07 12:37:44,630 - INFO - Served static file (cached): 2.jpg (Status: 304)
+2026-03-07 12:37:44,634 - INFO - Served static file (cached): 3.jpg (Status: 304)
+2026-03-07 12:37:44,651 - INFO - Served static file (cached): 4.jpg (Status: 304)
+2026-03-07 12:37:44,651 - INFO - Served static file (cached): 6.jpg (Status: 304)
+2026-03-07 12:37:44,672 - INFO - Served static file (cached): 8.jpg (Status: 304)
+2026-03-07 12:37:44,679 - INFO - Served static file (cached): 9.jpg (Status: 304)
+2026-03-07 12:37:44,717 - INFO - Served static file (cached): 26.jpg (Status: 304)
+2026-03-07 12:37:44,720 - INFO - Served static file (cached): 17.jpg (Status: 304)
+2026-03-07 12:37:44,743 - INFO - Served static file (cached): 15.jpg (Status: 304)
+2026-03-07 12:37:44,746 - INFO - Served static file (cached): 25.jpg (Status: 304)
+2026-03-07 12:37:44,771 - INFO - Served static file (cached): 23.jpg (Status: 304)
+2026-03-07 12:37:44,773 - INFO - Served static file (cached): 19.jpg (Status: 304)
+2026-03-07 12:37:44,793 - INFO - Served static file (cached): 27.jpg (Status: 304)
+2026-03-07 12:37:44,793 - INFO - Served static file (cached): 24.jpg (Status: 304)
+2026-03-07 12:37:44,810 - INFO - Served static file (cached): 14.jpg (Status: 304)
+2026-03-07 12:37:44,811 - INFO - Served static file (cached): 22.jpg (Status: 304)
+2026-03-07 12:37:44,827 - INFO - Served static file (cached): 16.jpg (Status: 304)
+2026-03-07 12:37:44,828 - INFO - Served static file (cached): 18.jpg (Status: 304)
+2026-03-07 12:37:44,843 - INFO - Served static file (cached): 28.jpg (Status: 304)
+2026-03-07 12:37:44,844 - INFO - Served static file (cached): 20.jpg (Status: 304)
+2026-03-07 12:37:44,857 - INFO - Served static file (cached): 10.jpg (Status: 304)
+2026-03-07 12:37:44,858 - INFO - Served static file (cached): 11.jpg (Status: 304)
+2026-03-07 12:37:44,871 - INFO - Served static file (cached): 13.jpg (Status: 304)
+2026-03-07 12:37:44,871 - INFO - Served static file (cached): 12.jpg (Status: 304)
+2026-03-07 12:38:07,301 - ERROR - ERROR: Manual test error triggered for dashboard validation! | Path: /api/trigger_error | Method: GET

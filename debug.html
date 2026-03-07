@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSV | Real-Time Error Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="theme.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+
+        /* Custom Scrollbar for Chatbox */
+        #error-chat::-webkit-scrollbar {
+            width: 4px;
+        }
+        #error-chat::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        #error-chat::-webkit-scrollbar-thumb {
+            background: var(--vibe-accent);
+            border-radius: 10px;
+        }
+
+        .error-entry {
+            border-left: 2px solid var(--vibe-accent);
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .error-entry:hover {
+            background: rgba(244, 114, 182, 0.05);
+            transform: translateX(4px);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .status-online { background: #10b981; box-shadow: 0 0 10px #10b981; }
+        .status-offline { background: #ef4444; }
+    </style>
+</head>
+
+<body class="overflow-hidden">
+    <nav class="p-6 glass-nav flex flex-col md:flex-row justify-between items-center sticky top-0 z-50">
+        <div class="text-center md:text-left">
+            <h1 class="text-3xl font-bold tracking-tighter text-white uppercase">PSV | DEBUGGER</h1>
+            <p class="text-[10px] tracking-[0.5em] text-pink-500 font-bold uppercase">Real-Time Error Stream</p>
+        </div>
+        <div class="flex gap-8 text-[11px] uppercase tracking-widest font-semibold mt-4 md:mt-0">
+            <a href="gallery.html" class="hover:text-pink-400 transition">The Grove</a>
+            <a href="inquiry.html" class="hover:text-pink-400 transition">Inquire</a>
+            <div class="flex items-center gap-4 ml-4 pl-4 border-l border-white/10">
+                <div class="flex items-center">
+                    <span id="ws-status-dot" class="status-dot status-offline"></span>
+                    <span id="ws-status-text" class="text-[9px] uppercase tracking-widest text-zinc-500">Connecting...</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 h-[calc(100vh-120px)] flex flex-col md:flex-row gap-8 py-12">
+        <!-- Sidebar: System Pulse -->
+        <div class="w-full md:w-72 space-y-6">
+            <div class="glass-panel p-6 rounded-3xl border border-white/10">
+                <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-pink-500 mb-6 flex items-center gap-2">
+                    <span class="status-dot status-online animate-pulse"></span> System Pulse
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center bg-black/20 p-3 rounded-xl">
+                        <span class="text-[9px] uppercase tracking-widest text-zinc-500">Active Sessions</span>
+                        <span id="active-sessions" class="text-xs font-bold text-white">--</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-black/20 p-3 rounded-xl">
+                        <span class="text-[9px] uppercase tracking-widest text-zinc-500">Database</span>
+                        <span id="db-status" class="text-[9px] font-bold text-zinc-500 uppercase">Checking...</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-black/20 p-3 rounded-xl">
+                        <span class="text-[9px] uppercase tracking-widest text-zinc-500">Inventory</span>
+                        <span id="inv-status" class="text-[9px] font-bold text-zinc-500 uppercase">Checking...</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-black/20 p-3 rounded-xl">
+                        <span class="text-[9px] uppercase tracking-widest text-zinc-500">Server State</span>
+                        <span id="server-state" class="text-[9px] font-bold text-pink-500 uppercase">READY</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-6 rounded-3xl border border-white/5 opacity-50">
+                <p class="text-[9px] text-zinc-500 leading-relaxed uppercase tracking-widest">
+                    Pure Stone Vibes Debugger v1.0.4 <br>
+                    Real-time error streaming and connection health monitoring.
+                </p>
+            </div>
+        </div>
+
+        <!-- Main Dashboard -->
+        <div class="flex-1 glass-panel rounded-3xl overflow-hidden flex flex-col border border-white/5 relative">
+            <!-- Header -->
+            <div class="p-6 border-b border-white/5 bg-white/5 flex justify-between items-center">
+                <div>
+                    <h2 class="text-xl font-bold uppercase tracking-widest text-white">Live Error Feed</h2>
+                    <p class="text-[10px] text-zinc-500 uppercase tracking-widest">Watching 0.0.0.0:8000</p>
+                </div>
+                <button onclick="clearLogs()" class="text-[10px] uppercase tracking-widest text-zinc-500 hover:text-pink-400 transition">
+                    [ Clear Logs ]
+                </button>
+            </div>
+
+            <!-- Error List -->
+            <div id="error-chat" class="flex-1 overflow-y-auto p-8 space-y-4">
+                <div class="text-center py-20 opacity-20">
+                    <p class="italic text-zinc-400">Waiting for errors to manifest...</p>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="p-6 border-t border-white/5 bg-white/5 flex gap-4">
+                <button onclick="triggerTestError()" class="bg-pink-600/20 border border-pink-500/40 text-pink-500 px-6 py-2 rounded-full text-[10px] uppercase font-bold tracking-widest hover:bg-pink-500 hover:text-white transition">
+                    Trigger Test Error
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const chat = document.getElementById('error-chat');
+        const statusDot = document.getElementById('ws-status-dot');
+        const statusText = document.getElementById('ws-status-text');
+        
+        // Status Elements
+        const sessCount = document.getElementById('active-sessions');
+        const dbStat = document.getElementById('db-status');
+        const invStat = document.getElementById('inv-status');
+        const servState = document.getElementById('server-state');
+
+        let socket;
+
+        function connect() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            socket = new WebSocket(`${protocol}//${window.location.host}/ws/errors`);
+
+            socket.onopen = () => {
+                statusDot.className = 'status-dot status-online';
+                statusText.innerText = 'Online';
+                console.log('Debugger Connected');
+            };
+
+            socket.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                
+                if (data.type === 'system_health') {
+                    dbStat.innerText = data.db;
+                    dbStat.className = data.db === 'OK' ? 'text-[9px] font-bold text-emerald-400 uppercase' : 'text-[9px] font-bold text-red-400 uppercase';
+                    invStat.innerText = data.inventory;
+                    invStat.className = data.inventory === 'OK' ? 'text-[9px] font-bold text-emerald-400 uppercase' : 'text-[9px] font-bold text-red-400 uppercase';
+                    servState.innerText = 'ONLINE';
+                } else if (data.type === 'session_update') {
+                    sessCount.innerText = data.count;
+                } else if (data.type === 'error') {
+                    addErrorToFeed(data);
+                }
+            };
+
+            socket.onclose = () => {
+                statusDot.className = 'status-dot status-offline';
+                statusText.innerText = 'Offline';
+                servState.innerText = 'RECONNECTING...';
+                setTimeout(connect, 3000);
+            };
+        }
+
+        function addErrorToFeed(error) {
+            // Remove empty state message
+            if (chat.querySelector('.opacity-20')) {
+                chat.innerHTML = '';
+            }
+
+            const entry = document.createElement('div');
+            entry.className = 'error-entry p-6 rounded-xl animate-in fade-in slide-in-from-left duration-500';
+            
+            const timestamp = new Date(error.timestamp).toLocaleTimeString();
+            
+            entry.innerHTML = `
+                <div class="flex justify-between items-start mb-2">
+                    <span class="text-pink-500 text-[10px] font-bold uppercase tracking-widest">${error.type}</span>
+                    <span class="text-zinc-600 text-[9px] uppercase tracking-widest">${timestamp}</span>
+                </div>
+                <p class="text-white font-mono text-sm mb-3"># ${error.message}</p>
+                <div class="flex gap-4 text-[9px] text-zinc-500 uppercase tracking-widest bg-black/20 p-2 rounded">
+                    <span><strong class="text-zinc-400">Path:</strong> ${error.path}</span>
+                    <span><strong class="text-zinc-400">Method:</strong> ${error.method}</span>
+                </div>
+            `;
+
+            chat.prepend(entry);
+        }
+
+        function clearLogs() {
+            chat.innerHTML = `
+                <div class="text-center py-20 opacity-20">
+                    <p class="italic text-zinc-400">Logs cleared. Waiting for new manifests...</p>
+                </div>
+            `;
+        }
+
+        async function triggerTestError() {
+            try {
+                await fetch('/api/trigger_error');
+            } catch (e) {
+                // Fetch itself might fail if server is down
+                console.error('Trigger failed', e);
+            }
+        }
+
+        // Initialize connection
+        connect();
+    </script>
+</body>
+
+</html>

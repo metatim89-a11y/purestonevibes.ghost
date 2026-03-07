@@ -1003,8 +1003,9 @@ Pushing to the remote Grove...
 To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
    6cd5d4b..c7a2f33  master -> master
 [1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
-atic file: templates/_system_metrics.html (Status: 200)
-2026-03-07 14:07:56,615 - INFO - Served static file: templates/_site_statistics.html (Status: 200)
+[1;35m--- PURE STONE VIBES SYNC ---[0m
+Staging all changes...
+07 14:07:56,615 - INFO - Served static file: templates/_site_statistics.html (Status: 200)
 2026-03-07 14:07:56,649 - ERROR - ERROR: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 127430394873536 and this is thread id 127430456213760. | Path: /api/stats | Method: GET
 2026-03-07 14:08:06,984 - INFO - Served static file: templates/_inventory_editor.html (Status: 200)
 2026-03-07 14:08:12,637 - INFO - Served static file: templates/_settings.html (Status: 200)
@@ -1012,3 +1013,36 @@ atic file: templates/_system_metrics.html (Status: 200)
 2026-03-07 14:08:40,013 - INFO - Served static file (cached): templates/_all_pages.html (Status: 304)
 2026-03-07 14:08:50,356 - INFO - Served static file: stats.html (Status: 200)
 2026-03-07 14:08:50,789 - ERROR - ERROR: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 127430394873536 and this is thread id 127430456213760. | Path: /api/stats | Method: GET
+2026-03-07 14:24:38,068 - ERROR - ERROR: Manual test error triggered for dashboard validation! | Path: /api/trigger_error | Method: GET
+2026-03-07 14:24:39,184 - ERROR - ERROR: Manual test error triggered for dashboard validation! | Path: /api/trigger_error | Method: GET
+2026-03-07 14:24:42,546 - INFO - Served static file (cached): gallery.html (Status: 304)
+2026-03-07 14:24:45,277 - INFO - Served static file (cached): process.html (Status: 304)
+2026-03-07 14:24:52,758 - INFO - Served static file (cached): inquiry.html (Status: 304)
+2026-03-07 14:28:23,477 - INFO - 📡 [SYSTEM] Dashboard client connected via WebSocket.
+2026-03-07 14:29:35,017 - INFO - 📡 [SYSTEM] Dashboard client disconnected.
+2026-03-07 14:29:35,065 - INFO - Served static file (cached): theme.css (Status: 304)
+2026-03-07 14:29:35,683 - INFO - 📡 [SYSTEM] Dashboard client connected via WebSocket.
+2026-03-07 14:29:42,405 - ERROR - ERROR: Manual test error triggered for dashboard validation! | Path: /api/trigger_error | Method: GET
+2026-03-07 14:30:04,192 - INFO - Served static file (cached): theme.js (Status: 304)
+2026-03-07 14:30:04,447 - INFO - 📡 [SYSTEM] Dashboard client disconnected.
+2026-03-07 14:30:06,874 - INFO - Served static file (cached): templates/_server_control.html (Status: 304)
+2026-03-07 14:30:10,175 - INFO - Served static file (cached): templates/_log_file_viewer.html (Status: 304)
+2026-03-07 14:30:16,472 - INFO - Served static file (cached): templates/_inventory_editor.html (Status: 304)
+2026-03-07 14:30:22,270 - INFO - Served static file (cached): templates/_site_statistics.html (Status: 304)
+2026-03-07 14:30:22,290 - ERROR - ERROR: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 136552761988800 and this is thread id 136552843886848. | Path: /api/stats | Method: GET
+2026-03-07 14:30:23,927 - INFO - Served static file: templates/_version_management.html (Status: 200)
+2026-03-07 14:30:25,571 - INFO - Served static file: templates/_image_uploader.html (Status: 200)
+2026-03-07 14:30:29,559 - INFO - Served static file (cached): templates/_settings.html (Status: 304)
+2026-03-07 14:30:34,079 - INFO - Served static file (cached): templates/_inquiry_ledger.html (Status: 304)
+2026-03-07 14:30:34,112 - ERROR - ERROR: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 136552761988800 and this is thread id 136552843886848. | Path: /api/inquiries | Method: GET
+2026-03-07 14:30:35,584 - INFO - Served static file (cached): templates/_all_pages.html (Status: 304)
+2026-03-07 14:30:46,802 - ERROR - ERROR: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 136552761988800 and this is thread id 136552843886848. | Path: /api/stats | Method: GET
+2026-03-07 14:30:54,176 - INFO - 📡 [SYSTEM] Dashboard client connected via WebSocket.
+2026-03-07 14:31:06,438 - ERROR - ERROR: Manual test error triggered for dashboard validation! | Path: /api/trigger_error | Method: GET
+2026-03-07 15:03:51,897 - INFO - 📡 [SYSTEM] Dashboard client disconnected.
+2026-03-07 15:52:56,810 - INFO - 📡 [SYSTEM] Dashboard client connected via WebSocket.
+2026-03-07 15:55:24,264 - INFO - 📡 [SYSTEM] Dashboard client disconnected.
+2026-03-07 15:55:30,673 - INFO - Served static file (cached): . (Status: 304)
+2026-03-07 15:55:30,722 - INFO - Served static file (cached): theme.css (Status: 304)
+2026-03-07 15:55:30,923 - INFO - Served static file (cached): theme.js (Status: 304)
+2026-03-07 15:55:37,411 - INFO - Served static file (cached): auction.html (Status: 304)

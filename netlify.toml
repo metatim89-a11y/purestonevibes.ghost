@@ -1,0 +1,13 @@
+# Netlify Configuration
+# This file overrides settings in the Netlify UI to ensure the build succeeds.
+
+[build]
+  # Since this is a static HTML/CSS site, we publish from the root.
+  publish = "."
+
+  # No build command is needed for this project.
+  command = ""
+
+[forms]
+  # Ensures Netlify matches our inquiry form for automated handling.
+  submission_status_success = "/inquiry.html?success=true"

@@ -351,6 +351,21 @@ async def get_logs(log_file_name: str, token: str = Depends(verify_token)):
     with open(log_path, "r", encoding="utf-8") as f:
         return f.read()
 
+@app.get("/api/version")
+async def get_version():
+    version_path = os.path.join(BASE_DIR, "version.json")
+    if not os.path.exists(version_path):
+        return {"version": "N/A", "message": "version.json not found"}
+    with open(version_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+@app.post("/api/version")
+async def update_version(new_version: dict, token: str = Depends(verify_token)):
+    version_path = os.path.join(BASE_DIR, "version.json")
+    with open(version_path, "w", encoding="utf-8") as f:
+        json.dump(new_version, f, indent=4)
+    return {"message": "Version updated successfully", "new_version": new_version}
+
 @app.get("/docs", response_class=HTMLResponse, include_in_schema=False)
 async def custom_swagger_ui_html(request: Request):
     return templates.TemplateResponse(

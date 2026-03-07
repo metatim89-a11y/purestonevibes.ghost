@@ -29,3 +29,13 @@
 
 ---
 *"The Auction House is live. The backend is brewing. The vibes are pure."*
+
+### Entry 04: The Graphic Grove Overhaul
+- **Objective**: Transform 'The Grove' into a high-aesthetic, graphic-heavy art exhibition.
+- **Milestone**: **Gallery Restoration**: Replaced the placeholder `gallery.html` with the full dynamic version, restoring the `/api/inventory` connection for all 28 unique pieces.
+- **Milestone**: **Graphic Typography**: Implemented a "Neon Glow" visual style for sculpture names using multi-layered `text-shadow` and bold `Playfair Display` font.
+- **Milestone**: **Staggered Rhythm**: Developed a JS-driven staggering logic that alternates name placement (Above vs. Below the image) to create a modern, asymmetric layout.
+- **Milestone**: **Structural Separation**: Decoupled name and image containers within `gallery-card` entities, allowing for vertical growth while maintaining perfect square aspect ratios for the gemstones.
+- **Refinement**: Integrated `loading="lazy"` on all gallery assets to optimize performance for the 28-piece payload.
+
+*"The Grove has evolved. The names aren't just labels anymore—they are graphics. The vibration is visible."*

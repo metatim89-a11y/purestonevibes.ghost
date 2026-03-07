@@ -22,14 +22,14 @@ A high-aesthetic, minimalist portfolio website for **Pure Stone Vibes**, showcas
 - `orig folder/`: Contains original raw source data and images.
 
 ## Key Features & Sections
-- **The Grove (Gallery):** A dynamic grid displaying the full collection with price filtering and stone energy descriptions.
+- **The Grove (Gallery):** A high-aesthetic dynamic grid displaying the full collection. Features a **staggered layout** (alternating name placement) and **neon-glow graphic typography** for sculpture names. Includes price filtering and stone energy descriptions.
 - **The Process:** Highlights the "Root-to-Canopy" technique and the hand-wiring of gemstone leaflets.
 - **Dynamic Inquiries:** Form pre-population allowing users to inquire about specific sculptures directly from the gallery.
 
 ## Usage & Development
 - **Inventory Updates**: To add or edit sculptures, update the `inventory` object in both `gallery.html` and `inquiry.html` (or modify `inventory_final.json` and sync).
 - **Image Management**: New images should be added to `namedpics/` using the `Name_Number.ext` convention for SEO and system compatibility.
-- **Styling**: All pages use a shared design language of glassmorphism panels, blurry radial backgrounds, and Playfair Display typography.
+- **Styling**: All pages use a shared design language of glassmorphism panels, blurry radial backgrounds, and Playfair Display typography. The gallery uses a specialized `.graphic-text` class for high-impact neon-glow headers.
 
 ## Development Conventions
 - **Self-Documenting Code**: All functions, classes, and scripts MUST include detailed comments explaining *what* the code is doing and *why* it exists.

@@ -182,6 +182,76 @@ async def get_inventory():
     with open(inventory_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
+@app.get("/api/inventory/{item_id}")
+async def get_inventory_item(item_id: str):
+    inventory_path = os.path.join(BASE_DIR, "inventory_final.json")
+    if not os.path.exists(inventory_path):
+        raise HTTPException(status_code=404, detail="Inventory not found")
+    with open(inventory_path, "r", encoding="utf-8") as f:
+        inventory = json.load(f)
+    
+    for item in inventory:
+        if item.get("id") == item_id:
+            return item
+    raise HTTPException(status_code=404, detail="Item not found")
+
+@app.post("/api/inventory", status_code=status.HTTP_201_CREATED)
+async def add_inventory_item(item: dict, token: str = Depends(verify_token)):
+    inventory_path = os.path.join(BASE_DIR, "inventory_final.json")
+    if not os.path.exists(inventory_path):
+        return JSONResponse(status_code=404, content={"error": "Inventory not found"})
+    
+    with open(inventory_path, "r+", encoding="utf-8") as f:
+        inventory = json.load(f)
+        item["id"] = str(uuid.uuid4()) # Assign a unique ID
+        inventory.append(item)
+        f.seek(0) # Rewind to beginning
+        json.dump(inventory, f, indent=4)
+        f.truncate() # Truncate remaining content
+    return {"message": "Item added successfully", "item_id": item["id"]}
+
+@app.put("/api/inventory/{item_id}")
+async def update_inventory_item(item_id: str, updated_item: dict, token: str = Depends(verify_token)):
+    inventory_path = os.path.join(BASE_DIR, "inventory_final.json")
+    if not os.path.exists(inventory_path):
+        raise HTTPException(status_code=404, detail="Inventory not found")
+    
+    with open(inventory_path, "r+", encoding="utf-8") as f:
+        inventory = json.load(f)
+        found = False
+        for i, item in enumerate(inventory):
+            if item.get("id") == item_id:
+                inventory[i] = {**item, **updated_item} # Merge updates
+                found = True
+                break
+        
+        if not found:
+            raise HTTPException(status_code=404, detail="Item not found")
+        
+        f.seek(0)
+        json.dump(inventory, f, indent=4)
+        f.truncate()
+    return {"message": "Item updated successfully"}
+
+@app.delete("/api/inventory/{item_id}")
+async def delete_inventory_item(item_id: str, token: str = Depends(verify_token)):
+    inventory_path = os.path.join(BASE_DIR, "inventory_final.json")
+    if not os.path.exists(inventory_path):
+        raise HTTPException(status_code=404, detail="Inventory not found")
+    
+    with open(inventory_path, "r+", encoding="utf-8") as f:
+        inventory = json.load(f)
+        initial_len = len(inventory)
+        inventory = [item for item in inventory if item.get("id") != item_id]
+        
+        if len(inventory) == initial_len:
+            raise HTTPException(status_code=404, detail="Item not found")
+        
+        f.seek(0)
+        json.dump(inventory, f, indent=4)
+        f.truncate()
+    return {"message": "Item deleted successfully"}
+
 @app.post("/api/login")
 async def login(data: LoginRequest):
     if (data.username in ["tester1", "tester2"]) and data.password == "admin":

@@ -27,7 +27,8 @@ if (!API_KEY) {
 }
 
 const genAI = new GoogleGenerativeAI(API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+// gemini-1.5-flash has a separate free-tier quota from gemini-2.0-flash
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const PICS_DIR = path.join(__dirname, "namedpics");
 const OUTPUT_FILE = path.join(__dirname, "inventory_ai_analyzed.json");
@@ -44,6 +45,29 @@ function toInlinePart(filePath) {
     };
 }
 
+/**
+ * Retries a function with exponential backoff if it fails with a 429 rate limit error.
+ * @param {Function} fn - Async function to retry.
+ * @param {number} maxRetries - Maximum number of retries.
+ * @returns {Promise<any>}
+ */
+async function withRetry(fn, maxRetries = 5) {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+            return await fn();
+        } catch (err) {
+            const is429 = err.message && err.message.includes("429");
+            if (is429 && attempt < maxRetries) {
+                const waitMs = Math.pow(2, attempt) * 5000; // 10s, 20s, 40s, 80s
+                process.stdout.write(`\n      ⏳ Rate limited. Waiting ${waitMs / 1000}s before retry ${attempt}/${maxRetries}... `);
+                await new Promise((r) => setTimeout(r, waitMs));
+            } else {
+                throw err;
+            }
+        }
+    }
+}
+
 async function analyzeImage(filePath, name) {
     const prompt = `You are an expert gemologist. Look at this handcrafted wire-wrapped gemstone sculpture tree.
 Identify the following purely from visual inspection. Do NOT guess from names.
@@ -56,7 +80,7 @@ Return ONLY valid JSON, no markdown:
   "notes": "Any other visually distinctive feature worth recording."
 }`;
 
-    const result = await model.generateContent([prompt, toInlinePart(filePath)]);
+    const result = await withRetry(() => model.generateContent([prompt, toInlinePart(filePath)]));
     const raw = result.response.text().replace(/```json|```/g, "").trim();
     try {
         return JSON.parse(raw);
@@ -115,8 +139,8 @@ async function main() {
             });
         }
 
-        // 500ms delay between requests to respect rate limits
-        await new Promise((r) => setTimeout(r, 500));
+        // 2s delay between requests to stay well within free-tier rate limits
+        await new Promise((r) => setTimeout(r, 2000));
     }
 
     fs.writeFileSync(OUTPUT_FILE, JSON.stringify(inventory, null, 2));

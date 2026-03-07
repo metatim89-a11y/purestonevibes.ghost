@@ -8,6 +8,9 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from pydantic import BaseModel
 import json
+from fastapi.templating import Jinja2Templates
+
+templates = Jinja2Templates(directory="templates")
 
 app = FastAPI(title="Pure Stone Vibes | Production API")
 
@@ -140,6 +143,13 @@ async def get_stats(db: sqlite3.Connection = Depends(get_db)):
         "top_sculptures": top_sculptures,
         "recent_inquiries": recent_inquiries
     }
+
+@app.get("/docs", response_class=HTMLResponse, include_in_schema=False) # include_in_schema=False hides it from Swagger itself
+async def custom_swagger_ui_html(request: Request):
+    return templates.TemplateResponse(
+        "custom_swagger_ui.html",
+        {"request": request, "openapi_url": app.openapi_url}
+    )
 
 # --- Static File Serving ---
 

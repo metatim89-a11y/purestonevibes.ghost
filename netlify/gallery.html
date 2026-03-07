@@ -10,36 +10,55 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
 
+        .gallery-card-wrapper {
+            position: relative;
+            aspect-ratio: 3/4;
+            /* Keeps grid stable */
+            z-index: 1;
+        }
+
         .gallery-card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             border-radius: 8px;
             overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            z-index: 1;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             background: var(--card-bg);
             border: 1px solid var(--glass-border);
         }
 
-        .gallery-card:hover {
-            border-color: var(--accent-color);
-            transform: scale(1.2) translateY(-10px);
+        .gallery-card-wrapper:hover {
             z-index: 100;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .gallery-card-wrapper:hover .gallery-card {
+            /* On hover, we make it absolutely positioned relative to center, much wider, and scaled */
+            top: 50%;
+            left: 50%;
+            width: 250px;
+            height: auto;
+            transform: translate(-50%, -50%) scale(1.3);
+            border-color: var(--accent-color);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 1);
         }
 
         .card-details {
             max-height: 0;
             opacity: 0;
             overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .gallery-card:hover .card-details {
+        .gallery-card-wrapper:hover .card-details {
             max-height: 500px;
             opacity: 1;
             padding-top: 1rem;
+            padding-bottom: 0.5rem;
         }
 
         .price-tag {
@@ -166,11 +185,11 @@
 
             // Create and append a card for each sculpture
             items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'gallery-card group cursor-pointer';
+                const cardWrapper = document.createElement('div');
+                cardWrapper.className = 'gallery-card-wrapper group cursor-pointer';
 
                 // Lightbox integration: clicking a card zooms the sculpture image
-                card.onclick = () => {
+                cardWrapper.onclick = () => {
                     document.getElementById('lightbox-img').src = `namedpics/${item.id}.${item.ext}`;
                     document.getElementById('lightbox').style.display = 'flex';
                 };
@@ -205,48 +224,50 @@
                 }
 
                 // Build the visual card structure using Tailwind CSS and custom glassmorphism styles
-                card.innerHTML = `
-                    <div class="relative overflow-hidden aspect-square bg-zinc-900 flex items-center justify-center">
-                        <img src="namedpics/${item.id}.${item.ext}" 
-                             alt="${displayName}" 
-                             class="w-full h-full object-cover transition-transform duration-1000">
-                    </div>
-                    <div class="p-2 flex-grow flex flex-col items-center">
-                        <h3 class="text-[8px] italic leading-tight text-zinc-400 group-hover:text-pink-400 transition truncate w-full text-center uppercase tracking-tighter">${displayName}</h3>
-                        
-                        <!-- Collapsible details section revealed on hover -->
-                        <div class="card-details w-full">
-                            <div class="flex justify-between items-center mb-3 mt-2 pb-2 border-b border-white/10">
-                                <span class="price-tag text-white text-[9px] shadow-lg border border-white/20 px-2 py-0.5">${priceDisplay}</span>
-                                <a href="inquiry.html?item=${item.id}" class="text-[7px] bg-pink-500/10 text-pink-500 border border-pink-500/30 px-2 py-0.5 rounded-full hover:bg-pink-500 hover:text-white transition uppercase tracking-tighter whitespace-nowrap">Inquire</a>
-                            </div>
-                            <div class="space-y-2 text-[8px] tracking-widest uppercase font-semibold text-zinc-400 pt-1">
-                                <div class="group/info">
-                                    <span class="text-pink-500 block mb-0.5 opacity-70">BaseStone:</span>
-                                    <div class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors">
-                                        <p class="text-zinc-200">${item.base}</p>
-                                        <p class="lowercase text-zinc-500 italic font-normal mt-0.5 leading-tight">${baseVibe}</p>
+                cardWrapper.innerHTML = `
+                    <div class="gallery-card">
+                        <div class="relative overflow-hidden aspect-square bg-zinc-900 flex items-center justify-center">
+                            <img src="namedpics/${item.id}.${item.ext}" 
+                                 alt="${displayName}" 
+                                 class="w-full h-full object-cover transition-transform duration-1000">
+                        </div>
+                        <div class="p-2 flex-grow flex flex-col items-center">
+                            <h3 class="text-[10px] md:text-[11px] font-bold italic leading-tight bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent group-hover:from-pink-300 group-hover:to-purple-400 transition-all truncate w-full text-center uppercase tracking-wider drop-shadow-sm">${displayName}</h3>
+                            
+                            <!-- Collapsible details section revealed on hover -->
+                            <div class="card-details w-full">
+                                <div class="flex justify-between items-center mb-3 mt-2 pb-2 border-b border-white/10">
+                                    <span class="price-tag text-white text-[9px] shadow-lg border border-white/20 px-2 py-0.5">${priceDisplay}</span>
+                                    <a href="inquiry.html?item=${item.id}" class="text-[7px] bg-pink-500/10 text-pink-500 border border-pink-500/30 px-2 py-0.5 rounded-full hover:bg-pink-500 hover:text-white transition uppercase tracking-tighter whitespace-nowrap">Inquire</a>
+                                </div>
+                                <div class="space-y-2 text-[8px] tracking-widest uppercase font-semibold text-zinc-400 pt-1">
+                                    <div class="group/info">
+                                        <span class="text-pink-500 block mb-0.5 opacity-70">BaseStone:</span>
+                                        <div class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors">
+                                            <p class="text-zinc-200">${item.base}</p>
+                                            <p class="lowercase text-zinc-500 italic font-normal mt-0.5 leading-tight">${baseVibe}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="group/info">
-                                    <span class="text-pink-500 block mb-0.5 opacity-70">LeafletStone:</span>
-                                    <div class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors">
-                                        <p class="text-zinc-200">${item.leaf} <span class="lowercase text-zinc-500 italic font-normal">(${leafletVibe})</span></p>
+                                    <div class="group/info">
+                                        <span class="text-pink-500 block mb-0.5 opacity-70">LeafletStone:</span>
+                                        <div class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors">
+                                            <p class="text-zinc-200">${item.leaf} <span class="lowercase text-zinc-500 italic font-normal">(${leafletVibe})</span></p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="group/info">
-                                    <span class="text-pink-500 block mb-0.5 opacity-70">Bindings:</span>
-                                    <p class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors lowercase text-zinc-500 font-normal leading-tight">${bindings}</p>
-                                </div>
-                                <div class="group/info">
-                                    <span class="text-pink-500 block mb-0.5 opacity-70">Combined:</span>
-                                    <p class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors italic text-zinc-300">${combined}</p>
+                                    <div class="group/info">
+                                        <span class="text-pink-500 block mb-0.5 opacity-70">Bindings:</span>
+                                        <p class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors lowercase text-zinc-500 font-normal leading-tight">${bindings}</p>
+                                    </div>
+                                    <div class="group/info">
+                                        <span class="text-pink-500 block mb-0.5 opacity-70">Combined:</span>
+                                        <p class="pl-2 border-l border-pink-500/10 group-hover/info:border-pink-500/30 transition-colors italic text-zinc-300">${combined}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 `;
-                grid.appendChild(card);
+                grid.appendChild(cardWrapper);
             });
         }
 

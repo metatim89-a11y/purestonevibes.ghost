@@ -777,16 +777,22 @@ To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
 [1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
 [1;35m--- PURE STONE VIBES SYNC ---[0m
 Staging all changes...
-200)
-2026-03-07 13:19:50,661 - INFO - Served static file: theme.css (Status: 200)
-2026-03-07 13:19:50,833 - INFO - Served static file: theme.js (Status: 200)
-2026-03-07 13:19:55,397 - INFO - Served static file: auction.html (Status: 200)
-2026-03-07 13:19:58,352 - INFO - Served static file: process.html (Status: 200)
-2026-03-07 13:20:03,010 - INFO - Served static file: login.html (Status: 200)
-2026-03-07 13:20:14,697 - INFO - Served static file: index.html (Status: 200)
-2026-03-07 13:20:26,720 - INFO - Served static file: inquiry.html (Status: 200)
-2026-03-07 13:20:30,215 - INFO - Served static file: gallery.html (Status: 200)
-2026-03-07 13:20:30,665 - INFO - Served static file: 3.jpg (Status: 200)
+Committing with message: Celestial Moon-Bloom update: Data points locked.
+[master af05483] Celestial Moon-Bloom update: Data points locked.
+ 4 files changed, 203 insertions(+)
+ create mode 100644 adresses
+ create mode 100644 "adressesy\\"
+ create mode 100644 templates/_inquiry_ledger.html
+Syncing with GitHub...
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+Pushing to the remote Grove...
+To https://github.com/metatim89-a11y/fishesstonevibeexample10mins.git
+   a032b5f..af05483  master -> master
+[1;32m--- SYNC COMPLETE: VIBES ARE LIVE ---[0m
+[1;35m--- PURE STONE VIBES SYNC ---[0m
+Staging all changes...
+INFO - Served static file: 3.jpg (Status: 200)
 2026-03-07 13:20:30,667 - INFO - Served static file: 1.jpg (Status: 200)
 2026-03-07 13:20:30,670 - INFO - Served static file: 2.jpg (Status: 200)
 2026-03-07 13:20:30,710 - INFO - Served static file: 4.jpg (Status: 200)

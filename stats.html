@@ -12,12 +12,11 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #050505;
+            background-color: var(--bg-main); /* Use main background color variable */
             color: #eeeeee;
-            /* Enhanced body background gradient */
-            background: linear-gradient(135deg, #0a0a0a 0%, #050505 50%, #0a0a0a 100%),
-                        radial-gradient(circle at top right, rgba(236, 72, 153, 0.1) 0%, transparent 40%),
-                        radial-gradient(circle at bottom left, rgba(74, 180, 255, 0.05) 0%, transparent 40%);
+            /* Enhanced body background gradient - now using var(--vibe-gradient-bg) */
+            background: var(--vibe-gradient-bg),
+                        linear-gradient(135deg, #0a0a0a 0%, #050505 50%, #0a0a0a 100%);
         }
 
         h1,

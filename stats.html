@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pure Stone Vibes | Stats Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="theme.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #eeeeee;
+            background-image: radial-gradient(circle at top right, #1a1010, transparent);
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Glassmorphism Navigation */
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Glassmorphism Section */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+        }
+
+        .stats-card {
+            background: rgba(22, 22, 22, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .stats-card:hover {
+            border-color: #ec4899;
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            background: rgba(22, 22, 22, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .stats-table th, .stats-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: left;
+        }
+
+        .stats-table th {
+            background: rgba(30, 30, 30, 0.7);
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: #ec4899;
+        }
+
+        .stats-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .stats-table tbody tr:hover {
+            background: rgba(40, 40, 40, 0.5);
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav class="p-6 glass-nav flex flex-col md:flex-row justify-between items-center sticky top-0 z-50">
+        <div class="text-center md:text-left">
+            <h1 class="text-3xl font-bold tracking-tighter text-white uppercase">PURE STONE VIBES</h1>
+            <p class="text-[10px] tracking-[0.5em] text-pink-500 font-bold uppercase">Artist: Fish</p>
+        </div>
+        <div class="flex gap-8 text-[11px] uppercase tracking-widest font-semibold mt-4 md:mt-0">
+            <a href="gallery.html" class="hover:text-pink-400 transition">The Grove</a>
+            <a href="auction.html" class="hover:text-pink-400 transition">Auctions</a>
+            <a href="process.html" class="hover:text-pink-400 transition">The Process</a>
+            <a href="dashboard.html" class="hover:text-pink-400 transition">Dashboard</a>
+            <a href="inquiry.html"
+                class="border border-pink-500/40 px-6 py-2 text-pink-500 hover:bg-pink-500 hover:text-white transition uppercase rounded-full">Inquire</a>
+
+            <!-- Auth & Theme UI -->
+            <div class="flex items-center gap-4 ml-4 pl-4 border-l border-white/10">
+                <button onclick="toggleTheme()" class="hover:text-pink-500 transition" title="Toggle Theme">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707zM12 5a7 7 0 100 14 7 7 0 000-14z">
+                        </path>
+                    </svg>
+                </button>
+                <a href="login.html" id="login-link"
+                    class="text-[10px] uppercase tracking-widest hover:text-pink-500 transition">Login</a>
+                <div id="user-display"
+                    class="hidden text-[10px] uppercase tracking-widest text-pink-500 font-bold flex items-center gap-3">
+                    <span id="username-val"></span>
+                    <button onclick="logout()"
+                        class="text-zinc-500 hover:text-white transition lowercase font-normal">[logout]</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-7xl mx-auto px-6 py-12 text-center">
+        <h2 class="text-5xl mb-4 italic">Stats <span class="text-pink-500 font-bold not-italic">Monitor</span></h2>
+        <p class="text-zinc-500 max-w-2xl mx-auto text-sm italic">Real-time insights into the Pure Stone Vibes ecosystem.</p>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 pb-32">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div class="stats-card glass-panel">
+                <h3 class="text-xl font-bold text-pink-400 mb-2">Total Inquiries</h3>
+                <p id="total-inquiries" class="text-5xl font-bold text-white">0</p>
+            </div>
+            <div class="stats-card glass-panel">
+                <h3 class="text-xl font-bold text-pink-400 mb-2">Unique Sculptures Inquired</h3>
+                <p id="unique-sculptures" class="text-5xl font-bold text-white">0</p>
+            </div>
+            <div class="stats-card glass-panel">
+                <h3 class="text-xl font-bold text-pink-400 mb-2">Total Sculptures in Grove</h3>
+                <p id="total-grove-sculptures" class="text-5xl font-bold text-white">28</p>
+            </div>
+        </div>
+
+        <div class="glass-panel p-8">
+            <h3 class="text-2xl font-bold text-pink-400 mb-6">Top 5 Most Inquired Sculptures</h3>
+            <div class="overflow-x-auto">
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>Sculpture Name</th>
+                            <th>Inquiry Count</th>
+                        </tr>
+                    </thead>
+                    <tbody id="top-sculptures-table">
+                        <!-- Data will be injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="glass-panel p-8 mt-8">
+            <h3 class="text-2xl font-bold text-pink-400 mb-6">Recent Inquiries</h3>
+            <div class="overflow-x-auto">
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Sculpture</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recent-inquiries-table">
+                        <!-- Data will be injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-20 text-center opacity-30">
+        <p class="text-[10px] tracking-[0.6em] uppercase text-white">Pure Stone Vibes &copy; 2026 | <span class="opacity-50">v1.051</span></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await fetchStats();
+            // Assuming theme.js has a toggleTheme() function to initialize the theme state
+            // If theme.js handles DOMContentLoaded itself, no explicit call needed here.
+            // If it modifies HTML/CSS based on local storage, it will run after this script.
+            if (typeof initTheme === 'function') { // Check if a theme initialization function exists
+                initTheme(); // Call if exists, assuming it's the right way to initialize
+            }
+        });
+
+        async function fetchStats() {
+            try {
+                const response = await fetch('/api/stats'); // New API endpoint
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const stats = await response.json();
+                renderStats(stats);
+            } catch (error) {
+                console.error('Error fetching stats:', error);
+                document.getElementById('total-inquiries').textContent = 'N/A';
+                document.getElementById('unique-sculptures').textContent = 'N/A';
+                document.getElementById('top-sculptures-table').innerHTML = `<tr><td colspan="2">Failed to load data.</td></tr>`;
+                document.getElementById('recent-inquiries-table').innerHTML = `<tr><td colspan="4">Failed to load data.</td></tr>`;
+            }
+        }
+
+        function renderStats(stats) {
+            document.getElementById('total-inquiries').textContent = stats.total_inquiries;
+            document.getElementById('unique-sculptures').textContent = stats.unique_sculptures_inquired;
+
+            const topSculpturesTable = document.getElementById('top-sculptures-table');
+            topSculpturesTable.innerHTML = '';
+            stats.top_sculptures.forEach(item => {
+                const row = topSculpturesTable.insertRow();
+                row.innerHTML = `
+                    <td class="text-zinc-300">${item.sculpture || 'N/A'}</td>
+                    <td class="text-zinc-300 font-bold">${item.count}</td>
+                `;
+            });
+            if (stats.top_sculptures.length === 0) {
+                topSculpturesTable.innerHTML = `<tr><td colspan="2" class="text-zinc-500 text-center py-4">No inquiries yet.</td></tr>`;
+            }
+
+
+            const recentInquiriesTable = document.getElementById('recent-inquiries-table');
+            recentInquiriesTable.innerHTML = '';
+            stats.recent_inquiries.forEach(inquiry => {
+                const row = recentInquiriesTable.insertRow();
+                const date = new Date(inquiry.created_at).toLocaleString();
+                row.innerHTML = `
+                    <td class="text-zinc-400 text-xs">${date}</td>
+                    <td class="text-zinc-300">${inquiry.name}</td>
+                    <td class="text-zinc-300">${inquiry.email}</td>
+                    <td class="text-pink-400 italic">${inquiry.sculpture || 'N/A'}</td>
+                `;
+            });
+            if (stats.recent_inquiries.length === 0) {
+                recentInquiriesTable.innerHTML = `<tr><td colspan="4" class="text-zinc-500 text-center py-4">No recent inquiries.</td></tr>`;
+            }
+        }
+
+        // --- Theme Toggle (if needed, otherwise rely on theme.js) ---
+        // This function is typically in theme.js, including it here for completeness
+        // in case theme.js is not loaded or for standalone testing.
+        function toggleTheme() {
+            document.body.classList.toggle('vibe-amethyst'); // Example toggle
+            // More robust theme management would involve local storage and a dedicated script
+        }
+        // Placeholder for login/logout (these would typically be in theme.js or a separate auth.js)
+        function logout() { console.log('Logout clicked'); }
+    </script>
+    <script src="theme.js"></script>
+</body>
+
+</html>

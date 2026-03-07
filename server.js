@@ -79,13 +79,38 @@ app.post('/api/inquiry', (req, res) => {
 });
 
 /**
+ * POST /api/login
+ * Handles server-side authentication for testers.
+ */
+app.post('/api/login', (req, res) => {
+    const { username, password } = req.body;
+    
+    // Simple demo logic: tester1/admin or tester2/admin
+    if ((username === 'tester1' || username === 'tester2') && password === 'admin') {
+        console.log(`Login Successful: ${username}`);
+        res.status(200).json({ 
+            success: true, 
+            username, 
+            token: 'admin-token-v1' // In a real app, use JWT
+        });
+    } else {
+        console.warn(`Failed Login Attempt: ${username}`);
+        res.status(401).json({ success: false, error: 'Invalid credentials' });
+    }
+});
+
+/**
  * GET /api/inquiries
  * Returns all inquiries for the dashboard.
- * In a real app we would protect this with JWT auth.
+ * Now protected with a simple token check.
  */
 app.get('/api/inquiries', (req, res) => {
-    // For demo simplicity, we just rely on the frontend login check 
-    // (though real security needs backend token verification)
+    const authHeader = req.headers['authorization'];
+    
+    if (authHeader !== 'Bearer admin-token-v1') {
+        return res.status(403).json({ error: "Access denied. Valid token required." });
+    }
+
     db.all(`SELECT * FROM inquiries ORDER BY created_at DESC`, [], (err, rows) => {
         if (err) {
             console.error("Database error:", err);

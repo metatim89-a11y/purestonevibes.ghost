@@ -77,8 +77,20 @@
         });
 
         async function fetchInquiries() {
+            const token = localStorage.getItem('sessionToken');
+            
             try {
-                const response = await fetch('/api/inquiries');
+                const response = await fetch('/api/inquiries', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.status === 403 || response.status === 401) {
+                    // Token is invalid or missing
+                    localStorage.clear();
+                    window.location.href = 'login.html';
+                    return;
+                }
+
                 if (!response.ok) throw new Error('Failed to fetch inquiries');
 
                 const inquiries = await response.json();

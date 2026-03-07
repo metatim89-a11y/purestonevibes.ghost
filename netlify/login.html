@@ -56,19 +56,36 @@
         const loginForm = document.getElementById('login-form');
         const errorMsg = document.getElementById('error-msg');
 
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const user = document.getElementById('username').value;
-            const pass = document.getElementById('password').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-            // FAKE LOGIN LOGIC
-            if ((user === 'tester1' || user === 'tester2') && pass === 'admin') {
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('currentUser', user);
-                window.location.href = 'index.html';
-            } else {
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    // Store the session data from server
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('currentUser', data.username);
+                    localStorage.setItem('sessionToken', data.token); // Store the "Bearer" token
+                    
+                    window.location.href = 'index.html';
+                } else {
+                    errorMsg.textContent = data.error || 'Invalid credentials';
+                    errorMsg.classList.remove('hidden');
+                    setTimeout(() => errorMsg.classList.add('hidden'), 3000);
+                }
+            } catch (err) {
+                console.error("Login Error:", err);
+                errorMsg.textContent = "Server connection lost.";
                 errorMsg.classList.remove('hidden');
-                setTimeout(() => errorMsg.classList.add('hidden'), 3000);
             }
         });
     </script>

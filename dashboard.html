@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Pure Stone Vibes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="theme.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+    </style>
+</head>
+
+<body>
+    <nav class="p-6 glass-nav flex justify-between items-center sticky top-0 z-50">
+        <a href="index.html" class="group">
+            <h1 class="text-xl font-bold tracking-tighter text-white uppercase group-hover:text-pink-500 transition">
+                PURE STONE VIBES <span class="text-zinc-500 text-sm ml-2">/ DASHBOARD</span></h1>
+        </a>
+        <div class="flex items-center gap-4 text-[10px] uppercase tracking-widest font-bold text-zinc-400">
+            <button onclick="toggleTheme()" class="hover:text-pink-500 transition" title="Toggle Theme">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707zM12 5a7 7 0 100 14 7 7 0 000-14z">
+                    </path>
+                </svg>
+            </button>
+            <div id="user-display" class="hidden text-pink-500 flex items-center gap-3">
+                <span id="username-val"></span>
+                <button onclick="logout()"
+                    class="text-zinc-500 hover:text-white transition lowercase font-normal">[logout]</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <header class="mb-10 text-center">
+            <h2 class="text-5xl mb-4 italic">Inquiry <span class="text-pink-500 font-bold not-italic">Ledger</span></h2>
+            <p class="text-zinc-500 text-sm tracking-widest uppercase">Admin Access Only</p>
+        </header>
+
+        <div class="glass-panel rounded-xl overflow-hidden border border-white/10 shadow-2xl">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr
+                            class="bg-zinc-900 border-b border-white/5 text-[10px] uppercase tracking-widest text-pink-500 bg-pink-500/5">
+                            <th class="py-4 px-6 font-bold">Date Received</th>
+                            <th class="py-4 px-6 font-bold">Name</th>
+                            <th class="py-4 px-6 font-bold">Email</th>
+                            <th class="py-4 px-6 font-bold">Item Ref</th>
+                            <th class="py-4 px-6 font-bold">Message</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inquiriesTableBody" class="text-sm text-zinc-300 divide-y divide-white/5">
+                        <!-- Populated by JS -->
+                        <tr>
+                            <td colspan="5" class="py-8 text-center text-zinc-500 italic">Connecting to database...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="theme.js"></script>
+    <script>
+        // Security check
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('isLoggedIn') !== 'true') {
+                // If not logged in, redirect to login page
+                window.location.href = 'login.html';
+                return;
+            }
+            fetchInquiries();
+        });
+
+        async function fetchInquiries() {
+            const token = localStorage.getItem('sessionToken');
+            
+            try {
+                const response = await fetch('/api/inquiries', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.status === 403 || response.status === 401) {
+                    // Token is invalid or missing
+                    localStorage.clear();
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                if (!response.ok) throw new Error('Failed to fetch inquiries');
+
+                const inquiries = await response.json();
+                const tbody = document.getElementById('inquiriesTableBody');
+
+                if (inquiries.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="py-12 text-center text-zinc-500 italic">No inquiries found in the ledger.</td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                tbody.innerHTML = ''; // Clear loading
+
+                inquiries.forEach(inq => {
+                    const date = new Date(inq.created_at).toLocaleString();
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-white/5 transition-colors cursor-default";
+                    tr.innerHTML = `
+                        <td class="py-4 px-6 whitespace-nowrap text-xs text-zinc-500 font-mono">${date}</td>
+                        <td class="py-4 px-6 font-semibold text-white">${inq.name}</td>
+                        <td class="py-4 px-6 text-pink-400 hover:text-pink-300"><a href="mailto:${inq.email}">${inq.email}</a></td>
+                        <td class="py-4 px-6"><span class="bg-zinc-800 text-xs px-2 py-1 rounded border border-white/10 uppercase tracking-widest">${inq.sculpture}</span></td>
+                        <td class="py-4 px-6 italic text-zinc-400 max-w-xs truncate" title="${inq.message || 'No message provided.'}">${inq.message || '-'}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+            } catch (error) {
+                console.error("Error fetching inquiries:", error);
+                document.getElementById('inquiriesTableBody').innerHTML = `
+                    <tr>
+                        <td colspan="5" class="py-8 text-center text-red-500 font-bold">Error loading ledger data.</td>
+                    </tr>
+                `;
+            }
+        }
+    </script>
+</body>
+
+</html>

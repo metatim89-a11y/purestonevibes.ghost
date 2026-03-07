@@ -29,6 +29,17 @@ function updateAuthUI() {
             userDisplay.classList.remove('hidden');
             const userVal = document.getElementById('username-val');
             if (userVal) userVal.textContent = localStorage.getItem('currentUser');
+
+            // Dynamically add the Dashboard link if it isn't there
+            if (!document.getElementById('nav-dashboard-link')) {
+                const dash = document.createElement('a');
+                dash.id = 'nav-dashboard-link';
+                dash.href = 'dashboard.html';
+                dash.className = 'text-white hover:text-pink-400 transition ml-2 border-b border-pink-500/30 pb-0.5';
+                dash.textContent = 'Dashboard';
+                // Insert it before the username
+                userDisplay.insertBefore(dash, userVal);
+            }
         }
     }
 }

@@ -8,6 +8,12 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from pydantic import BaseModel
 import json
+import logging
+
+logging.basicConfig(level=logging.INFO, filename='scribe.log', filemode='a',
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
 from fastapi.templating import Jinja2Templates
 
 templates = Jinja2Templates(directory="templates")

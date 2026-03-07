@@ -3,16 +3,81 @@ import sqlite3
 import secrets
 from datetime import datetime
 from typing import Optional
-from fastapi import FastAPI, Request, Form, HTTPException, Depends, status
+from fastapi import FastAPI, Request, Form, HTTPException, Depends, status, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from pydantic import BaseModel
 import json
 import logging
+import asyncio
+from typing import List
 
 logging.basicConfig(level=logging.INFO, filename='scribe.log', filemode='a',
                     format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
+# --- WebSocket Connection Manager ---
+class ConnectionManager:
+    def __init__(self):
+        self.active_connections: List[WebSocket] = []
+
+    async def connect(self, websocket: WebSocket):
+        await websocket.accept()
+        self.active_connections.append(websocket)
+
+    def disconnect(self, websocket: WebSocket):
+        self.active_connections.remove(websocket)
+
+    async def broadcast(self, message: str):
+        for connection in self.active_connections:
+            try:
+                await connection.send_text(message)
+            except Exception:
+                # Handle stale connections
+                pass
+
+manager = ConnectionManager()
+
+app = FastAPI(title="Pure Stone Vibes | Production API", docs_url=None, redoc_url=None)
+
+# --- Error Handling Middleware ---
+@app.middleware("http")
+async def error_handling_middleware(request: Request, call_next):
+    try:
+        response = await call_next(request)
+        return response
+    except Exception as e:
+        error_msg = f"ERROR: {str(e)} | Path: {request.url.path} | Method: {request.method}"
+        logger.error(error_msg)
+        # Broadcast the error via WebSocket
+        asyncio.create_task(manager.broadcast(json.dumps({
+            "type": "error",
+            "message": str(e),
+            "path": request.url.path,
+            "method": request.method,
+            "timestamp": datetime.now().isoformat()
+        })))
+        return JSONResponse(
+            status_code=500,
+            content={"error": "Internal Server Error", "details": str(e)}
+        )
+
+# --- WebSocket Endpoint ---
+@app.websocket("/ws/errors")
+async def websocket_endpoint(websocket: WebSocket):
+    await manager.connect(websocket)
+    try:
+        while True:
+            # Keep connection open
+            await websocket.receive_text()
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+
+# --- Test Error Endpoint ---
+@app.get("/api/trigger_error")
+async def trigger_error():
+    """Manually trigger an error for testing the dashboard."""
+    raise ValueError("Manual test error triggered for dashboard validation!")
 
 from fastapi.templating import Jinja2Templates
 

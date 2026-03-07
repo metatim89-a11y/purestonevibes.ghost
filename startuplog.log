@@ -1,0 +1,26 @@
+--> Checking for and stopping any existing server processes...
+--> Existing server processes stopped.
+--> Activating virtual environment...
+--> Installing/Updating Python dependencies from requirements.txt...
+Requirement already satisfied: fastapi in ./venv/lib/python3.13/site-packages (from -r requirements.txt (line 1)) (0.135.1)
+Requirement already satisfied: uvicorn in ./venv/lib/python3.13/site-packages (from -r requirements.txt (line 2)) (0.41.0)
+Requirement already satisfied: jinja2 in ./venv/lib/python3.13/site-packages (from -r requirements.txt (line 3)) (3.1.6)
+Requirement already satisfied: python-multipart in ./venv/lib/python3.13/site-packages (from -r requirements.txt (line 4)) (0.0.22)
+Requirement already satisfied: pydantic in ./venv/lib/python3.13/site-packages (from -r requirements.txt (line 5)) (2.12.5)
+Requirement already satisfied: starlette>=0.46.0 in ./venv/lib/python3.13/site-packages (from fastapi->-r requirements.txt (line 1)) (0.52.1)
+Requirement already satisfied: typing-extensions>=4.8.0 in ./venv/lib/python3.13/site-packages (from fastapi->-r requirements.txt (line 1)) (4.15.0)
+Requirement already satisfied: typing-inspection>=0.4.2 in ./venv/lib/python3.13/site-packages (from fastapi->-r requirements.txt (line 1)) (0.4.2)
+Requirement already satisfied: annotated-doc>=0.0.2 in ./venv/lib/python3.13/site-packages (from fastapi->-r requirements.txt (line 1)) (0.0.4)
+Requirement already satisfied: click>=7.0 in ./venv/lib/python3.13/site-packages (from uvicorn->-r requirements.txt (line 2)) (8.3.1)
+Requirement already satisfied: h11>=0.8 in ./venv/lib/python3.13/site-packages (from uvicorn->-r requirements.txt (line 2)) (0.16.0)
+Requirement already satisfied: MarkupSafe>=2.0 in ./venv/lib/python3.13/site-packages (from jinja2->-r requirements.txt (line 3)) (3.0.3)
+Requirement already satisfied: annotated-types>=0.6.0 in ./venv/lib/python3.13/site-packages (from pydantic->-r requirements.txt (line 5)) (0.7.0)
+Requirement already satisfied: pydantic-core==2.41.5 in ./venv/lib/python3.13/site-packages (from pydantic->-r requirements.txt (line 5)) (2.41.5)
+Requirement already satisfied: anyio<5,>=3.6.2 in ./venv/lib/python3.13/site-packages (from starlette>=0.46.0->fastapi->-r requirements.txt (line 1)) (4.12.1)
+Requirement already satisfied: idna>=2.8 in ./venv/lib/python3.13/site-packages (from anyio<5,>=3.6.2->starlette>=0.46.0->fastapi->-r requirements.txt (line 1)) (3.11)
+--> Note: python3.3 not found. Falling back to 'python3'.
+--> Starting FastAPI server with 'python3'...
+INFO:     Started server process [5840]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)

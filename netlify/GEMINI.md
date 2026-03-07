@@ -32,6 +32,7 @@ A high-aesthetic, minimalist portfolio website for **Pure Stone Vibes**, showcas
 - **Styling**: All pages use a shared design language of glassmorphism panels, blurry radial backgrounds, and Playfair Display typography. The gallery uses a specialized `.graphic-text` class for high-impact neon-glow headers.
 
 ## Development Conventions
+- **Contextual Accuracy**: Maintain strict awareness of the working directory. If modifications are requested for a specific environment (e.g., `netlify/` or `local_deployment/`), ensure only files within that directory are edited, even if duplicate filenames exist in the root or other folders.
 - **Self-Documenting Code**: All functions, classes, and scripts MUST include detailed comments explaining *what* the code is doing and *why* it exists.
 - **Visual Consistency**: Maintain the high-contrast dark theme and pink accentuation throughout all new components.
 - **Naming Protocol**: Gemstone sculpture imagery must retain descriptive naming for clarity and search engine optimization.

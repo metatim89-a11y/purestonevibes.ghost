@@ -1,0 +1,16 @@
+# Define the installer URL and temporary download path
+$url = "https://dl.google.com"
+$dest = "$env:TEMP\GoogleDriveSetup.exe"
+
+# Download the installer
+Write-Host "Downloading Google Drive for desktop..."
+Invoke-WebRequest -Uri $url -OutFile $dest
+
+# Run the installer silently
+# Note: Google Drive uses /silent and /install flags for background installation
+Write-Host "Installing..."
+Start-Process -FilePath $dest -ArgumentList "/silent", "/install" -Wait
+
+# Clean up the installer file
+Remove-Item -Path $dest
+Write-Host "Installation complete."

@@ -36,6 +36,7 @@ Whenever building new components or modifying existing ones, you MUST strictly a
 - `inquiry.html`: Contact form w/ URL parameter parsing to pre-select items.
 - `namedpics/`: The master repository of high-resolution sculpture images (28 verified assets). Images here are strictly formatted as `Name_Number.ext`.
 - `inventory_final.json`: The source of truth for all gemstone sculpture metadata, prices, and energetic pairings.
+- `logs/gdrive_sync.log`: The dedicated capture point for Google Drive upload/sync errors.
 - `deploy.sh`: Script for launching the dynamic self-hosted FastAPI backend.
 - `sync all.cmd`: Automated Windows synchronization script to backup the project to Google Drive.
 

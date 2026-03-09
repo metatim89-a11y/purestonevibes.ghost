@@ -17,8 +17,8 @@ The project uses a multi-tiered logging strategy to monitor backend health and f
 
 ### Primary Log Files
 - `scribe.log`: The central repository for FastAPI application logs and operational metrics.
+- `gdrive_sync.log`: Dedicated log for Google Drive upload errors and sync events (located in `logs/`).
 - `startuplog.log`: Captures deployment-time events from the `deploy.sh` routine.
-- `server.log`: Raw stdout/stderr from the Uvicorn process.
 
 ## 2. Automated Routines
 

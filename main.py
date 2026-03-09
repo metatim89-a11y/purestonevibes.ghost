@@ -16,7 +16,7 @@ from starlette.responses import FileResponse as StarletteFileResponse
 import psutil
 
 # --- Logging Setup ---
-logging.basicConfig(level=logging.INFO, filename='scribe.log', filemode='a',
+logging.basicConfig(level=logging.INFO, filename='logs/backend.log', filemode='a',
                     format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
@@ -345,10 +345,10 @@ async def get_system_metrics():
 
 @app.get("/api/logs/{log_file_name}", response_class=PlainTextResponse)
 async def get_logs(log_file_name: str, token: str = Depends(verify_token)):
-    if log_file_name not in ["scribe.log", "startuplog.log"]:
+    if log_file_name not in ["backend.log", "scribe.log", "startuplog.log", "gdrive_sync.log"]:
         raise HTTPException(status_code=404, detail="Log file not found.")
     
-    log_path = os.path.join(BASE_DIR, log_file_name)
+    log_path = os.path.join(BASE_DIR, "logs", log_file_name)
     if not os.path.exists(log_path):
         raise HTTPException(status_code=404, detail="Log file does not exist.")
     

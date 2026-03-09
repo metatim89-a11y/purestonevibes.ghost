@@ -15,10 +15,11 @@ The project uses a multi-tiered logging strategy to monitor backend health and f
 - **ERROR**: Critical failures (e.g., Database connection errors, inquiry submission failures).
 - **CRITICAL**: System-level outages needing immediate intervention.
 
-### Primary Log Files
-- `scribe.log`: The central repository for FastAPI application logs and operational metrics.
-- `gdrive_sync.log`: Dedicated log for Google Drive upload errors and sync events (located in `logs/`).
-- `startuplog.log`: Captures deployment-time events from the `deploy.sh` routine.
+### Primary Log Files (located in `logs/`)
+- `backend.log`: FastAPI application events, requests, and internal errors.
+- `scribe_vibe.log`: Watches for file changes and log GitHub sync events.
+- `gdrive_sync.log`: Dedicated tracker for Google Drive upload success/failure.
+- `startuplog.log`: Initial server launch and setup logs.
 
 ## 2. Automated Routines
 

@@ -26,8 +26,15 @@ def get_last_mtime():
                     continue
     return max_mtime
 
+def log_scribe(message):
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    entry = f"[{timestamp}] {message}"
+    with open('logs/scribe_vibe.log', 'a', encoding='utf-8') as f:
+        f.write(entry + '\n')
+    print(entry)
+
 def sync_to_github():
-    print(f"[{datetime.now().strftime('%H:%M:%S')}] ✍️  New vibration detected. Scribing to GitHub...")
+    log_scribe("✍️  New vibration detected. Scribing to GitHub...")
     try:
         # Run your existing syv script
         subprocess.run(['./syv'], check=True)

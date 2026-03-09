@@ -1,43 +1,25 @@
-# Pure Stone Vibes | Project Overview
+# Pure Stone Vibes | Project Management
 
-A high-aesthetic, minimalist portfolio website for **Pure Stone Vibes**, showcasing unique wire-wrapped gemstone sculptures handcrafted by artist **Fish** in Texas.
+> [!IMPORTANT]
+> **Operational Warning**: This file is now a high-level summary. All technical directives, deployment logic, and coding standards have been migrated to the [Agentic Skill System](file:///c:/Users/Customer/Desktop/fishesstonevibeexample10mins/.agents/skills/pure-stone-vibes/). 
 
-## Project Type
-**Dynamic Static Web Portfolio / Asset Repository**
+## Quick Access Links
+- **Gallery**: [gallery.html](file:///c:/Users/Customer/Desktop/fishesstonevibeexample10mins/gallery.html)
+- **Active Inventory**: [inventory_final.json](file:///c:/Users/Customer/Desktop/fishesstonevibeexample10mins/inventory_final.json)
+- **System Dashboard**: [dashboard.html](file:///c:/Users/Customer/Desktop/fishesstonevibeexample10mins/dashboard.html)
 
-## Technology Stack
-- **Frontend:** HTML5, Tailwind CSS (via CDN)
-- **Typography:** Google Fonts (`Playfair Display`, `Inter`)
-- **Aesthetic:** Minimalist dark mode, glassmorphism, pink accents (`#ec4899`)
-- **Data Handling:** JSON-driven dynamic rendering (JavaScript)
+## Current Project State
+The project is a high-aesthetic, minimalist portfolio for **Pure Stone Vibes**. 
 
-## Directory Structure
-- `index.html`: Main landing page with hero section and featured series preview.
-- `gallery.html`: The principal inventory display (The Grove), featuring dynamic sorting and 28+ unique pieces.
-- `process.html`: Artistic statement and detailed craftsmanship walkthrough.
-- `inquiry.html`: Dynamic contact form with pre-selected item synchronization.
-- `namedpics/`: The master repository of high-resolution sculpture images (28 verified assets).
-- `inventory_final.json`: The source of truth for all gemstone sculpture metadata, prices, and energetic pairings.
-- `*.jfif`: Key layout/branding images (1-4) used for specific site sections.
-- `orig folder/`: Contains original raw source data and images.
+### 🟢 Status: PRODUCTION
+- **Syncing**: Active via `scribe.py` (Local -> GitHub) and `sync all.cmd` (Local -> Google Drive).
+- **Backend**: FastAPI (Python) handling inquiries and system metrics.
+- **Frontend**: Tailwind + Vanilla JS (Dynamic Static).
 
-## Key Features & Sections
-- **The Grove (Gallery):** A high-aesthetic dynamic grid displaying the full collection. Features a **staggered layout** (alternating name placement) and **neon-glow graphic typography** for sculpture names. Includes price filtering and stone energy descriptions.
-- **The Process:** Highlights the "Root-to-Canopy" technique and the hand-wiring of gemstone leaflets.
-- **Dynamic Inquiries:** Form pre-population allowing users to inquire about specific sculptures directly from the gallery.
+## Developer Resources
+For AI Agents and automated development, refer to the following Skill manifests:
+1. **[Core Skill](file:///c:/Users/Customer/Desktop/fishesstonevibeexample10mins/.agents/skills/pure-stone-vibes/SKILL.md)**: Aesthetic guidelines and architectural rules.
+2. **[Routines & Logging](file:///c:/Users/Customer/Desktop/fishesstonevibeexample10mins/.agents/skills/pure-stone-vibes/ROUTINES.md)**: How the server thinks, logs, and deploys.
 
-## Usage & Development
-- **Inventory Updates**: To add or edit sculptures, update the `inventory` object in both `gallery.html` and `inquiry.html` (or modify `inventory_final.json` and sync).
-- **Image Management**: New images should be added to `namedpics/` using the `Name_Number.ext` convention for SEO and system compatibility.
-- **Styling**: All pages use a shared design language of glassmorphism panels, blurry radial backgrounds, and Playfair Display typography. The gallery uses a specialized `.graphic-text` class for high-impact neon-glow headers.
-
-## Development Conventions
-- **Contextual Accuracy**: Maintain strict awareness of the working directory. If modifications are requested for a specific environment (e.g., `netlify/` or `local_deployment/`), ensure only files within that directory are edited, even if duplicate filenames exist in the root or other folders.
-- **Self-Documenting Code**: All functions, classes, and scripts MUST include detailed comments explaining *what* the code is doing and *why* it exists.
-- **Visual Consistency**: Maintain the high-contrast dark theme and pink accentuation throughout all new components.
-- **Naming Protocol**: Gemstone sculpture imagery must retain descriptive naming for clarity and search engine optimization.
-
-## Collaboration & Task Management
-- **One Task at a Time**: Complete the current objective fully before moving to a new one.
-- **Focus Protocol**: If a new task is suggested mid-flight, kindly remind the user and make a note to address it immediately after the current task is finalized.
-- **Approval Protocol**: Only make changes that have been explicitly discussed and approved. If a better approach or improvement is identified, inform the user and allow them to decide on implementation before proceeding.
+---
+*Created by Fish in Texas | Sculpted with Gemstones and Code.*

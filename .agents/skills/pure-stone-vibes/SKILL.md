@@ -36,3 +36,19 @@ Whenever building new components or modifying existing ones, you MUST strictly a
 - `inquiry.html`: Contact form w/ URL parameter parsing to pre-select items.
 - `namedpics/`: The master repository of high-resolution sculpture images (28 verified assets). Images here are strictly formatted as `Name_Number.ext`.
 - `inventory_final.json`: The source of truth for all gemstone sculpture metadata, prices, and energetic pairings.
+- `deploy.sh`: Script for launching the dynamic self-hosted FastAPI backend.
+- `sync all.cmd`: Automated Windows synchronization script to backup the project to Google Drive.
+
+## 6. Deployment & Syncing Strategies
+### Netlify (Primary Frontend)
+To deploy the static frontend, use the contents of the `netlify/` directory. This is the production-ready environment for the gallery and portfolio.
+- **How to deploy**: Simply push changes to the repository linked to Netlify, or use the Netlify CLI to deploy from the `netlify/` folder.
+
+### Self-Hosted Backend (FastAPI)
+The site features a dynamic component for handling inquiries and potential server-side logic (e.g., `main.py`).
+- **How to deploy**: Run `./deploy.sh` in a Linux/WSL environment. This creates a virtual environment, installs `requirements.txt`, and launches the uvicorn server on port 8000.
+
+### Google Drive Redundancy (Backup)
+To ensure no assets are lost, the project is mirrored to Google Drive.
+- **How to deploy**: Run `sync all.cmd` on Windows. This script monitors the local directory and automatically copies changes to `G:\My Drive\fishesstonevibeexample10mins`.
+- **Alternative**: Use `autoupdategdrive.ps1` for PowerShell-native watching and syncing.

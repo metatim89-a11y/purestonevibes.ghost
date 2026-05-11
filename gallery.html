@@ -161,7 +161,7 @@
             try {
                 const response = await fetch('inventory_final.json');
                 if (!response.ok) throw new Error('Network response was not ok');
-                inventory = await response.ok ? await response.json() : {};
+                inventory = await response.json();
                 renderGallery();
             } catch (error) {
                 console.error('Failed to load inventory:', error);

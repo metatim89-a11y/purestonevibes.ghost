@@ -51,5 +51,5 @@ The site features a dynamic component for handling inquiries and potential serve
 
 ### Google Drive Redundancy (Backup)
 To ensure no assets are lost, the project is mirrored to Google Drive.
-- **How to deploy**: Run `sync all.cmd` on Windows. This script monitors the local directory and automatically copies changes to `G:\My Drive\fishesstonevibeexample10mins`.
+- **How to deploy**: Run `sync all.cmd` on Windows. This script monitors the local directory and automatically copies changes to `G:\My Drive\purestonevibes.ghost`.
 - **Alternative**: Use `autoupdategdrive.ps1` for PowerShell-native watching and syncing.

@@ -2,8 +2,8 @@ import csv
 import json
 import os
 
-input_file = r'c:\Users\Customer\Desktop\fishesstonevibeexample10mins\orig folder\renamed\tree_data_updated.csv'
-pics_dir = r'c:\Users\Customer\Desktop\fishesstonevibeexample10mins\namedpics'
+input_file = r'c:\Users\Customer\Desktop\purestonevibes.ghost\orig folder\renamed\tree_data_updated.csv'
+pics_dir = r'c:\Users\Customer\Desktop\purestonevibes.ghost\namedpics'
 
 inventory = {}
 

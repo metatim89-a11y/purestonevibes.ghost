@@ -73,8 +73,8 @@ def get_energy_desc(base_raw, leaf_raw, wrapping_raw):
     description = f"{theme}: {leaf_stone} for {leaf_meaning.lower()} + {base_stone} for {base_meaning.lower()}. {labor} on raw stone."
     return description
 
-input_file = r'c:\Users\Customer\Desktop\fishesstonevibeexample10mins\orig folder\renamed\tree_data.csv'
-output_file = r'c:\Users\Customer\Desktop\fishesstonevibeexample10mins\orig folder\renamed\tree_data_updated.csv'
+input_file = r'c:\Users\Customer\Desktop\purestonevibes.ghost\orig folder\renamed\tree_data.csv'
+output_file = r'c:\Users\Customer\Desktop\purestonevibes.ghost\orig folder\renamed\tree_data_updated.csv'
 
 try:
     with open(input_file, mode='r', newline='', encoding='utf-8') as infile:

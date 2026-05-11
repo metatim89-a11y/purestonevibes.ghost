@@ -3,10 +3,10 @@ import json
 import os
 import shutil
 
-input_file = r'c:\Users\Customer\Desktop\fishesstonevibeexample10mins\orig folder\renamed\tree_data_updated.csv'
-source_pics_dir = r'c:\Users\Customer\Desktop\fishesstonevibeexample10mins\orig folder\renamed'
-target_pics_dir = r'c:\Users\Customer\Desktop\fishesstonevibeexample10mins\namedpics'
-price_file = r'c:\Users\Customer\Desktop\fishesstonevibeexample10mins\fishestones (1).txt'
+input_file = r'c:\Users\Customer\Desktop\purestonevibes.ghost\orig folder\renamed\tree_data_updated.csv'
+source_pics_dir = r'c:\Users\Customer\Desktop\purestonevibes.ghost\orig folder\renamed'
+target_pics_dir = r'c:\Users\Customer\Desktop\purestonevibes.ghost\namedpics'
+price_file = r'c:\Users\Customer\Desktop\purestonevibes.ghost\fishestones (1).txt'
 
 inventory = {}
 
@@ -68,7 +68,7 @@ with open(input_file, mode='r', encoding='utf-8') as f:
                 "displayName": name
             }
 
-target_json = r'c:\Users\Customer\Desktop\fishesstonevibeexample10mins\inventory_full.json'
+target_json = r'c:\Users\Customer\Desktop\purestonevibes.ghost\inventory_full.json'
 with open(target_json, 'w', encoding='utf-8') as f:
     json.dump(inventory, f, indent=4)
 

@@ -2,8 +2,8 @@
 # Monitors the project folder and mirrors changes to Google Drive
 # Logs errors specifically to logs/gdrive_sync.log
 
-$WatchFolder = "c:\Users\Customer\Desktop\fishesstonevibeexample10mins"
-$DestinationFolder = "G:\My Drive\fishesstonevibeexample10mins"
+$WatchFolder = "c:\Users\Customer\Desktop\purestonevibes.ghost"
+$DestinationFolder = "G:\My Drive\purestonevibes.ghost"
 $LogFile = "$WatchFolder\logs\gdrive_sync.log"
 
 # Create logs directory if it doesn't exist

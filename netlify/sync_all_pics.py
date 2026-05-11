@@ -3,10 +3,10 @@ import json
 import os
 import shutil
 
-input_file = r'c:\Users\Customer\Desktop\fishesstonevibeexample10mins\orig folder\renamed\tree_data_updated.csv'
-source_pics_dir = r'c:\Users\Customer\Desktop\fishesstonevibeexample10mins\orig folder\renamed'
-target_pics_dir = r'c:\Users\Customer\Desktop\fishesstonevibeexample10mins\namedpics'
-price_file = r'c:\Users\Customer\Desktop\fishesstonevibeexample10mins\fishestones (1).txt'
+input_file = r'c:\Users\Customer\Desktop\purestonevibes.ghost\orig folder\renamed\tree_data_updated.csv'
+source_pics_dir = r'c:\Users\Customer\Desktop\purestonevibes.ghost\orig folder\renamed'
+target_pics_dir = r'c:\Users\Customer\Desktop\purestonevibes.ghost\namedpics'
+price_file = r'c:\Users\Customer\Desktop\purestonevibes.ghost\fishestones (1).txt'
 
 inventory = {}
 
@@ -64,7 +64,7 @@ with open(input_file, mode='r', encoding='utf-8') as f:
                 "displayName": name
             }
 
-with open(r'c:\Users\Customer\Desktop\fishesstonevibeexample10mins\inventory_full.json', 'w', encoding='utf-8') as f:
+with open(r'c:\Users\Customer\Desktop\purestonevibes.ghost\inventory_full.json', 'w', encoding='utf-8') as f:
     json.dump(inventory, f, indent=4)
 
 print(f"Sync complete. Updated prices for {len(prices_map)} items. JSON saved to inventory_full.json")

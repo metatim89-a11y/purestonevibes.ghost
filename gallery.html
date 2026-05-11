@@ -159,7 +159,7 @@
 
         async function initGallery() {
             try {
-                const response = await fetch('/api/inventory');
+                const response = await fetch('inventory_final.json');
                 if (!response.ok) throw new Error('Network response was not ok');
                 inventory = await response.ok ? await response.json() : {};
                 renderGallery();
@@ -197,7 +197,7 @@
                 cardWrapper.innerHTML = `
                     <div class="gallery-card">
                         <div class="relative overflow-hidden aspect-square bg-zinc-900 flex items-center justify-center">
-                            <img src="namedpics/${item.id}.${item.ext}" 
+                            <img src="namedpics/${item.filename}" 
                                  alt="${displayName}" 
                                  class="w-full h-full object-cover md:group-hover:scale-105 transition-transform duration-700">
                         </div>
@@ -220,7 +220,7 @@
             const modalDetails = document.getElementById('modal-details');
             const content = document.getElementById('modal-content');
 
-            modalImg.src = `namedpics/${item.id}.${item.ext}`;
+            modalImg.src = `namedpics/${item.filename}`;
 
             modalDetails.innerHTML = `
                 <h2 class="text-3xl md:text-5xl italic font-bold mb-2 bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">${item.displayName}</h2>

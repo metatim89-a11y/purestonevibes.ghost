@@ -240,7 +240,7 @@
 
         async function fetchStats() {
             try {
-                const response = await fetch('/api/stats'); // New API endpoint
+                const response = await fetch('inventory_final.json'); // New API endpoint
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
